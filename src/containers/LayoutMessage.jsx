@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import "react-notifications/lib/notifications.css";
 import { removeNotificationMessage } from "../features/common/headerSlice";
 
-
-
-export const LayoutMessage = () => {
+function LayoutMessage() {
   const dispatch = useDispatch();
   const { newNotificationMessage, newNotificationStatus } = useSelector(
     (state) => state.header
   );
-
   useEffect(() => {
     if (newNotificationMessage !== "") {
       if (newNotificationStatus === 1)
@@ -20,10 +21,8 @@ export const LayoutMessage = () => {
       dispatch(removeNotificationMessage());
     }
   }, [newNotificationMessage]);
-  return (
-    <>
-      {/** Notification layout container */}
-      <NotificationContainer />
-    </>
-  );
-};
+
+  return <NotificationContainer />;
+}
+
+export default LayoutMessage;
