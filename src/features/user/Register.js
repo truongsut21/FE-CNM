@@ -33,6 +33,7 @@ function Register() {
             hodem: "",
             ten: "",
             ngaysinh: "",
+            gioitinh: "0"
         },
 
         validationSchema: Yup.object({
@@ -61,7 +62,9 @@ function Register() {
                                 status: 1,
                             })
                         );
-                        window.location.href = '/app/welcome'
+                        setTimeout(() => {
+                            window.location.href = '/app/welcome'
+                        }, 300);
                     } else {
                         console.log("đăng kí thất batij")
                         dispatch(
