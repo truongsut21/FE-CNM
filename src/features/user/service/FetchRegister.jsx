@@ -1,16 +1,21 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 
 export const FetchRegister = createAsyncThunk("FetchRegister", async (data) => {
   try {
     const url = `taikhoan/register`;
-    const response = await axios.post(url, data, {
+    const response = await fetch(url, {
+      method: "POST",
       headers: {
         accept: "*/*",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(data),
     });
-    return response.data;
+    if (!response.ok) {
+      // Xử lý lỗi nếu có
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
   } catch (error) {
     throw error; // Xử lý lỗi nếu có
   }

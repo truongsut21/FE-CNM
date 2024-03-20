@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { FetchRegister } from "./service/FetchRegister";
 import { showNotification } from "../common/headerSlice";
 
+
 function Register() {
     const dispatch = useDispatch();
 
@@ -62,8 +63,9 @@ function Register() {
                         );
                         window.location.href = '/app/welcome'
                     } else {
+                        console.log("đăng kí thất batij")
                         dispatch(
-                            showNotification({ message: "Thêm khách hàng thất bại", status: 0 })
+                            showNotification({ message: "Đăng kí thất bại", status: 0 })
                         );
                     }
                 });
@@ -156,13 +158,12 @@ function Register() {
 
                             <button
                                 type="submit"
-                                className={
-                                    "btn text-md mt-2 w-full btn-primary" +
-                                    (loading ? " loading" : "")
-                                }
+                                className={"btn text-md mt-2 w-full btn-primary"}
                                 onClick={formik.handleSubmit} // Thêm sự kiện onClick vào đây
                             >
-                                <span className="loading loading-dots loading-sm"></span>
+                                {
+                                    loading && <span className="loading loading-dots loading-sm"></span>
+                                }
                                 Đăng kí
                             </button>
 
