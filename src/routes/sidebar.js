@@ -36,9 +36,9 @@ const routes = [
     name: 'Danh bạ', // name that appear in Sidebar
     submenu: [
       {
-        path: '/app/settings-profile', //url
+        path: '/app/chat/123', //url
         icon: <UserIcon className={submenuIconClasses} />, // icon component
-        name: 'Profile', // name that appear in Sidebar
+        name: 'Linh Be', // name that appear in Sidebar
       },
       {
         path: '/app/settings-billing',
