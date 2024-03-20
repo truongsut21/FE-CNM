@@ -18,6 +18,7 @@
     "capitalize-the-first-letter": "^1.0.8",
     "chart.js": "^4.0.1",
     "dayjs": "^1.11.7",
+    "flowbite": "^2.3.0",
     "formik": "^2.4.5",
     "moment": "^2.30.1",
     "react": "^18.2.0",
