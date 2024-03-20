@@ -1,72 +1,118 @@
-import {useState, useRef} from 'react'
-import {Link} from 'react-router-dom'
-import LandingIntro from './LandingIntro'
-import ErrorText from  '../../components/Typography/ErrorText'
-import InputText from '../../components/Input/InputText'
+import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
+import LandingIntro from "./LandingIntro";
+import { useFormik } from "formik";
+import {
+  validationPasword,
+  validationPhone,
+} from "../../components/yup/validationSchema";
+import { useDispatch } from "react-redux";
+import { FetchRegister } from "./service/FetchRegister";
+import { showNotification } from "../common/headerSlice";
+import InputTextFormik from "../../components/inputFormik/InputTextFormik";
+import * as Yup from "yup";
 
-function Login(){
+function Login() {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
-    const INITIAL_LOGIN_OBJ = {
-        password : "",
-        emailId : ""
-    }
+  const formik = useFormik({
+    initialValues: {
+      sodienthoai: "",
+      matkhau: "",
+    },
 
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
-    const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ)
+    validationSchema: Yup.object({
+      matkhau: validationPasword,
+      sodienthoai: validationPhone,
+    }),
 
-    const submitForm = (e) =>{
-        e.preventDefault()
-        setErrorMessage("")
+    onSubmit: (values) => {
+      console.log(" xử lý submit ", values);
+      setLoading(true);
+      const requestAPI = dispatch(FetchRegister(values));
+      try {
+        requestAPI.then((response) => {
+          setLoading(false);
+          console.log("response:", response);
 
-        if(loginObj.emailId.trim() === "")return setErrorMessage("Email Id is required! (use any value)")
-        if(loginObj.password.trim() === "")return setErrorMessage("Password is required! (use any value)")
-        else{
-            setLoading(true)
-            // Call API to check user credentials and save token in localstorage
-            localStorage.setItem("token", "DumyTokenHere")
-            setLoading(false)
-            window.location.href = '/app/welcome'
-        }
-    }
+          // đăng nhập thành công ghi dữ liệu vào token
+          localStorage.setItem("token", response);
 
-    const updateFormValue = ({updateType, value}) => {
-        setErrorMessage("")
-        setLoginObj({...loginObj, [updateType] : value})
-    }
+          if (response.payload) {
+            window.location.href = "/app/welcome";
+          } else {
+            console.log("Đăng nhập thất bại");
+            dispatch(
+              showNotification({ message: "Đăng nhập thất bại", status: 0 })
+            );
+          }
+        });
+      } catch (error) {}
+    },
+  });
 
-    return(
-        <div className="min-h-screen bg-base-200 flex items-center">
-            <div className="card mx-auto w-full max-w-5xl  shadow-xl">
-                <div className="grid  md:grid-cols-2 grid-cols-1  bg-base-100 rounded-xl">
-                <div className=''>
-                        <LandingIntro />
-                </div>
-                <div className='py-24 px-10'>
-                    <h2 className='text-2xl font-semibold mb-2 text-center'>Login</h2>
-                    <form onSubmit={(e) => submitForm(e)}>
+  return (
+    <div className="min-h-screen bg-base-200 flex items-center">
+      <div className="card mx-auto w-full max-w-5xl  shadow-xl">
+        <div className="grid  md:grid-cols-2 grid-cols-1  bg-base-100 rounded-xl">
+          <div className="">
+            <LandingIntro />
+          </div>
+          <div className="py-24 px-10">
+            <h2 className="text-2xl font-semibold mb-2 text-center">
+              Đăng nhập
+            </h2>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="mb-4">
+                <InputTextFormik
+                  labelTitle="Số điện thoại"
+                  type="number"
+                  name="sodienthoai"
+                  onChange={formik.handleChange}
+                  value={formik.values.sodienthoai}
+                  errors={formik.errors.sodienthoai}
+                />
 
-                        <div className="mb-4">
+                <InputTextFormik
+                  labelTitle="Mật khẩu"
+                  type="password"
+                  name="matkhau"
+                  onChange={formik.handleChange}
+                  value={formik.values.matkhau}
+                  errors={formik.errors.matkhau}
+                />
+              </div>
 
-                            <InputText type="emailId" defaultValue={loginObj.emailId} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue}/>
+              <div className="text-right text-primary">
+                <Link to="/forgot-password">
+                  <span className="text-sm  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">
+                    Quên mật khẩu?
+                  </span>
+                </Link>
+              </div>
 
-                            <InputText defaultValue={loginObj.password} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue}/>
+              <button type="submit" className={"btn mt-2 w-full btn-primary"}>
+                {loading && (
+                  <span className="loading loading-dots loading-sm"></span>
+                )}
+                Đăng nhập
+              </button>
 
-                        </div>
-
-                        <div className='text-right text-primary'><Link to="/forgot-password"><span className="text-sm  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">Forgot Password?</span></Link>
-                        </div>
-
-                        <ErrorText styleClass="mt-8">{errorMessage}</ErrorText>
-                        <button type="submit" className={"btn mt-2 w-full btn-primary" + (loading ? " loading" : "")}>Login</button>
-
-                        <div className='text-center mt-4'>Bạn chưa có tài khoản ? <Link to="/register"><span className="  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200">Đăng kí</span></Link></div>
-                    </form>
-                </div>
-            </div>
-            </div>
+              <div className="text-center mt-4">
+                Bạn chưa có tài khoản ?{" "}
+                <Link to="/register">
+                  <span className="  inline-block  hover:text-primary hover:underline hover:cursor-pointer transition duration-200 text-primary">
+                    Đăng kí
+                  </span>
+                </Link>
+              </div>
+            </form>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
-export default Login
+export default Login;

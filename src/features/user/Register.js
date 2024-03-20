@@ -64,7 +64,7 @@ function Register() {
                         );
                         setTimeout(() => {
                             window.location.href = '/app/welcome'
-                        }, 300);
+                        }, 2000);
                     } else {
                         console.log("đăng kí thất batij")
                         dispatch(

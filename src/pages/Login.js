@@ -1,6 +1,6 @@
-import {useState, useRef} from 'react'
-import {Link} from 'react-router-dom'
+
 import Login from '../features/user/Login'
+import LayoutMessage from '../containers/LayoutMessage'
 
 function ExternalPage(){
 
@@ -8,6 +8,7 @@ function ExternalPage(){
     return(
         <div className="">
                 <Login />
+                <LayoutMessage />
         </div>
     )
 }
