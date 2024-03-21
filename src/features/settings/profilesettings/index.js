@@ -10,8 +10,12 @@ import { getInfoUser } from "../../../app/userSlice";
 function ProfileSettings() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-
+  console.log("user:", user);
   const [userState, setUserState] = useState(user);
+  console.log(
+    '{moment(userState.NgaySinh).format("YYYY-MM-DD")}:',
+    moment(userState.NgaySinh).format("YYYY-MM-DD")
+  );
   console.log("userState:", userState);
   // Call API to update profile settings changes
   const updateProfile = () => {
@@ -26,6 +30,10 @@ function ProfileSettings() {
   useEffect(() => {
     dispatch(getInfoUser());
   }, []);
+
+  useEffect(() => {
+    setUserState(user);
+  }, [user]);
 
   return (
     <>
@@ -46,6 +54,7 @@ function ProfileSettings() {
           />
 
           <InputText
+            disabled={true}
             labelTitle="Số điện thoại"
             defaultValue={userState.sodienthoai}
             updateType="sodienthoai"
@@ -69,7 +78,9 @@ function ProfileSettings() {
           <InputText
             labelTitle="Ngày sinh"
             type="date"
-            defaultValue={userState.NgaySinh}
+            // defaultValue={userState.NgaySinh}
+            // defaultValue="2024-03-29"
+            defaultValue={moment(userState.NgaySinh).format("YYYY-MM-DD")}
             updateType="NgaySinh"
             updateFormValue={updateFormValue}
           />

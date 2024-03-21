@@ -48,7 +48,8 @@ export const userSlice = createSlice({
       state.isLoading = true;
     },
     [getInfoUser.fulfilled]: (state, action) => {
-      state.user = action.payload.data;
+      console.log('action.payload:', action.payload)
+      state.user = action.payload;
       state.isLoading = false;
     },
     [getInfoUser.rejected]: (state) => {
