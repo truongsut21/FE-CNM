@@ -37,14 +37,25 @@ function Login() {
           setLoading(false);
           console.log("response:", response);
 
-          if (response.payload.token) {
-            localStorage.setItem("token", response.payload.token);
+          if (response.payload) {
 
-            // set token mặc định
-            axios.defaults.headers.common[
-              "Authorization"
-            ] = `Bearer ${response.payload.token}`;
-            // window.location.href = "/app/welcome";
+            if (response.payload.success) {
+              localStorage.setItem("token", response.payload.token);
+              // set token mặc định
+              axios.defaults.headers.common[
+                "Authorization"
+              ] = `Bearer ${response.payload.token}`;
+              window.location.href = "/app/welcome";
+              
+            } else {
+                
+              dispatch(
+                showNotification({
+                  message: response.payload.message,
+                  status: 0,
+                })
+              );
+            }
           } else {
             console.log("Đăng nhập thất bại");
             dispatch(

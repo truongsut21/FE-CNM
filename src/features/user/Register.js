@@ -63,7 +63,7 @@ function Register() {
                             );
 
                             setTimeout(() => {
-                                // window.location.href = '/app/welcome'
+                                window.location.href = '/app/welcome'
                             }, 2000);
                         } else {
                             dispatch(
