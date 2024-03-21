@@ -38,17 +38,14 @@ function Login() {
           console.log("response:", response);
 
           if (response.payload) {
-
             if (response.payload.success) {
               localStorage.setItem("token", response.payload.token);
               // set token mặc định
               axios.defaults.headers.common[
                 "Authorization"
-              ] = `Bearer ${response.payload.token}`;
+              ] = `${response.payload.token}`;
               window.location.href = "/app/welcome";
-              
             } else {
-                
               dispatch(
                 showNotification({
                   message: response.payload.message,

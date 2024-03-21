@@ -17,7 +17,7 @@ const checkAuth = () => {
         return;
     } else {
         // Thiết lập header Authorization cho Axios
-        axios.defaults.headers.common['Authorization'] = `Bearer ${TOKEN}`
+        axios.defaults.headers.common['Authorization'] = `${TOKEN}`
 
         // Interceptor request để hiển thị loading indicator khi gửi yêu cầu
         axios.interceptors.request.use(function (config) {
