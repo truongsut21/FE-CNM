@@ -14,7 +14,7 @@ export const validationFisrName = Yup.string().required("Không được để t
 export const validationPhone = Yup.string()
   .required("Không được để trống")
   .matches(
-    /^[0-9]{10,11}$/,
+    /^[0-9]{9,10}$/,
     "Số điện thoại phải là chuỗi chứa 10 hoặc 11 chữ số"
   );
 

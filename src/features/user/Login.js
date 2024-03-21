@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LandingIntro from "./LandingIntro";
 import { useFormik } from "formik";
@@ -7,10 +7,11 @@ import {
   validationPhone,
 } from "../../components/yup/validationSchema";
 import { useDispatch } from "react-redux";
-import { FetchRegister } from "./service/FetchRegister";
 import { showNotification } from "../common/headerSlice";
 import InputTextFormik from "../../components/inputFormik/InputTextFormik";
 import * as Yup from "yup";
+import { FetchLogin } from "./service/FetchLogin";
+import axios from "axios";
 
 function Login() {
   const dispatch = useDispatch();
@@ -30,17 +31,20 @@ function Login() {
     onSubmit: (values) => {
       console.log(" xử lý submit ", values);
       setLoading(true);
-      const requestAPI = dispatch(FetchRegister(values));
+      const requestAPI = dispatch(FetchLogin(values));
       try {
         requestAPI.then((response) => {
           setLoading(false);
           console.log("response:", response);
 
-          // đăng nhập thành công ghi dữ liệu vào token
-          localStorage.setItem("token", response);
+          if (response.payload.token) {
+            localStorage.setItem("token", response.payload.token);
 
-          if (response.payload) {
-            window.location.href = "/app/welcome";
+            // set token mặc định
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${response.payload.token}`;
+            // window.location.href = "/app/welcome";
           } else {
             console.log("Đăng nhập thất bại");
             dispatch(

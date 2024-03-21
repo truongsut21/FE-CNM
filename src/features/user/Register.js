@@ -11,13 +11,11 @@ import {
     validationPastDay,
     validationPasword,
     validationPhone,
-    validationRequired
-}
-    from "../../components/yup/validationSchema";
+    validationRequired,
+} from "../../components/yup/validationSchema";
 import { useDispatch } from "react-redux";
 import { FetchRegister } from "./service/FetchRegister";
 import { showNotification } from "../common/headerSlice";
-
 
 function Register() {
     const dispatch = useDispatch();
@@ -33,7 +31,7 @@ function Register() {
             hodem: "",
             ten: "",
             ngaysinh: "",
-            gioitinh: "0"
+            gioitinh: "0",
         },
 
         validationSchema: Yup.object({
@@ -43,30 +41,40 @@ function Register() {
             diachi: validationAddress,
             ngaysinh: validationPastDay,
             ten: validationRequired,
-            hodem: validationRequired
-
+            hodem: validationRequired,
         }),
 
         onSubmit: (values) => {
             console.log(" xử lý submit ", values);
-            setLoading(true)
+            setLoading(true);
+
             const requestAPI = dispatch(FetchRegister(values));
             try {
                 requestAPI.then((response) => {
-                    setLoading(false)
+                    setLoading(false);
                     console.log("response:", response);
                     if (response.payload) {
-                        dispatch(
-                            showNotification({
-                                message: "Đăng kí thành công",
-                                status: 1,
-                            })
-                        );
-                        setTimeout(() => {
-                            window.location.href = '/app/welcome'
-                        }, 2000);
+                        if (response.payload.success) {
+                            dispatch(
+                                showNotification({
+                                    message: "Đăng kí thành công",
+                                    status: 1,
+                                })
+                            );
+
+                            setTimeout(() => {
+                                // window.location.href = '/app/welcome'
+                            }, 2000);
+                        } else {
+                            dispatch(
+                                showNotification({
+                                    message: response.payload.message,
+                                    status: 0,
+                                })
+                            );
+                        }
                     } else {
-                        console.log("đăng kí thất batij")
+                        console.log("đăng kí thất batij");
                         dispatch(
                             showNotification({ message: "Đăng kí thất bại", status: 0 })
                         );
@@ -91,7 +99,6 @@ function Register() {
                         </h2>
                         <form onSubmit={formik.handleSubmit}>
                             <div className="mb-4">
-
                                 <InputTextFormik
                                     labelTitle="Tên"
                                     type="text"
@@ -137,7 +144,6 @@ function Register() {
                                     errors={formik.errors.ngaysinh}
                                 />
 
-
                                 <InputTextFormik
                                     labelTitle="Email"
                                     type="email"
@@ -155,8 +161,6 @@ function Register() {
                                     value={formik.values.matkhau}
                                     errors={formik.errors.matkhau}
                                 />
-
-
                             </div>
 
                             <button
@@ -164,9 +168,9 @@ function Register() {
                                 className={"btn text-md mt-2 w-full btn-primary"}
                                 onClick={formik.handleSubmit} // Thêm sự kiện onClick vào đây
                             >
-                                {
-                                    loading && <span className="loading loading-dots loading-sm"></span>
-                                }
+                                {loading && (
+                                    <span className="loading loading-dots loading-sm"></span>
+                                )}
                                 Đăng kí
                             </button>
 
