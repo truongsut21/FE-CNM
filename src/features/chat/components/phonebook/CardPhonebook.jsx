@@ -2,8 +2,21 @@ import React from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
 import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import AvataUser from "./AvataUser";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../../common/modalSlice";
+import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 
 export const CardPhonebook = () => {
+  const dispatch = useDispatch();
+
+  const openAddNewLeadModal = () => {
+    dispatch(
+      openModal({
+        title: "Thêm mới danh bạ",
+        bodyType: MODAL_BODY_TYPES.ADD_PHONEBOOK,
+      })
+    );
+  };
   return (
     <div className="col-span-1">
       <TitleCard title="Danh bạ" topMargin="mt-2">
@@ -33,7 +46,10 @@ export const CardPhonebook = () => {
             </div>
           </form>
 
-          <button className="btn btn-block btn-primary btn-sm mt-2">
+          <button
+            className="btn btn-block btn-primary btn-sm mt-2"
+            onClick={() => openAddNewLeadModal()}
+          >
             {" "}
             <UserPlusIcon className="w-4" /> Thêm mới danh bạ
           </button>

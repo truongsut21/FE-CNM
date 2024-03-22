@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { closeModal } from '../features/common/modalSlice'
 import AddLeadModalBody from '../features/leads/components/AddLeadModalBody'
 import ConfirmationModalBody from '../features/common/components/ConfirmationModalBody'
+import AddPhonebookModalBody from '../features/chat/components/phonebook/AddPhonebookModalBody'
 
 
 function ModalLayout(){
@@ -34,6 +35,8 @@ function ModalLayout(){
                     {
                              [MODAL_BODY_TYPES.LEAD_ADD_NEW] : <AddLeadModalBody closeModal={close} extraObject={extraObject}/>,
                              [MODAL_BODY_TYPES.CONFIRMATION] : <ConfirmationModalBody extraObject={extraObject} closeModal={close}/>,
+                             [MODAL_BODY_TYPES.ADD_PHONEBOOK] : <AddPhonebookModalBody extraObject={extraObject} closeModal={close}/>,
+
                              [MODAL_BODY_TYPES.DEFAULT] : <div></div>
                     }[bodyType]
                 }
