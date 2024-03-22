@@ -10,13 +10,8 @@ import { getInfoUser } from "../../../app/userSlice";
 function ProfileSettings() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  console.log("user:", user);
   const [userState, setUserState] = useState(user);
-  console.log(
-    '{moment(userState.NgaySinh).format("YYYY-MM-DD")}:',
-    moment(userState.NgaySinh).format("YYYY-MM-DD")
-  );
-  console.log("userState:", userState);
+
   // Call API to update profile settings changes
   const updateProfile = () => {
     dispatch(showNotification({ message: "Profile Updated", status: 1 }));
@@ -78,9 +73,7 @@ function ProfileSettings() {
           <InputText
             labelTitle="Ngày sinh"
             type="date"
-            // defaultValue={userState.NgaySinh}
-            // defaultValue="2024-03-29"
-            defaultValue={moment(userState.NgaySinh).format("YYYY-MM-DD")}
+            defaultValue={moment(userState.ngaysinh).format("YYYY-MM-DD")}
             updateType="NgaySinh"
             updateFormValue={updateFormValue}
           />
