@@ -6,97 +6,148 @@ import { showNotification } from "../../common/headerSlice";
 import InputText from "../../../components/Input/InputText";
 import InputRadio from "../../../components/Input/InputRadio";
 import { getInfoUser } from "../../../app/userSlice";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import {
+  validationAddress,
+  validationEmail,
+  validationPastDay,
+  validationPasword,
+  validationPhone,
+  validationRequired,
+} from "../../../components/yup/validationSchema";
+import InputTextFormik from "../../../components/inputFormik/InputTextFormik";
+import InputRadioFormik from "../../../components/inputFormik/InputRadioFormik";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const [userState, setUserState] = useState(user);
 
-  // Call API to update profile settings changes
-  const updateProfile = () => {
-    dispatch(showNotification({ message: "Profile Updated", status: 1 }));
-  };
+  const formik = useFormik({
+    initialValues: {
+      sodienthoai: "",
+      email: "",
+      diachi: "",
+      hodem: "",
+      ten: "",
+      ngaysinh: "",
+      gioitinh: "0",
+    },
 
-  const updateFormValue = ({ updateType, value }) => {
-    console.log("{ updateType, value }:", { updateType, value });
-    setUserState({ ...userState, [updateType]: value });
-  };
+    validationSchema: Yup.object({
+      email: validationEmail,
+      sodienthoai: validationPhone,
+      diachi: validationAddress,
+      ngaysinh: validationPastDay,
+      ten: validationRequired,
+      hodem: validationRequired,
+    }),
+
+    onSubmit: (values) => {
+      console.log("values onSubmit:", values);
+    },
+  });
 
   useEffect(() => {
     dispatch(getInfoUser());
   }, []);
 
   useEffect(() => {
-    setUserState(user);
+    formik.setFieldValue("ten", user.ten ||"a");
+    formik.setFieldValue("hodem", user.hodem||"fix tạm");
+    formik.setFieldValue("sodienthoai", user.sodienthoai||"1234567890");
+    formik.setFieldValue("email", user.email||"a@gmail.com");
+    formik.setFieldValue("diachi", user.diachi||"fix tạm");
+    formik.setFieldValue("gioitinh", user.gioitinh || "0");
+    formik.setFieldValue(
+      "ngaysinh",
+      moment(user.ngaysinh).format("YYYY-MM-DD")
+    );
   }, [user]);
+
+  console.log("formik:", formik.values);
 
   return (
     <>
       <TitleCard title="Thông tin người dùng" topMargin="mt-2">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <InputText
-            labelTitle="Họ đệm"
-            defaultValue={userState.hodem}
-            updateType="hodem"
-            updateFormValue={updateFormValue}
-          />
+        <form onSubmit={formik.handleSubmit}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <InputTextFormik
+              labelTitle="Họ đệm"
+              type="text"
+              name="hodem"
+              onChange={formik.handleChange}
+              value={formik.values.hodem}
+              errors={formik.errors.hodem}
+            />
 
-          <InputText
-            labelTitle="Tên"
-            updateType="ten"
-            defaultValue={userState.ten}
-            updateFormValue={updateFormValue}
-          />
+            <InputTextFormik
+              labelTitle="Tên"
+              type="text"
+              name="ten"
+              onChange={formik.handleChange}
+              value={formik.values.ten}
+              errors={formik.errors.ten}
+            />
 
-          <InputText
-            disabled={true}
-            labelTitle="Số điện thoại"
-            defaultValue={userState.sodienthoai}
-            updateType="sodienthoai"
-            updateFormValue={updateFormValue}
-          />
+            <InputTextFormik
+              labelTitle="Số điện thoại"
+              type="text"
+              name="ten"
+              disabled={true}
+              onChange={formik.handleChange}
+              value={formik.values.sodienthoai}
+              errors={formik.errors.sodienthoai}
+            />
 
-          <InputText
-            labelTitle="Email"
-            defaultValue={userState.email}
-            updateType="email"
-            updateFormValue={updateFormValue}
-          />
+            <InputTextFormik
+              labelTitle="Email"
+              type="email"
+              name="email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              errors={formik.errors.email}
+            />
 
-          <InputText
-            labelTitle="Địa chỉ"
-            defaultValue={userState.diachi}
-            updateType="diachi"
-            updateFormValue={updateFormValue}
-          />
+            <InputTextFormik
+              labelTitle="Ngày sinh"
+              type="date"
+              name="ngaysinh"
+              onChange={formik.handleChange}
+              value={formik.values.ngaysinh}
+              errors={formik.errors.ngaysinh}
+            />
+            <InputTextFormik
+              labelTitle="Địa chỉ"
+              type="text"
+              name="diachi"
+              onChange={formik.handleChange}
+              value={formik.values.diachi}
+              errors={formik.errors.diachi}
+            />
 
-          <InputText
-            labelTitle="Ngày sinh"
-            type="date"
-            defaultValue={moment(userState.ngaysinh).format("YYYY-MM-DD")}
-            updateType="NgaySinh"
-            updateFormValue={updateFormValue}
-          />
+            <InputRadioFormik
+              type="date"
+              name="gioitinh"
+              onChange={formik.handleChange}
+              value={formik.values.gioitinh}
+              errors={formik.errors.gioitinh}
+              options={[
+                { label: "Giới tính nam", value: "0" },
+                { label: "Giới tính nữ", value: "1" },
+              ]}
+            />
+          </div>
 
-          <InputRadio
-            defaultValue={userState.gioitinh}
-            updateType="gioitinh"
-            updateFormValue={updateFormValue}
-            options={[
-              { label: "Giới tính nam", value: 0 },
-              { label: "Giới tính nữ", value: 1 },
-            ]}
-          />
-        </div>
-
-        <div className="mt-16">
-          <button
-            className="btn btn-primary float-right"
-            onClick={() => updateProfile()}
-          >
-            Câp nhật
-          </button>
-        </div>
+          <div className="mt-16">
+            <button
+              className="btn btn-primary float-right"
+              // onClick={formik.handleSubmit}
+            >
+              Câp nhật
+            </button>
+          </div>
+        </form>
       </TitleCard>
     </>
   );

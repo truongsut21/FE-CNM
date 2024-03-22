@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function InputTextFormik({
   type,
@@ -9,7 +9,10 @@ function InputTextFormik({
   containerStyle,
   labelStyle,
   errors,
+  disabled = false,
 }) {
+
+
   return (
     <div className={`form-control w-full ${containerStyle}`}>
       <label className="label">
@@ -22,6 +25,7 @@ function InputTextFormik({
         name={name}
         value={value}
         onChange={onChange}
+        disabled={disabled}
         className="input  input-bordered w-full "
       />
       <div className="text-rose-600">{errors}</div>

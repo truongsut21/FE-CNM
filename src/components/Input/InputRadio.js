@@ -4,8 +4,9 @@ function InputRadio({ options, containerStyle, defaultValue, updateFormValue, up
     const [value, setValue] = useState(defaultValue);
 
     const updateInputValue = (val) => {
+        console.log('val:', val)
         setValue(val);
-        updateFormValue({ updateType, value: val });
+        // updateFormValue({ updateType, value: val });
     };
 
     return (
