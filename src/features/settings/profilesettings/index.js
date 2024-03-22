@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TitleCard from "../../../components/Cards/TitleCard";
 import { showNotification } from "../../common/headerSlice";
-import InputText from "../../../components/Input/InputText";
-import InputRadio from "../../../components/Input/InputRadio";
+
 import { getInfoUser } from "../../../app/userSlice";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,6 +17,7 @@ import {
 } from "../../../components/yup/validationSchema";
 import InputTextFormik from "../../../components/inputFormik/InputTextFormik";
 import InputRadioFormik from "../../../components/inputFormik/InputRadioFormik";
+import { FetchUpdateInfoUser } from "../service/fetchUpdateInfoUser";
 
 function ProfileSettings() {
   const dispatch = useDispatch();
@@ -32,6 +32,7 @@ function ProfileSettings() {
       ten: "",
       ngaysinh: "",
       gioitinh: "0",
+      matkhau: "",
     },
 
     validationSchema: Yup.object({
@@ -45,6 +46,35 @@ function ProfileSettings() {
 
     onSubmit: (values) => {
       console.log("values onSubmit:", values);
+
+      console.log(" xử lý submit ", values);
+
+      const requestAPI = dispatch(FetchUpdateInfoUser(values));
+      try {
+        requestAPI.then((response) => {
+          if (response.payload) {
+            if (response.payload.success) {
+              dispatch(
+                showNotification({
+                  message: "Cập nhật thành công",
+                  status: 1,
+                })
+              );
+            } else {
+              dispatch(
+                showNotification({
+                  message: response.payload.message,
+                  status: 0,
+                })
+              );
+            }
+          } else {
+            dispatch(
+              showNotification({ message: "Cập nhật thất bại", status: 0 })
+            );
+          }
+        });
+      } catch (error) {}
     },
   });
 
@@ -53,12 +83,14 @@ function ProfileSettings() {
   }, []);
 
   useEffect(() => {
-    formik.setFieldValue("ten", user.ten ||"a");
-    formik.setFieldValue("hodem", user.hodem||"fix tạm");
-    formik.setFieldValue("sodienthoai", user.sodienthoai||"1234567890");
-    formik.setFieldValue("email", user.email||"a@gmail.com");
-    formik.setFieldValue("diachi", user.diachi||"fix tạm");
+    formik.setFieldValue("ten", user.ten || "fix tạm");
+    formik.setFieldValue("hodem", user.hodem || "fix tạm");
+    formik.setFieldValue("sodienthoai", user.sodienthoai || "1234567890");
+    formik.setFieldValue("email", user.email || "a@gmail.com");
+    formik.setFieldValue("diachi", user.diachi || "fix tạm");
     formik.setFieldValue("gioitinh", user.gioitinh || "0");
+    formik.setFieldValue("matkhau", user.matkhau || "fix tạm");
+
     formik.setFieldValue(
       "ngaysinh",
       moment(user.ngaysinh).format("YYYY-MM-DD")
@@ -99,6 +131,14 @@ function ProfileSettings() {
               value={formik.values.sodienthoai}
               errors={formik.errors.sodienthoai}
             />
+            <InputTextFormik
+              labelTitle="Mật khẩu"
+              type="password"
+              name="matkhau"
+              onChange={formik.handleChange}
+              value={formik.values.matkhau}
+              errors={formik.errors.matkhau}
+            />
 
             <InputTextFormik
               labelTitle="Email"
@@ -134,7 +174,7 @@ function ProfileSettings() {
               errors={formik.errors.gioitinh}
               options={[
                 { label: "Giới tính nam", value: "0" },
-                { label: "Giới tính nữ", value: "1" },
+                { label: "Giới tính nữ", value: 1 },
               ]}
             />
           </div>
