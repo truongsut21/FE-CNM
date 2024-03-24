@@ -5,10 +5,11 @@ import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 import AvataUser from "./AvataUser";
 import { getPhonebook } from "../../../../app/phonebookSlice";
+import { getListGroup } from "../../../../app/groupSlice";
 
 export const BodyGroup = () => {
   const dispatch = useDispatch();
-  const { listPhonebook } = useSelector((state) => state.phonebookSlice);
+  const { listGroup } = useSelector((state) => state.groupSlice);
 
   const openAddNewLeadModal = () => {
     dispatch(
@@ -19,9 +20,12 @@ export const BodyGroup = () => {
     );
   };
 
+  const dumyAvata = (id) => {
+    Math.floor(id / 10);
+  };
   // gọi danh sách danh bạ khi lần đầu vào
   useEffect(() => {
-    dispatch(getPhonebook());
+    dispatch(getListGroup());
   }, []);
   return (
     <div className="h-[37rem]">
@@ -59,13 +63,13 @@ export const BodyGroup = () => {
       </button>
 
       <div className="">
-        {listPhonebook.length > 0 ? (
-          listPhonebook.map((item) => (
+        {listGroup.length > 0 ? (
+          listGroup.map((item) => (
             <AvataUser
-              key={item.id} // Don't forget to add a unique key prop when rendering a list of components
-              name={item.ten}
+              key={item.manhom} // Don't forget to add a unique key prop when rendering a list of components
+              name={item.tennhom}
               mess="Chưa có tin nhắn"
-              avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
+              avata={`https://avatar.iran.liara.run/public/${item.manhom}`}
             />
           ))
         ) : (

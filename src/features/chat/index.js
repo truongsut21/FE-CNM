@@ -1,10 +1,10 @@
 import { CardChat } from "./components/roomChat/CardChat";
-import { CardPhonebook } from "./components/contactSection/CardPhonebook";
+import { CardContact } from "./components/contactSection/CardContact";
 
 function Chat() {
   return (
     <div className="grid grid-cols-4 gap-4">
-      <CardPhonebook />
+      <CardContact />
       <CardChat />
     </div>
   );

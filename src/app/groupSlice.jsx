@@ -2,7 +2,26 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
-export const getPhonebook = createAsyncThunk(
+export const getListGroup = createAsyncThunk("nhom/getAllGroups", async () => {
+  try {
+    const tokenJWT = localStorage.getItem("token");
+    const id = jwtDecode(tokenJWT).id;
+    const url = `nhom/getAllGroups/${id}`;
+
+    const response = await axios.get(url, {
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: `${tokenJWT}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error; // Xử lý lỗi nếu có
+  }
+});
+
+export const getListMember = createAsyncThunk(
   "taikhoan/getOne",
   async (data) => {
     try {
@@ -28,6 +47,7 @@ export const groupSlice = createSlice({
   name: "groupSlice",
   initialState: {
     listGroup: [],
+    listNembers: [],
   },
   reducers: {
     addPhonebook: (state, action) => {
@@ -36,14 +56,14 @@ export const groupSlice = createSlice({
   },
 
   extraReducers: {
-    [getPhonebook.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [getPhonebook.fulfilled]: (state, action) => {
-      console.log("action.payload phonebook:", action.payload);
+    [getListGroup.fulfilled]: (state, action) => {
+      console.log("action.payload listGroup:", action.payload);
       state.listGroup = action.payload;
     },
-    [getPhonebook.rejected]: (state) => {},
+    [getListMember.fulfilled]: (state, action) => {
+      console.log("action.payload getListMember:", action.payload);
+      state.listNembers = action.payload;
+    },
   },
 });
 

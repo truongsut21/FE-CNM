@@ -7,7 +7,7 @@ import { BodyGroup } from "./BodyGroup";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-export const CardPhonebook = () => {
+export const CardContact = () => {
   const [tabsTitle] = useState(["Danh bạ", "Nhóm"]);
 
   return (
