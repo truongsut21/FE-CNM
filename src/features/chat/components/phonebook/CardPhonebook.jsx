@@ -1,90 +1,99 @@
 import React, { useEffect, useState } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
-import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import AvataUser from "./AvataUser";
-import { useDispatch, useSelector } from "react-redux";
-import { openModal } from "../../../common/modalSlice";
-import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
+import { useDispatch } from "react-redux";
 import { getPhonebook } from "../../../../app/phonebookSlice";
-import MyTabs from "./MyTabs";
+import { Tab } from "@headlessui/react";
+import { BodyPhonebook } from "./BodyPhonebook";
+import { BodyGroup } from "./BodyGroup";
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
 export const CardPhonebook = () => {
-  const dispatch = useDispatch();
-
-  const { listPhonebook } = useSelector((state) => state.phonebookSlice);
-  console.log("listPhonebook:", listPhonebook);
-
-  const openAddNewLeadModal = () => {
-    dispatch(
-      openModal({
-        title: "Thêm mới danh bạ",
-        bodyType: MODAL_BODY_TYPES.ADD_PHONEBOOK,
-      })
-    );
-  };
-
-  // gọi danh sách danh bạ khi lần đầu vào
-  useEffect(() => {
-    dispatch(getPhonebook());
-  }, []);
-
+  const [tabsTitle] = useState(["Danh bạ", "Nhóm"]);
+  let [categories] = useState({
+    Nhóm: [
+      {
+        id: 1,
+        title: "Does drinking coffee make you smarter?",
+        date: "5h ago",
+        commentCount: 5,
+        shareCount: 2,
+      },
+      {
+        id: 2,
+        title: "So you've bought coffee... now what?",
+        date: "2h ago",
+        commentCount: 3,
+        shareCount: 2,
+      },
+    ],
+    Popular: [
+      {
+        id: 1,
+        title: "Is tech making coffee better or worse?",
+        date: "Jan 7",
+        commentCount: 29,
+        shareCount: 16,
+      },
+      {
+        id: 2,
+        title: "The most innovative things happening in coffee",
+        date: "Mar 19",
+        commentCount: 24,
+        shareCount: 12,
+      },
+    ],
+  });
   return (
     <div className="col-span-1">
-      <TitleCard title="Danh bạ" topMargin="mt-2">
-        <div className="h-[37rem]">
-          <form className="">
-            <label
-              htmlFor="search"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+      <Tab.Group>
+        <TitleCard
+          title={
+            <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+              {tabsTitle.map((category) => (
+                <Tab
+                  key={category}
+                  className={({ selected }) =>
+                    classNames(
+                      "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
+                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                      selected
+                        ? "bg-white text-blue-700 shadow"
+                        : "text-primary-100 hover:bg-white/[0.12] hover:text-white"
+                    )
+                  }
+                >
+                  {category}
+                </Tab>
+              ))}
+            </Tab.List>
+          }
+          topMargin="mt-2"
+        >
+          <Tab.Panels className="mt-2">
+            <Tab.Panel
+              key={0}
+              className={classNames(
+                "rounded-xl bg-white p-3",
+                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+              )}
             >
-              Search
-            </label>
-            <div className="relative">
-              <input
-                type="search"
-                id="search"
-                className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Tìm kiếm danh bạ..."
-                required
-              />
+              <BodyPhonebook />
+            </Tab.Panel>
 
-              <button
-                type="submit"
-                className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2 "
-              >
-                Tìm <MagnifyingGlassIcon className="w-5" />
-              </button>
-            </div>
-          </form>
-
-          <button
-            className="btn btn-block btn-primary btn-sm mt-2"
-            onClick={() => openAddNewLeadModal()}
-          >
-            {" "}
-            <UserPlusIcon className="w-4" /> Thêm mới danh bạ
-          </button>
-
-          <div className="">
-            {listPhonebook.length > 0 ? (
-              listPhonebook.map((item) => (
-                <AvataUser
-                  key={item.id} // Don't forget to add a unique key prop when rendering a list of components
-                  name={item.ten}
-                  mess="Chưa có tin nhắn"
-                  avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
-                />
-              ))
-            ) : (
-              <p className={`text-center text-gray-500`}>
-                Bạn chưa có người bạn nào 👎 quá non
-              </p>
-            )}
-
-            <MyTabs />
-          </div>
-        </div>
-      </TitleCard>
+            <Tab.Panel
+              key={1}
+              className={classNames(
+                "rounded-xl bg-white p-3",
+                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+              )}
+            >
+              <BodyGroup />
+            </Tab.Panel>
+          </Tab.Panels>
+        </TitleCard>
+      </Tab.Group>
     </div>
   );
 };
