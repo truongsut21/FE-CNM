@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 import { getPhonebook } from "../../../../app/phonebookSlice";
+import MyTabs from "./MyTabs";
 
 export const CardPhonebook = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,8 @@ export const CardPhonebook = () => {
                 Bạn chưa có người bạn nào 👎 quá non
               </p>
             )}
+
+            <MyTabs />
           </div>
         </div>
       </TitleCard>
