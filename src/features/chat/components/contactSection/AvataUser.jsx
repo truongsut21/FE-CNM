@@ -1,10 +1,20 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateInfoUser_chatSlice } from "../../../../app/chatSlice";
 
-export default function AvataUser({ name, mess, avata, active = false }) {
+export default function AvataUser({ name, avata, mess, id, type }) {
+  const dispatch = useDispatch();
+  const { infoRoom } = useSelector((state) => state.chatSlice);
+
+  const handeActiveChat = () => {
+    dispatch(updateInfoUser_chatSlice({ id, name, type }));
+  };
+
   return (
     <div
+      onClick={handeActiveChat}
       className={`flex p-2 items-center gap-4 mt-2 rounded-md hover:bg-base-300 cursor-pointer ${
-        active ? "bg-base-300" : ""
+        id === infoRoom.id ? "bg-base-300" : ""
       }`}
     >
       <img className="w-10 h-10 rounded-full" src={avata} alt="" />

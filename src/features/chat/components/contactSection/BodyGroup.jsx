@@ -64,8 +64,10 @@ export const BodyGroup = () => {
         {listGroup.length > 0 ? (
           listGroup.map((item) => (
             <AvataUser
-              key={item.manhom} // Don't forget to add a unique key prop when rendering a list of components
+              key={item.manhom}
               name={item.tennhom}
+              id={item.manhom}
+              type={1}
               mess="Chưa có tin nhắn"
               avata={`https://avatar.iran.liara.run/public/${item.manhom}`}
             />

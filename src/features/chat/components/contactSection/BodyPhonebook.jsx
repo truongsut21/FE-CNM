@@ -63,9 +63,12 @@ export const BodyPhonebook = () => {
           listPhonebook.map((item, index) => (
             <div key={index}>
               <AvataUser
+                key={item.manguoitrongdanhba}
                 name={item.ten}
+                id={item.manguoitrongdanhba}
+                type={0}
                 mess="Chưa có tin nhắn"
-                avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
+                avata={`https://avatar.iran.liara.run/public/${item.manguoitrongdanhba}`}
               />
             </div>
           ))

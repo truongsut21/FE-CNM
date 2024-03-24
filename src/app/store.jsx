@@ -6,6 +6,7 @@ import leadsSlice from "../features/leads/leadSlice";
 import userSlice from "./userSlice";
 import phonebookSlice from "./phonebookSlice";
 import groupSlice from "./groupSlice";
+import chatSlice from "./chatSlice";
 
 const combinedReducer = {
   header: headerSlice,
@@ -15,6 +16,7 @@ const combinedReducer = {
   user: userSlice,
   phonebookSlice: phonebookSlice,
   groupSlice: groupSlice,
+  chatSlice: chatSlice,
 };
 
 export default configureStore({
