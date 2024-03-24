@@ -11,8 +11,6 @@ function InputTextFormik({
   errors,
   disabled = false,
 }) {
-
-
   return (
     <div className={`form-control w-full ${containerStyle}`}>
       <label className="label">

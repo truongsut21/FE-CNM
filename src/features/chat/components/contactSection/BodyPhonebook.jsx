@@ -60,13 +60,14 @@ export const BodyPhonebook = () => {
 
       <div className="">
         {listPhonebook.length > 0 ? (
-          listPhonebook.map((item) => (
-            <AvataUser
-              key={item.id} // Don't forget to add a unique key prop when rendering a list of components
-              name={item.ten}
-              mess="Chưa có tin nhắn"
-              avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
-            />
+          listPhonebook.map((item, index) => (
+            <div key={index}>
+              <AvataUser
+                name={item.ten}
+                mess="Chưa có tin nhắn"
+                avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
+              />
+            </div>
           ))
         ) : (
           <p className={`text-center text-gray-500`}>

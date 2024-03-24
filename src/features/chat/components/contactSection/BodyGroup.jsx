@@ -11,18 +11,15 @@ export const BodyGroup = () => {
   const dispatch = useDispatch();
   const { listGroup } = useSelector((state) => state.groupSlice);
 
-  const openAddNewLeadModal = () => {
+  const openAddNewGroupModal = () => {
     dispatch(
       openModal({
-        title: "Thêm mới danh bạ",
-        bodyType: MODAL_BODY_TYPES.ADD_PHONEBOOK,
+        title: "Thêm mới nhóm",
+        bodyType: MODAL_BODY_TYPES.ADD_GROUP,
       })
     );
   };
 
-  const dumyAvata = (id) => {
-    Math.floor(id / 10);
-  };
   // gọi danh sách danh bạ khi lần đầu vào
   useEffect(() => {
     dispatch(getListGroup());
@@ -56,7 +53,7 @@ export const BodyGroup = () => {
 
       <button
         className="btn btn-block btn-primary btn-sm mt-2"
-        onClick={() => openAddNewLeadModal()}
+        onClick={() => openAddNewGroupModal()}
       >
         {" "}
         <UserPlusIcon className="w-4" /> Tạo nhóm mới

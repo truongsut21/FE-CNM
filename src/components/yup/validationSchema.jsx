@@ -22,6 +22,10 @@ export const validationAddress = Yup.string().required("Không được để tr
 
 export const validationRequired = Yup.string().required("Không được để trống");
 
+export const validationArrayLength2 = Yup.array()
+  .of(Yup.string())
+  .min(2, "Phải ít nhất 2 phần tử");
+
 export const validationPastDay = Yup.string()
   .required("Không được để trống")
   .test(
