@@ -173,7 +173,7 @@ function ProfileSettings() {
               value={formik.values.gioitinh}
               errors={formik.errors.gioitinh}
               options={[
-                { label: "Giới tính nam", value: "0" },
+                { label: "Giới tính nam", value: 0 },
                 { label: "Giới tính nữ", value: 1 },
               ]}
             />

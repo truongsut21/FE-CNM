@@ -47,7 +47,7 @@ const routes = [
       {
         path: "/app/chat/123", //url
         icon: <UserIcon className={submenuIconClasses} />, // icon component
-        name: "Mến Ngủ", // name that appear in Sidebar
+        name: "Linh Be", // name that appear in Sidebar
       },
       {
         path: "/app/chat/1231", //url

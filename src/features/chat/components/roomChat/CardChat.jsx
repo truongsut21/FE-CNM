@@ -24,7 +24,7 @@ export const CardChat = () => {
         <div className="h-[37rem] flex flex-col-reverse">
           <form className="sticky top-0 mt-4">
             <label
-              for="search"
+              htmlFor="search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
             >
               Search

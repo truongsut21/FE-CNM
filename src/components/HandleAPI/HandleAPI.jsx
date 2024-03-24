@@ -1,13 +1,16 @@
+import { useDispatch } from "react-redux";
 import { showNotification } from "../../features/common/headerSlice";
 
-export const HandleAPI = ({ dispatch, funcSuccess, funcFaill, name }) => {
-  const requestAPI = dispatch;
+export const HandleAPI = ({ dispatchAPI, funcSuccess, funcFaill, name }) => {
+  const dispatch = useDispatch();
+  const requestAPI = dispatchAPI;
   try {
     requestAPI.then((response) => {
       console.log(`response: ${name} :`, response);
 
       if (response.payload) {
         if (response.payload.success) {
+          console.log("oke")
           dispatch(
             showNotification({
               message: `${name} thành công`,
@@ -17,6 +20,7 @@ export const HandleAPI = ({ dispatch, funcSuccess, funcFaill, name }) => {
 
           funcSuccess();
         } else {
+          console.log("no")
           dispatch(
             showNotification({
               message: response.payload.message,

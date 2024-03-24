@@ -10,6 +10,10 @@ import {
 import * as Yup from "yup";
 import InputTextFormik from "../../../../components/inputFormik/InputTextFormik";
 import { useFormik } from "formik";
+import { HandleAPI } from "../../../../components/HandleAPI/HandleAPI";
+import { FetchAddPhonebook } from "../../service/FetchAddPhonebook";
+import { jwtDecode } from "jwt-decode";
+import { addPhonebook, getPhonebook } from "../../../../app/phonebookSlice";
 
 function AddPhonebookModalBody({ closeModal }) {
   const dispatch = useDispatch();
@@ -27,7 +31,53 @@ function AddPhonebookModalBody({ closeModal }) {
 
     onSubmit: (values) => {
       console.log("values:", values);
-      console.log("thêm api thêm danh bạ")
+      console.log("thêm api thêm danh bạ");
+
+      const tokenJWT = localStorage.getItem("token");
+      const id = jwtDecode(tokenJWT).id;
+      const data = { ...values, chudanhba: id };
+
+      // const dispatchAPI = dispatch(FetchAddPhonebook(data));
+
+      // const funcSuccess = () => {
+      //   dispatch(getPhonebook());
+      // };
+
+      // const funcFaill = () => {};
+
+      // const name = "Thêm danh bạ";
+
+      // HandleAPI({ dispatchAPI, funcSuccess, funcFaill, name });
+
+      const requestAPI = dispatch(FetchAddPhonebook(data));
+      try {
+        requestAPI.then((response) => {
+          if (response.payload) {
+            if (response.payload.success) {
+              dispatch(
+                showNotification({
+                  message: "Thêm danh bạ thành công",
+                  status: 1,
+                })
+              );
+
+              dispatch(getPhonebook());
+              closeModal();
+            } else {
+              dispatch(
+                showNotification({
+                  message: response.payload.message,
+                  status: 0,
+                })
+              );
+            }
+          } else {
+            dispatch(
+              showNotification({ message: "Thêm danh bạ thất bại", status: 0 })
+            );
+          }
+        });
+      } catch (error) {}
     },
   });
   return (
@@ -56,7 +106,9 @@ function AddPhonebookModalBody({ closeModal }) {
         <button className="btn btn-ghost" onClick={() => closeModal()}>
           Huỷ
         </button>
-        <button type="submit" className="btn btn-primary px-6">Thêm</button>
+        <button type="submit" className="btn btn-primary px-6">
+          Thêm
+        </button>
       </div>
     </form>
   );

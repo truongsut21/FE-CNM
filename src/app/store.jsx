@@ -4,6 +4,7 @@ import modalSlice from "../features/common/modalSlice";
 import rightDrawerSlice from "../features/common/rightDrawerSlice";
 import leadsSlice from "../features/leads/leadSlice";
 import userSlice from "./userSlice";
+import phonebookSlice from "./phonebookSlice";
 
 const combinedReducer = {
   header: headerSlice,
@@ -11,6 +12,7 @@ const combinedReducer = {
   modal: modalSlice,
   lead: leadsSlice,
   user: userSlice,
+  phonebookSlice: phonebookSlice,
 };
 
 export default configureStore({

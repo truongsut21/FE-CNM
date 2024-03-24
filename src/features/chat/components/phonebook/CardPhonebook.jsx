@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
 import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/react/24/solid";
 import AvataUser from "./AvataUser";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
+import { getPhonebook } from "../../../../app/phonebookSlice";
 
 export const CardPhonebook = () => {
   const dispatch = useDispatch();
+
+  const { listPhonebook } = useSelector((state) => state.phonebookSlice);
+  console.log("listPhonebook:", listPhonebook);
 
   const openAddNewLeadModal = () => {
     dispatch(
@@ -17,13 +21,19 @@ export const CardPhonebook = () => {
       })
     );
   };
+
+  // gọi danh sách danh bạ khi lần đầu vào
+  useEffect(() => {
+    dispatch(getPhonebook());
+  }, []);
+
   return (
     <div className="col-span-1">
       <TitleCard title="Danh bạ" topMargin="mt-2">
         <div className="h-[37rem]">
           <form className="">
             <label
-              for="search"
+              htmlFor="search"
               className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
             >
               Search
@@ -55,28 +65,20 @@ export const CardPhonebook = () => {
           </button>
 
           <div className="">
-            <AvataUser
-              name="Nhật Nam"
-              mess="chắc t đi ẻ phát"
-              avata="https://bedental.vn/wp-content/uploads/2022/11/1e8063154fdf3dcbb07edf0ad2df326a.jpg"
-            />
-
-            <AvataUser
-              active="true"
-              name="Linh Be"
-              mess="Oke fen luôn"
-              avata="https://scontent.fhan3-1.fna.fbcdn.net/v/t39.30808-1/329912740_6277300982326482_44612447103804705_n.jpg?stp=dst-jpg_p160x160&_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGn7Xuzm_s5XyvOBKTaCY5Ut8xa170YehK3zFrXvRh6EjVb3cwW3A46lyOjFpvuXwlrkiopePilgFLSQ7YcxUBP&_nc_ohc=GB-v4dh3cOEAX9elRyk&_nc_ht=scontent.fhan3-1.fna&oh=00_AfCU2KlE8roZ9JTAox5vb-7htxNAnvUsPYl25TuLNX6HAQ&oe=6600B0C8"
-            />
-            <AvataUser
-              name="Chị Backend"
-              mess="Cứu tao!!!"
-              avata="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/71391375_128093541854895_1672459410363908096_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGlKpfdbCgBtcPuJgnt99xTvuM7b4aZ9hO-4ztvhpn2E-8DccjAkj3Mbb7bEzk4cjo0XSySzfOCpfZ1W0UIqpm9&_nc_ohc=lTCevjn2YUwAX_cl7gY&_nc_ht=scontent.fhan3-3.fna&oh=00_AfAOunMAhYeGqmWdu7gjKHVqzc5UItAUzYN3Su_Bz8pY9w&oe=66234BEB"
-            />
-            <AvataUser
-              name="Nhật Nam"
-              mess="chắc t đi ẻ phát"
-              avata="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.6435-9/71391375_128093541854895_1672459410363908096_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGlKpfdbCgBtcPuJgnt99xTvuM7b4aZ9hO-4ztvhpn2E-8DccjAkj3Mbb7bEzk4cjo0XSySzfOCpfZ1W0UIqpm9&_nc_ohc=lTCevjn2YUwAX_cl7gY&_nc_ht=scontent.fhan3-3.fna&oh=00_AfAOunMAhYeGqmWdu7gjKHVqzc5UItAUzYN3Su_Bz8pY9w&oe=66234BEB"
-            />
+            {listPhonebook.length > 0 ? (
+              listPhonebook.map((item) => (
+                <AvataUser
+                  key={item.id} // Don't forget to add a unique key prop when rendering a list of components
+                  name={item.ten}
+                  mess="Chưa có tin nhắn"
+                  avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
+                />
+              ))
+            ) : (
+              <p className={`text-center text-gray-500`}>
+                Bạn chưa có người bạn nào 👎 quá non
+              </p>
+            )}
           </div>
         </div>
       </TitleCard>
