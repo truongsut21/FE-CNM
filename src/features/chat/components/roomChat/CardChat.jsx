@@ -9,7 +9,7 @@ import {
 const TopSideButtons = () => {
   return (
     <button className="btn btn-outline btn-primary btn-sm  text-red-800">
-      <Bars3Icon  className="w-5"/>
+      <Bars3Icon className="w-5" />
     </button>
   );
 };

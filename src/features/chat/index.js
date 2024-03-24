@@ -1,5 +1,5 @@
 import { CardChat } from "./components/roomChat/CardChat";
-import { CardPhonebook } from "./components/phonebook/CardPhonebook";
+import { CardPhonebook } from "./components/contactSection/CardPhonebook";
 
 function Chat() {
   return (

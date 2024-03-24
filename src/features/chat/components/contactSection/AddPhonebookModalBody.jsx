@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { showNotification } from "../../../common/headerSlice";
-import InputText from "../../../../components/Input/InputText";
-import ErrorText from "../../../../components/Typography/ErrorText";
 import {
   validationPhone,
   validationRequired,
@@ -10,10 +7,9 @@ import {
 import * as Yup from "yup";
 import InputTextFormik from "../../../../components/inputFormik/InputTextFormik";
 import { useFormik } from "formik";
-import { HandleAPI } from "../../../../components/HandleAPI/HandleAPI";
 import { FetchAddPhonebook } from "../../service/FetchAddPhonebook";
 import { jwtDecode } from "jwt-decode";
-import { addPhonebook, getPhonebook } from "../../../../app/phonebookSlice";
+import { getPhonebook } from "../../../../app/phonebookSlice";
 
 function AddPhonebookModalBody({ closeModal }) {
   const dispatch = useDispatch();
@@ -36,18 +32,6 @@ function AddPhonebookModalBody({ closeModal }) {
       const tokenJWT = localStorage.getItem("token");
       const id = jwtDecode(tokenJWT).id;
       const data = { ...values, chudanhba: id };
-
-      // const dispatchAPI = dispatch(FetchAddPhonebook(data));
-
-      // const funcSuccess = () => {
-      //   dispatch(getPhonebook());
-      // };
-
-      // const funcFaill = () => {};
-
-      // const name = "Thêm danh bạ";
-
-      // HandleAPI({ dispatchAPI, funcSuccess, funcFaill, name });
 
       const requestAPI = dispatch(FetchAddPhonebook(data));
       try {

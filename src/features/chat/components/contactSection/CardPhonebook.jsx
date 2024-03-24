@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
-import { useDispatch } from "react-redux";
-import { getPhonebook } from "../../../../app/phonebookSlice";
 import { Tab } from "@headlessui/react";
 import { BodyPhonebook } from "./BodyPhonebook";
 import { BodyGroup } from "./BodyGroup";
@@ -11,40 +9,7 @@ function classNames(...classes) {
 }
 export const CardPhonebook = () => {
   const [tabsTitle] = useState(["Danh bạ", "Nhóm"]);
-  let [categories] = useState({
-    Nhóm: [
-      {
-        id: 1,
-        title: "Does drinking coffee make you smarter?",
-        date: "5h ago",
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 2,
-        title: "So you've bought coffee... now what?",
-        date: "2h ago",
-        commentCount: 3,
-        shareCount: 2,
-      },
-    ],
-    Popular: [
-      {
-        id: 1,
-        title: "Is tech making coffee better or worse?",
-        date: "Jan 7",
-        commentCount: 29,
-        shareCount: 16,
-      },
-      {
-        id: 2,
-        title: "The most innovative things happening in coffee",
-        date: "Mar 19",
-        commentCount: 24,
-        shareCount: 12,
-      },
-    ],
-  });
+
   return (
     <div className="col-span-1">
       <Tab.Group>

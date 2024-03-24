@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { closeModal } from '../features/common/modalSlice'
 import AddLeadModalBody from '../features/leads/components/AddLeadModalBody'
 import ConfirmationModalBody from '../features/common/components/ConfirmationModalBody'
-import AddPhonebookModalBody from '../features/chat/components/phonebook/AddPhonebookModalBody'
+import AddPhonebookModalBody from '../features/chat/components/contactSection/AddPhonebookModalBody'
 
 
 function ModalLayout(){
