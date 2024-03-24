@@ -8,7 +8,7 @@ export const FetchCreateGroup = createAsyncThunk(
       const tokenJWT = localStorage.getItem("token");
       const url = `nhom/createGroup`;
 
-      const response = await axios.post(url, JSON.stringify(data), {
+      const response = await axios.post(url, data, {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",

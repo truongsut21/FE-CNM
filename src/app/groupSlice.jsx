@@ -21,7 +21,7 @@ export const getListGroup = createAsyncThunk("nhom/getAllGroups", async () => {
   }
 });
 
-export const getListMember = createAsyncThunk(
+export const getListMemberGroup = createAsyncThunk(
   "taikhoan/getOne",
   async (data) => {
     try {
@@ -50,7 +50,7 @@ export const groupSlice = createSlice({
     listNembers: [],
   },
   reducers: {
-    addPhonebook: (state, action) => {
+    addNembersToGroup: (state, action) => {
       state.listGroup = [...state.leads, action.payload];
     },
   },
@@ -60,13 +60,13 @@ export const groupSlice = createSlice({
       console.log("action.payload listGroup:", action.payload);
       state.listGroup = action.payload;
     },
-    [getListMember.fulfilled]: (state, action) => {
-      console.log("action.payload getListMember:", action.payload);
+    [getListMemberGroup.fulfilled]: (state, action) => {
+      console.log("action.payload getListMemberGroup:", action.payload);
       state.listNembers = action.payload;
     },
   },
 });
 
-export const { addPhonebook } = groupSlice.actions;
+export const { addNembersToGroup } = groupSlice.actions;
 
 export default groupSlice.reducer;

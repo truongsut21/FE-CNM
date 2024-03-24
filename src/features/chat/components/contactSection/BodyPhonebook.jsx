@@ -58,7 +58,7 @@ export const BodyPhonebook = () => {
         <UserPlusIcon className="w-4" /> Thêm mới danh bạ
       </button>
 
-      <div className="">
+      <div className="overflow-y-auto h-5/6 ">
         {listPhonebook.length > 0 ? (
           listPhonebook.map((item, index) => (
             <div key={index}>

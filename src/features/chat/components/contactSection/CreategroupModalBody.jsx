@@ -14,6 +14,7 @@ import { getPhonebook } from "../../../../app/phonebookSlice";
 import { useEffect, useState } from "react";
 import InputSelectFomik from "../../../../components/inputFormik/InputSelectFomik";
 import { FetchCreateGroup } from "../../service/FetchCreateGroup";
+import { getListGroup, getListMemberGroup } from "../../../../app/groupSlice";
 
 function CreategroupModalBody({ closeModal }) {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ function CreategroupModalBody({ closeModal }) {
                 })
               );
 
-              dispatch(getPhonebook());
+              dispatch(getListGroup());
               closeModal();
             } else {
               dispatch(

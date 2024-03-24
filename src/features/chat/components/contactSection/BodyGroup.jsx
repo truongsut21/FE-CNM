@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
@@ -24,6 +24,7 @@ export const BodyGroup = () => {
   useEffect(() => {
     dispatch(getListGroup());
   }, []);
+
   return (
     <div className="h-[37rem]">
       <form className="">
@@ -59,7 +60,7 @@ export const BodyGroup = () => {
         <UserPlusIcon className="w-4" /> Tạo nhóm mới
       </button>
 
-      <div className="">
+      <div className="overflow-y-auto h-5/6 ">
         {listGroup.length > 0 ? (
           listGroup.map((item) => (
             <AvataUser
