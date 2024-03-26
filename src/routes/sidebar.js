@@ -12,6 +12,8 @@ import ArrowRightOnRectangleIcon from "@heroicons/react/24/outline/ArrowRightOnR
 import UserIcon from "@heroicons/react/24/outline/UserIcon";
 import Cog6ToothIcon from "@heroicons/react/24/outline/Cog6ToothIcon";
 import BoltIcon from "@heroicons/react/24/outline/BoltIcon";
+import DocumentArrowUpIcon from "@heroicons/react/24/outline/DocumentArrowUpIcon";
+import DocumentArrowDownIcon from "@heroicons/react/24/outline/DocumentArrowDownIcon";
 import ChartBarIcon from "@heroicons/react/24/outline/ChartBarIcon";
 import CurrencyDollarIcon from "@heroicons/react/24/outline/CurrencyDollarIcon";
 import InboxArrowDownIcon from "@heroicons/react/24/outline/InboxArrowDownIcon";
@@ -103,6 +105,16 @@ const routes = [
     path: "/app/charts", // url
     icon: <ChartBarIcon className={iconClasses} />, // icon component
     name: "Analytics", // name that appear in Sidebar
+  },
+  {
+    path: "/app/manageAssignWork", // url
+    icon: <DocumentArrowUpIcon className={iconClasses} />, // icon component
+    name: "Quản lý công việc giao", // name that appear in Sidebar
+  },
+  {
+    path: "/app/manageReceiveWork", // url
+    icon: <DocumentArrowDownIcon className={iconClasses} />, // icon component
+    name: "Quản lý công việc nhận", // name that appear in Sidebar
   },
   {
     path: "/app/integration", // url

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const chatSlice = createSlice({
-  name: "chatSlice",
+  name: "infoRoom",
   initialState: {
     isLoading: false,
     infoRoom: {
