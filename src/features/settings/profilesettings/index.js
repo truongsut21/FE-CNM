@@ -22,6 +22,7 @@ import { FetchUpdateInfoUser } from "../service/fetchUpdateInfoUser";
 function ProfileSettings() {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
+  console.log('user:', user)
 
   const formik = useFormik({
     initialValues: {

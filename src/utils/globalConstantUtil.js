@@ -3,6 +3,7 @@ module.exports = Object.freeze({
     USER_DETAIL: "USER_DETAIL",
     LEAD_ADD_NEW: "LEAD_ADD_NEW",
     ADD_PHONEBOOK: "ADD_PHONEBOOK",
+    ADD_TASK: "ADD_TASK",
     ADD_GROUP: "ADD_GROUP",
     CONFIRMATION: "CONFIRMATION",
     DEFAULT: "",

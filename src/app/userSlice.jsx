@@ -48,7 +48,7 @@ export const userSlice = createSlice({
       state.isLoading = true;
     },
     [getInfoUser.fulfilled]: (state, action) => {
-      console.log('action.payload:', action.payload)
+      console.log('action.payload getInfoUser: ', action.payload)
       state.user = action.payload;
       state.isLoading = false;
     },

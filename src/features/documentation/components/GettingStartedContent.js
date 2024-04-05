@@ -32,7 +32,7 @@ function GettingStartedContent(){
               <h4>Major features - </h4>
               <p className=''>Almost all major UI components are available in Daisy UI library. Apart from this logic has been added for following - </p>
               <ul>
-                  <li> <span className='font-bold'>Light/dark</span> mode toggle</li>
+                  <li> <span className='font-bold'>Trao đổi</span> công việc</li>
                   <li> Token based user authentication</li>
                   <li> <span className='font-bold'>Submenu support</span> in sidebar</li>
                   <li> Store management using <span className='font-bold'>redux toolkit</span></li>

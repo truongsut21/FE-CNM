@@ -22,7 +22,7 @@ export const getListGroup = createAsyncThunk("nhom/getAllGroups", async () => {
 });
 
 export const getListMemberGroup = createAsyncThunk(
-  "taikhoan/getOne",
+  "getListMemberGroup",
   async (data) => {
     try {
       const tokenJWT = localStorage.getItem("token");

@@ -68,7 +68,16 @@ const routes = [
       },
     ],
   },
-
+  {
+    path: "/app/manageAssignWork", // url
+    icon: <DocumentArrowUpIcon className={iconClasses} />, // icon component
+    name: "Quản lý công việc giao", // name that appear in Sidebar
+  },
+  {
+    path: "/app/manageReceiveWork", // url
+    icon: <DocumentArrowDownIcon className={iconClasses} />, // icon component
+    name: "Quản lý công việc nhận", // name that appear in Sidebar
+  },
   {
     path: "", //no url needed as this has submenu
     icon: <ChatBubbleLeftRightIcon className={`${iconClasses} inline`} />, // icon component
@@ -106,16 +115,7 @@ const routes = [
     icon: <ChartBarIcon className={iconClasses} />, // icon component
     name: "Analytics", // name that appear in Sidebar
   },
-  {
-    path: "/app/manageAssignWork", // url
-    icon: <DocumentArrowUpIcon className={iconClasses} />, // icon component
-    name: "Quản lý công việc giao", // name that appear in Sidebar
-  },
-  {
-    path: "/app/manageReceiveWork", // url
-    icon: <DocumentArrowDownIcon className={iconClasses} />, // icon component
-    name: "Quản lý công việc nhận", // name that appear in Sidebar
-  },
+
   {
     path: "/app/integration", // url
     icon: <BoltIcon className={iconClasses} />, // icon component

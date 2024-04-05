@@ -3,7 +3,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
 export const getPhonebook = createAsyncThunk(
-  "taikhoan/getOne",
+  "getPhonebook",
   async (data) => {
     try {
       const tokenJWT = localStorage.getItem("token");
@@ -28,7 +28,6 @@ export const phonebookSlice = createSlice({
   name: "phonebookSlice",
   initialState: {
     listPhonebook: [
-      
     ],
   },
   reducers: {

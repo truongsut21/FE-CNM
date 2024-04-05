@@ -79,7 +79,7 @@ function Login() {
               <div className="mb-4">
                 <InputTextFormik
                   labelTitle="Số điện thoại"
-                  type="number"
+                  type="text"
                   name="sodienthoai"
                   onChange={formik.handleChange}
                   value={formik.values.sodienthoai}
