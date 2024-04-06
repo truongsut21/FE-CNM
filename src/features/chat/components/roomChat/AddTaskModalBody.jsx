@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { showNotification } from "../../../common/headerSlice";
 import {
-  validationPastDay,
-  validationPhone,
+  validationFutureDay,
   validationRequired,
 } from "../../../../components/yup/validationSchema";
 import * as Yup from "yup";
@@ -13,6 +12,8 @@ import { jwtDecode } from "jwt-decode";
 import { getPhonebook } from "../../../../app/phonebookSlice";
 import InputAreaFormik from "../../../../components/inputFormik/InputAreaFormik";
 import { useEffect } from "react";
+import moment from "moment";
+import { FetchCreateTask } from "../../service/FetchCreateTask";
 
 function AddTaskModalBody({ closeModal }) {
   const { infoRoom } = useSelector((state) => state.chatSlice);
@@ -24,38 +25,38 @@ function AddTaskModalBody({ closeModal }) {
       tencongviec: "",
       noidung: "",
       manguoigiaoviec: "",
-      ngaygiao: "",
+      ngaygiao: moment().format("YYYY-MM-DD"),
       thoihan: "",
       manguoinhan: "",
+      maloaitrangthaicongviec: 1,
     },
 
     validationSchema: Yup.object({
-      sodienthoai: validationPhone,
-      ten: validationRequired,
-      thoihan: validationPastDay,
+      tencongviec: validationRequired,
+      noidung: validationRequired,
+      thoihan: validationFutureDay,
     }),
 
     onSubmit: (values) => {
-      console.log("values:", values);
-      console.log("thêm api thêm danh bạ");
+      console.log("values thêm công việc:", values);
 
-      const tokenJWT = localStorage.getItem("token");
-      const id = jwtDecode(tokenJWT).id;
-      const data = { ...values, chudanhba: id };
+      const data = { ...values, manguoinhan: [values.manguoinhan] };
 
-      const requestAPI = dispatch(FetchAddPhonebook(data));
+      const requestAPI = dispatch(FetchCreateTask(data));
       try {
         requestAPI.then((response) => {
           if (response.payload) {
             if (response.payload.success) {
               dispatch(
                 showNotification({
-                  message: "Thêm danh bạ thành công",
+                  message: response.payload.message,
                   status: 1,
                 })
               );
 
-              dispatch(getPhonebook());
+
+              // thay vào đây là get danh sach cong viẹc
+              // dispatch(getPhonebook());
               closeModal();
             } else {
               dispatch(
@@ -67,7 +68,7 @@ function AddTaskModalBody({ closeModal }) {
             }
           } else {
             dispatch(
-              showNotification({ message: "Thêm danh bạ thất bại", status: 0 })
+              showNotification({ message: "Tạo công việc thất bại", status: 0 })
             );
           }
         });
@@ -75,8 +76,13 @@ function AddTaskModalBody({ closeModal }) {
     },
   });
 
+  console.log("formik công việc mới values:", formik.values);
   useEffect(() => {
     formik.setFieldValue("manguoinhan", infoRoom.id);
+
+    const tokenJWT = localStorage.getItem("token");
+    const id = jwtDecode(tokenJWT).id;
+    formik.setFieldValue("manguoigiaoviec", id);
   }, []);
 
   return (
@@ -116,12 +122,19 @@ function AddTaskModalBody({ closeModal }) {
         containerStyle="mt-4"
         labelTitle="Tiêu đề"
         type="text"
-        name="sodienthoai"
+        name="tencongviec"
         onChange={formik.handleChange}
-        value={""}
-        errors={formik.errors.sodienthoai}
+        value={formik.values.tencongviec}
+        errors={formik.errors.tencongviec}
       />
-      <InputAreaFormik labelTitle="Nội dung" />
+      <InputAreaFormik
+        labelTitle="Nội dung"
+        type="text"
+        name="noidung"
+        onChange={formik.handleChange}
+        value={formik.values.noidung}
+        errors={formik.errors.noidung}
+      />
 
       <div className="modal-action">
         <button className="btn btn-ghost" onClick={() => closeModal()}>

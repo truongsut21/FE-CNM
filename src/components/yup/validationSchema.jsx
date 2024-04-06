@@ -39,3 +39,19 @@ export const validationPastDay = Yup.string()
       return selectedDate.isValid() && selectedDate.isSameOrBefore(currentDate);
     }
   );
+
+export const validationFutureDay = Yup.string()
+  .required("Không được để trống")
+  .test(
+    "is-future-date",
+    "Ngày phải lớn hơn hoặc bằng ngày hiện tại",
+    function (value) {
+      // Kiểm tra xem ngày có hợp lệ và lớn hơn hoặc bằng ngày hiện tại không
+      if (!value) return true; // Nếu giá trị là rỗng, trả về true (để đảm bảo không hiển thị lỗi required)
+      const selectedDate = moment(value, "YYYY-MM-DD");
+      const currentDate = moment();
+      return (
+        selectedDate.isValid() && selectedDate.isSameOrAfter(currentDate, "day")
+      );
+    }
+  );

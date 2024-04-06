@@ -67,7 +67,7 @@ export const BodyPhonebook = () => {
               <AvataUser
                 key={item.madanhba}
                 name={item.ten}
-                id={item.madanhba}
+                id={item.manguoitrongdanhba}
                 type={0}
                 mess="Chưa có tin nhắn"
                 avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
