@@ -9,6 +9,8 @@ import { getPhonebook } from "../../../../app/phonebookSlice";
 export const BodyPhonebook = () => {
   const dispatch = useDispatch();
   const { listPhonebook } = useSelector((state) => state.phonebookSlice);
+  console.log('listPhonebook:', listPhonebook)
+
 
   const openAddNewLeadModal = () => {
     dispatch(

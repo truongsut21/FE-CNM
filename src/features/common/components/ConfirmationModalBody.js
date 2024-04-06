@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
-  MODAL_CLOSE_TYPES,
 } from "../../../utils/globalConstantUtil";
 import { deleteLead } from "../../leads/leadSlice";
 import { showNotification } from "../headerSlice";
 import { FetchDeleteContact } from "../../chat/service/FetchDeleteContact";
+import { getPhonebook } from "../../../app/phonebookSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
@@ -20,6 +19,8 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
       dispatch(showNotification({ message: "Lead Deleted!", status: 1 }));
     }
 
+
+    // hàm xử lý xoá thông tin liên lạc
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_CONTACT) {
       // positive response, call api or dispatch redux function
       const resAPI = dispatch(FetchDeleteContact(_id));
@@ -27,10 +28,12 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
         .then((result) => {
           console.log("result:", result);
           if (result.payload.success) {
+            
+            closeModal();
+            dispatch(getPhonebook());
             dispatch(
               showNotification({ message: result.payload.message, status: 1 })
             );
-            closeModal();
           } else {
             dispatch(
               showNotification({ message: result.payload.message, status: 0 })
