@@ -1,0 +1,86 @@
+[
+    {
+        "macongviec": 1,
+        "tencongviec": "Tạo giao diện",
+        "noidung": "Tạo giao diện phân công công việc",
+        "manguoigiaoviec": 2,
+        "manhom": null,
+        "manguoinhan": 1,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-07-28T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 2,
+        "tencongviec": "Tạo giao diện",
+        "noidung": "Tạo giao diện phân công công việc",
+        "manguoigiaoviec": 2,
+        "manhom": null,
+        "manguoinhan": 1,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-07-28T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 3,
+        "tencongviec": "123",
+        "noidung": "qưe",
+        "manguoigiaoviec": 2,
+        "manhom": null,
+        "manguoinhan": 3,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-04-26T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 4,
+        "tencongviec": "123",
+        "noidung": "qưe",
+        "manguoigiaoviec": 2,
+        "manhom": null,
+        "manguoinhan": 3,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-04-26T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 7,
+        "tencongviec": "Tạo giao diện",
+        "noidung": "Tạo giao diện phân công công việc",
+        "manguoigiaoviec": 2,
+        "manhom": 22,
+        "manguoinhan": 1,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-07-28T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 8,
+        "tencongviec": "Tạo giao diện 2",
+        "noidung": "Tạo giao diện phân công công việc",
+        "manguoigiaoviec": 2,
+        "manhom": 22,
+        "manguoinhan": 1,
+        "ngaygiao": "2024-04-05T17:00:00.000Z",
+        "thoihan": "2024-07-28T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 13,
+        "tencongviec": "Đi học nhóm",
+        "noidung": "day la noi dung",
+        "manguoigiaoviec": 2,
+        "manhom": null,
+        "manguoinhan": 3,
+        "ngaygiao": "2024-04-07T17:00:00.000Z",
+        "thoihan": "2024-04-19T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    }
+]

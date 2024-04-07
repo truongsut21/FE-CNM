@@ -5,10 +5,13 @@ import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
   MODAL_BODY_TYPES,
 } from "../../../../utils/globalConstantUtil";
+import TitleCard from "../../../../components/Cards/TitleCard";
+import { TaskComponent } from "../../../common/TaskComponent";
 
 function InfoRoomRightDrawer() {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
+  console.log('infoRoom:', infoRoom)
   const deleteContact = () => {
     dispatch(
       openModal({
@@ -18,6 +21,7 @@ function InfoRoomRightDrawer() {
           message: `Bạn có chắc chắn muốn xoá người này khỏi danh bạ?`,
           type: CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_CONTACT,
           _id: infoRoom.id,
+          _idPhonebook: infoRoom.idPhonebook
         },
       })
     );
@@ -26,6 +30,14 @@ function InfoRoomRightDrawer() {
   return (
     <div className="mt-4 flex flex-col">
       <InfoBaseSection />
+
+      <div className="mb-5">
+        <div className="text-rose-800 text-base font-medium leading-normal my-4">
+          Danh sách công việc giao
+        </div>
+
+        <TaskComponent task={{ name: "ten cong viec 1", description: "day laf mday laf mo traday laf mo traday laf mo traday laf mo traday laf mo traday laf mo trao tra" }} />
+      </div>
 
       <button
         className="btn w-full bg-rose-50 text-rose-700 border-none hover:bg-rose-200"

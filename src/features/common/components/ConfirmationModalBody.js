@@ -10,7 +10,7 @@ import { getPhonebook } from "../../../app/phonebookSlice";
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
 
-  const { message, type, _id, index } = extraObject;
+  const { message, type, _id, index, _idPhonebook } = extraObject;
 
   const proceedWithYes = async () => {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE) {
@@ -23,17 +23,19 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     // hàm xử lý xoá thông tin liên lạc
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_CONTACT) {
       // positive response, call api or dispatch redux function
-      const resAPI = dispatch(FetchDeleteContact(_id));
+      const resAPI = dispatch(FetchDeleteContact(_idPhonebook));
       resAPI
         .then((result) => {
           console.log("result:", result);
           if (result.payload.success) {
-            
-            closeModal();
-            dispatch(getPhonebook());
+
+            // closeModal();
+            // dispatch(getPhonebook());
             dispatch(
               showNotification({ message: result.payload.message, status: 1 })
             );
+
+            setTimeout(() => { window.location.reload() }, 500);
           } else {
             dispatch(
               showNotification({ message: result.payload.message, status: 0 })

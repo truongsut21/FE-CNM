@@ -69,6 +69,7 @@ export const BodyPhonebook = () => {
                 name={item.ten}
                 id={item.manguoitrongdanhba}
                 type={0}
+                idPhonebook={item.madanhba}
                 mess="Chưa có tin nhắn"
                 avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
               />

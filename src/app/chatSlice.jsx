@@ -8,6 +8,8 @@ export const chatSlice = createSlice({
       id: 0,
       name: "",
       type: 0,
+      idGroup: null,
+      idPhonebook: null,
     },
     message: [],
 
