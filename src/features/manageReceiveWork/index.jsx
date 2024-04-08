@@ -1,18 +1,18 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import TitleCard from "../../components/Cards/TitleCard";
-import { showNotification } from "../common/headerSlice";
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { TaskComponent } from "../common/TaskComponent";
+import { jwtDecode } from "jwt-decode";
+import { getListAssignTask } from "../../app/taskSlice";
 const INITIAL_INTEGRATION_LIST = [
   {
-    name: "Công việc nhận",
+    name: "Công việc giao 1",
     icon: "https://cdn-icons-png.flaticon.com/512/2111/2111615.png",
     isActive: true,
     description:
       "Slack is an instant messaging program designed by Slack Technologies and owned by Salesforce.",
   },
   {
-    name: "Facebook",
+    name: "Công việc giao 2",
     icon: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
     isActive: false,
     description:
@@ -58,53 +58,30 @@ const INITIAL_INTEGRATION_LIST = [
 function ManageReceiveWork() {
   const dispatch = useDispatch();
 
-  const [integrationList, setIntegrationList] = useState(
-    INITIAL_INTEGRATION_LIST
-  );
+  const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
+  console.log('taskAssign_taskSlice:', taskAssign_taskSlice)
 
-  const updateIntegrationStatus = (index) => {
-    let integration = integrationList[index];
-    setIntegrationList(
-      integrationList.map((i, k) => {
-        if (k === index) return { ...i, isActive: !i.isActive };
-        return i;
-      })
-    );
-    dispatch(
-      showNotification({
-        message: `${integration.name} ${
-          integration.isActive ? "disabled" : "enabled"
-        }`,
-        status: 1,
-      })
-    );
-  };
+  useEffect(() => {
+
+    const tokenJWT = localStorage.getItem("token")
+    const dataSend = {
+      manguoigiaoviec: jwtDecode(tokenJWT).id,
+      manhom: null,
+      manguoinhan: null,
+    };
+
+    dispatch(getListAssignTask(dataSend));
+
+  }, []);
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {integrationList.map((i, k) => {
-          return (
-            <TitleCard key={k} title={i.name} topMargin={"mt-2"}>
-              <p className="flex">
-                <img
-                  alt="icon"
-                  src={i.icon}
-                  className="w-12 h-12 inline-block mr-4"
-                />
-                {i.description}
-              </p>
-              <div className="mt-6 text-right">
-                <input
-                  type="checkbox"
-                  className="toggle toggle-success toggle-lg"
-                  checked={i.isActive}
-                  onChange={() => updateIntegrationStatus(k)}
-                />
-              </div>
-            </TitleCard>
-          );
-        })}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+        {taskAssign_taskSlice
+          ? taskAssign_taskSlice.map((i, k) => {
+            return <TaskComponent task={i} />;
+          })
+          : ""}
       </div>
     </>
   );
