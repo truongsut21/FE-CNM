@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getMessagePN = createAsyncThunk("getMessagePN", async () => {
+export const getMessagePN = createAsyncThunk("getMessagePN", async (data) => {
   try {
     const tokenJWT = localStorage.getItem("token");
     const url = `tinnhan/getMessagePN`;
 
-    const response = await axios.get(url, {
+    const response = await axios.post(url, data, {
       headers: {
         accept: "*/*",
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export const chatSlice = createSlice({
       idGroup: null,
       idPhonebook: null,
     },
-    message: [],
+    message_chatSlice: [],
 
     type: 0,
   },
@@ -40,15 +40,15 @@ export const chatSlice = createSlice({
     },
 
     updateMessage_chatSlice: (state, action) => {
-      state.message = action.payload;
+      state.message_chatSlice = action.payload;
     },
   },
 
   extraReducers: {
     [getMessagePN.fulfilled]: (state, action) => {
       console.log("action.payload listGroup:", action.payload);
-      state.message = action.payload;
-    }
+      state.message_chatSlice = action.payload;
+    },
   },
 });
 

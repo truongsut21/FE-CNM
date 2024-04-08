@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
 import {
   ChatBubbleBottomCenterTextIcon,
@@ -15,6 +15,7 @@ import {
   RIGHT_DRAWER_TYPES,
 } from "../../../../utils/globalConstantUtil";
 import { openModal } from "../../../common/modalSlice";
+import { token } from "../../../../app/token";
 
 const TopSideButtons = () => {
   const dispatch = useDispatch();
@@ -55,12 +56,19 @@ const TopSideButtons = () => {
   );
 };
 export const CardChat = () => {
+  const containerRef = useRef(null);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  
+  const { message_chatSlice } = useSelector((state) => state.chatSlice);
 
+  const idLogin = token().id;
+  const nameLogin = token().lastname;
+
+  // xử lý lăn cuộn xuống dưới cùng
   useEffect(() => {
-    console.log('infoRoom:', infoRoom)
-  }, [infoRoom])
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [message_chatSlice]);
   
   return (
     <div className="col-span-3">
@@ -97,19 +105,34 @@ export const CardChat = () => {
                 </button>
               </div>
             </form>
-            <div className=" overflow-y-auto">
+            <div className=" overflow-y-auto " ref={containerRef}>
+              {/* <ChatReci />
               <ChatReci />
-              <ChatReci />
-              <ChatReci />
-              <ChatReci />
-              <ChatReci />
-              <ChatReci />
-              <ChatReci />
-              <ChatSend />
-              <ChatSend />
-              <ChatSend />
-              <ChatSend />
-              <ChatSend />
+              <ChatSend /> */}
+
+              {message_chatSlice.length > 0
+                ? message_chatSlice.map((item, index) => {
+                    if (item.manguoinhan === idLogin) {
+                      return (
+                        <ChatReci
+                          content={item.noidung}
+                          id={item.manguoigui}
+                          key={index}
+                          name={infoRoom.name}
+                        />
+                      );
+                    } else {
+                      return (
+                        <ChatSend
+                          content={item.noidung}
+                          id={item.manguoigui}
+                          name={nameLogin}
+                          key={index}
+                        />
+                      );
+                    }
+                  })
+                : "Bạn chưa có tin nhắn nào"}
             </div>
           </div>
         </TitleCard>
@@ -117,7 +140,7 @@ export const CardChat = () => {
         <TitleCard title="" topMargin="mt-2">
           <div className="h-[38rem] flex">
             <img
-            className="m-auto"
+              className="m-auto"
               src="https://cdn.dribbble.com/users/1520241/screenshots/9574747/empty-illustration_1.gif"
               alt=""
             />

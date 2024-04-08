@@ -1,20 +1,41 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateInfoUser_chatSlice } from "../../../../app/chatSlice";
+import {
+  getMessagePN,
+  updateInfoUser_chatSlice,
+} from "../../../../app/chatSlice";
+import { jwtDecode } from "jwt-decode";
 
-export default function AvataUser({ name, avata, mess, id, type, idPhonebook }) {
+export default function AvataUser({
+  name,
+  avata,
+  mess,
+  id,
+  type,
+  idPhonebook,
+}) {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
 
   const handeActiveChat = () => {
     dispatch(updateInfoUser_chatSlice({ id, name, type, idPhonebook }));
+
+    const tokenJWT = localStorage.getItem("token");
+    const id_login = jwtDecode(tokenJWT).id;
+
+    const dataSend = {
+      manguoigui: id_login,
+      manguoinhan: id,
+    };
+    dispatch(getMessagePN(dataSend));
   };
 
   return (
     <div
       onClick={handeActiveChat}
-      className={`flex p-2 items-center gap-4 mt-2 rounded-md hover:bg-base-300 cursor-pointer ${id === infoRoom.id ? "bg-base-300" : ""
-        }`}
+      className={`flex p-2 items-center gap-4 mt-2 rounded-md hover:bg-base-300 cursor-pointer ${
+        id === infoRoom.id ? "bg-base-300" : ""
+      }`}
     >
       <img className="w-10 h-10 rounded-full" src={avata} alt="" />
       <div className="font-medium dark:text-white">
