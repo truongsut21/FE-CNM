@@ -35,7 +35,7 @@ export const TaskComponent = ({ task, index }) => {
     <>
       <div class="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
         <div>
-          <p className="font-bold text-md mb-2">{task.tencongviec}</p>
+          <p className="font-bold text-md mb-2 mr-5">{task.tencongviec}</p>
 
           {/* btn  */}
           <div className="absolute top-3 right-3">
