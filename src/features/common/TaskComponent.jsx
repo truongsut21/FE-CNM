@@ -7,12 +7,80 @@ import {
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 
+const getDummyDeadline = (deadline) => {
+  if (deadline < 0)
+    return (
+      <div className="badge font-semibold badge-error absolute bottom-2 right-3 ">
+        Quá hạn {deadline * -1} ngày
+      </div>
+    );
+  else if (deadline < 3)
+    return (
+      <div className="badge font-semibold badge-warning absolute bottom-2 right-3 ">
+        Còn {deadline} ngày
+      </div>
+    );
+  else
+    return (
+      <div className="badge font-semibold badge-accent absolute bottom-2 right-3 ">
+        Còn {deadline} ngày
+      </div>
+    );
+};
+
 export const TaskComponent = ({ task, index }) => {
   const now = moment();
   const deadline = moment(task.thoihan).diff(now, "days");
   return (
     <>
-      <div
+      <div class="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
+        <div>
+          <p className="font-bold text-md mb-2">{task.tencongviec}</p>
+
+          {/* btn  */}
+          <div className="absolute top-3 right-3">
+            <div className="dropdown dropdown-bottom dropdown-end  ml-2 z-50">
+              <label
+                tabIndex={0}
+                className="btn btn-ghost btn-sm normal-case btn-square "
+              >
+                <EllipsisVerticalIcon className="w-5" />
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu menu-compact   p-2 shadow bg-base-100 ring-1 rounded-box w-52"
+              >
+                <li>
+                  <a>
+                    <ClockIcon className="w-4" />
+                    Tạo nhắc nhở
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <ClipboardIcon className="w-4" />
+                    Báo cáo
+                  </a>
+                </li>
+                <li>
+                  <a>
+                    <InformationCircleIcon className="w-4" />
+                    Xem chi tiết
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="divider m-0"></div>
+        <p className="text-sm break-words mb-4">{task.noidung}</p>
+
+        <div className=" absolute bottom-2 left-3 badge badge-success badge-xs"></div>
+
+        {getDummyDeadline(deadline)}
+      </div>
+
+      {/* <div
         className={"card w-full p-3 bg-base-100 shadow-xl mt-2 ring-1"}
         key={index}
       >
@@ -60,13 +128,12 @@ export const TaskComponent = ({ task, index }) => {
         </div>
         <div className="divider mt-2"></div>
 
-        {/** Card Body */}
         <div className="h-full w-full bg-base-100">
           <div className="">
             <p className="flex text-sm">{task.noidung}</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
