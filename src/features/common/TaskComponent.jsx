@@ -6,24 +6,23 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import moment from "moment";
-import { truncateString } from "./truncateString";
 
 const getDummyDeadline = (deadline) => {
   if (deadline < 0)
     return (
-      <div className="badge font-semibold badge-error absolute bottom-2 right-3 ">
+      <div className="badge font-semibold badge-error absolute bottom-3 right-3 ">
         Quá hạn {deadline * -1} ngày
       </div>
     );
   else if (deadline < 3)
     return (
-      <div className="badge font-semibold badge-warning absolute bottom-2 right-3 ">
+      <div className="badge font-semibold badge-warning absolute bottom-3 right-3 ">
         Còn {deadline} ngày
       </div>
     );
   else
     return (
-      <div className="badge font-semibold badge-accent absolute bottom-2 right-3 ">
+      <div className="badge font-semibold badge-accent absolute bottom-3 right-3 ">
         Còn {deadline} ngày
       </div>
     );
@@ -74,11 +73,22 @@ export const TaskComponent = ({ task, index }) => {
           </div>
         </div>
         <div className="divider m-0"></div>
-        <p className="text-sm break-words mb-5">
-          {truncateString(task.noidung, 100)}
+
+        <p
+          className="text-sm break-words mb-7"
+          style={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 2,
+            padding: 0,
+          }}
+        >
+          {task.noidung}
         </p>
 
-        <div className=" absolute bottom-2 left-3 badge badge-success badge-xs"></div>
+        <div className=" absolute bottom-3 left-3 badge badge-success badge-xs"></div>
 
         {getDummyDeadline(deadline)}
       </div>
