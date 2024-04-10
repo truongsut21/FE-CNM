@@ -13,7 +13,7 @@ export const ChatReci = ({ content, id, name }) => {
       </div>
       <div className="chat-header">
         {name}
-        <time className="text-xs opacity-50">02:29</time>
+        <time className="text-xs opacity-50"> 02:29</time>
       </div>
       <div className="chat-bubble">{content}</div>
     </div>

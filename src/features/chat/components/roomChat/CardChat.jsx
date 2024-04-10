@@ -113,7 +113,7 @@ export const CardChat = () => {
                 />
                 <button
                   onClick={handleSubmitMessage}
-                  className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2 "
+                  className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-custom-primary hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2 "
                 >
                   Gửi <PaperAirplaneIcon className="w-5" />
                 </button>

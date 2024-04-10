@@ -10,25 +10,25 @@ import moment from "moment";
 const getDummyDeadline = (deadline) => {
   if (deadline < 0)
     return (
-      <div className="badge font-semibold badge-error absolute bottom-3 right-3 ">
+      <div className="badge font-semibold bg-custom-error absolute bottom-3 right-3 ">
         Quá hạn {deadline * -1} ngày
       </div>
     );
   else if (deadline < 3 && deadline > 0)
     return (
-      <div className="badge font-semibold badge-warning absolute bottom-3 right-3 ">
+      <div className="badge font-semibold bg-custom-warning absolute bottom-3 right-3 ">
         Còn {deadline} ngày
       </div>
     );
     else if (deadline === 0)
     return (
-      <div className="badge font-semibold badge-warning absolute bottom-3 right-3 ">
+      <div className="badge font-semibold bg-custom-warning absolute bottom-3 right-3 ">
         Đến hạn
       </div>
     );
   else
     return (
-      <div className="badge font-semibold badge-accent absolute bottom-3 right-3 ">
+      <div className="badge font-semibold bg-custom-success absolute bottom-3 right-3 ">
         Còn {deadline} ngày
       </div>
     );

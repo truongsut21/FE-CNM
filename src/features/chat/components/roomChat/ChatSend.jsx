@@ -13,7 +13,7 @@ export const ChatSend = ({ content, id, name }) => {
       </div>
       <div className="chat-header">
         {name}
-        <time className="text-xs opacity-50">02:30</time>
+        <time className="text-xs opacity-50"> 02:30</time>
       </div>
       <div className="chat-bubble">{content}</div>
       <div className="chat-footer opacity-50">Seen at 12:46</div>
