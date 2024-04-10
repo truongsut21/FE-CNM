@@ -14,10 +14,16 @@ const getDummyDeadline = (deadline) => {
         Quá hạn {deadline * -1} ngày
       </div>
     );
-  else if (deadline < 3)
+  else if (deadline < 3 && deadline > 0)
     return (
       <div className="badge font-semibold badge-warning absolute bottom-3 right-3 ">
         Còn {deadline} ngày
+      </div>
+    );
+    else if (deadline === 0)
+    return (
+      <div className="badge font-semibold badge-warning absolute bottom-3 right-3 ">
+        Đến hạn
       </div>
     );
   else
