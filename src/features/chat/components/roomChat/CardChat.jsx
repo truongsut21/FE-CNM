@@ -267,6 +267,13 @@ export const CardChat = () => {
     };
   }, []);
 
+    // // xử lý lăn cuộn xuống dưới cùng
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [message_chatSlice]);
+
   return (
     <div className="col-span-3">
       {infoRoom.id ? (
