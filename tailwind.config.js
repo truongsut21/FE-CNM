@@ -6,9 +6,6 @@ module.exports = {
     "./node_modules/flowbite/**/*.js",
   ],
   darkMode: ["class", '[data-theme="dark"]'],
-  theme: {
-    extend: {},
-  },
   plugins: [
     require("@tailwindcss/typography"),
     require("daisyui"),

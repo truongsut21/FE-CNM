@@ -20,7 +20,7 @@ const getDummyDeadline = (deadline) => {
         Còn {deadline} ngày
       </div>
     );
-    else if (deadline === 0)
+  else if (deadline === 0)
     return (
       <div className="badge font-semibold bg-custom-warning absolute bottom-3 right-3 ">
         Đến hạn
@@ -34,9 +34,34 @@ const getDummyDeadline = (deadline) => {
     );
 };
 
+const getTaskStage = (stage) => {
+  if (stage === 1)
+    return (
+      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+        <div className="absolute bottom-0.5 left-0 badge bg-custom-warning badge-xs"></div>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Chưa bắt đầu</p>
+      </div>
+    );
+  else if (stage === 2)
+    return (
+      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+        <div className="absolute bottom-0.5 left-0 badge bg-custom-success badge-xs"></div>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Đang thực hiện</p>
+      </div>
+    );
+  else
+    return (
+      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+        <div className="absolute bottom-0.5 left-0 badge badge-success badge-xs"></div>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Hoàn thành</p>
+      </div>
+    );
+};
+
 export const TaskComponent = ({ task, index }) => {
   const now = moment();
   const deadline = moment(task.thoihan).diff(now, "days");
+  const stage = task.maloaitrangthaicongviec;
   return (
     <>
       <div className="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
@@ -94,7 +119,8 @@ export const TaskComponent = ({ task, index }) => {
           {task.noidung}
         </p>
 
-        <div className=" absolute bottom-3 left-3 badge badge-success badge-xs"></div>
+        {/* <div className=" absolute bottom-3 left-3 badge badge-success badge-xs"></div> */}
+        {getTaskStage(stage)}
 
         {getDummyDeadline(deadline)}
       </div>
