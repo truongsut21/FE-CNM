@@ -21,15 +21,13 @@ export const getListGroup = createAsyncThunk("nhom/getAllGroups", async () => {
   }
 });
 
-export const getListMemberGroup = createAsyncThunk(
-  "getListMemberGroup",
-  async (data) => {
+export const getAllMembersInGroup = createAsyncThunk(
+  "getAllMembersInGroup",
+  async (id) => {
     try {
       const tokenJWT = localStorage.getItem("token");
-      const id = jwtDecode(tokenJWT).id;
-      const url = `danhba/getAllContact/${id}`;
-
-      const response = await axios.get(url, data, {
+      const url = `/dsthanhviennhom/getAllMembersInGroup/${id}`;
+      const response = await axios.get(url, {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
@@ -60,8 +58,8 @@ export const groupSlice = createSlice({
       console.log("action.payload listGroup:", action.payload);
       state.listGroup = action.payload;
     },
-    [getListMemberGroup.fulfilled]: (state, action) => {
-      console.log("action.payload getListMemberGroup:", action.payload);
+    [getAllMembersInGroup.fulfilled]: (state, action) => {
+      console.log("action.payload getAllMembersInGroup:", action.payload);
       state.listNembers = action.payload;
     },
   },

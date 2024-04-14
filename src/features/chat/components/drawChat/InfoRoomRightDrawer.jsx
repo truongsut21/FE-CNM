@@ -13,6 +13,7 @@ function InfoRoomRightDrawer() {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
   console.log("infoRoom:", infoRoom);
+  
   const deleteContact = () => {
     dispatch(
       openModal({
@@ -27,6 +28,8 @@ function InfoRoomRightDrawer() {
       })
     );
   };
+
+  
 
   return (
     <div className="mt-4 flex flex-col">

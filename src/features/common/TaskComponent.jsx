@@ -39,7 +39,7 @@ export const TaskComponent = ({ task, index }) => {
   const deadline = moment(task.thoihan).diff(now, "days");
   return (
     <>
-      <div class="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
+      <div className="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
         <div>
           <p className="font-bold text-md mb-2 mr-5">{task.tencongviec}</p>
 

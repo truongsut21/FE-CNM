@@ -18,16 +18,34 @@ export default function AvataUser({
   const { infoRoom } = useSelector((state) => state.chatSlice);
 
   const handeActiveChat = () => {
-    dispatch(updateInfoUser_chatSlice({ id, name, type, idPhonebook }));
-
     const tokenJWT = localStorage.getItem("token");
     const id_login = jwtDecode(tokenJWT).id;
 
-    const dataSend = {
-      manguoigui: id_login,
-      manguoinhan: id,
-    };
-    dispatch(getMessagePN(dataSend));
+    dispatch(
+      updateInfoUser_chatSlice({
+        id: id,
+        name: name,
+        type: type,
+        idPhonebook: idPhonebook,
+      })
+    );
+
+    // sử lý tin nhắn cá nhân
+    if (type === 0) {
+      const dataSend = {
+        manguoigui: id_login,
+        manguoinhan: id,
+      };
+      dispatch(getMessagePN(dataSend));
+    }
+
+    // xử lý tin nhắn nhóm
+    if (type === 1) {
+      const dataSend = {
+        manhomnhan: id,
+      };
+      dispatch(getMessagePN(dataSend));
+    }
   };
 
   return (

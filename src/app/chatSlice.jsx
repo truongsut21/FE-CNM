@@ -19,15 +19,32 @@ export const getMessagePN = createAsyncThunk("getMessagePN", async (data) => {
   }
 });
 
+export const getMessageGR = createAsyncThunk("getMessageGR", async (data) => {
+  try {
+    const tokenJWT = localStorage.getItem("token");
+    const url = `tinnhan/getMessageGR`;
+
+    const response = await axios.post(url, data, {
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+        Authorization: `${tokenJWT}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error; // Xử lý lỗi nếu có
+  }
+});
+
 export const chatSlice = createSlice({
   name: "chatSlice",
   initialState: {
     isLoading: false,
     infoRoom: {
-      id: 0,
+      id: 0, // id người nhắn tin, id group
       name: "",
       type: 0,
-      idGroup: null,
       idPhonebook: null,
     },
     message_chatSlice: [],
@@ -46,7 +63,11 @@ export const chatSlice = createSlice({
 
   extraReducers: {
     [getMessagePN.fulfilled]: (state, action) => {
-      console.log("action.payload listGroup:", action.payload);
+      console.log("action.payload getMessagePN:", action.payload);
+      state.message_chatSlice = action.payload;
+    },
+    [getMessageGR.fulfilled]: (state, action) => {
+      console.log("action.payload getMessageGR:", action.payload);
       state.message_chatSlice = action.payload;
     },
   },
