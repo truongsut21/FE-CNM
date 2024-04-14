@@ -19,7 +19,6 @@
 // import moment from "moment";
 // import { FetchSendMessagePN } from "../../service/FetchSendMessagePN";
 
-
 // const TopSideButtons = () => {
 //   const dispatch = useDispatch();
 
@@ -166,8 +165,6 @@
 //   );
 // };
 
-
-
 import React, { useEffect, useRef, useState } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
 import {
@@ -270,74 +267,74 @@ export const CardChat = () => {
     };
   }, []);
 
-
-return (
-  <div className="col-span-3">
-    {infoRoom.id ? (
-      <TitleCard
-        title={infoRoom.name}
-        topMargin="mt-2"
-      >
-        <div className="h-[37rem] flex flex-col-reverse">
-          <div className="sticky top-0 mt-4">
-            <div className="relative">
-              <input
-                type="search"
-                id="search"
-                value={messageValue}
-                onChange={(e) => setmessageValue(e.target.value)}
-                className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
-                placeholder="Nhập tin nhắn..."
-                required
-              />
-              <button
-                onClick={handleSubmitMessage}
-                className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-custom-primary hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2 "
-              >
-                Gửi
-              </button>
+  return (
+    <div className="col-span-3">
+      {infoRoom.id ? (
+        <TitleCard
+          title={infoRoom.name}
+          topMargin="mt-2"
+          TopSideButtons={<TopSideButtons />}
+        >
+          <div className="h-[37rem] flex flex-col-reverse">
+            <div className="sticky top-0 mt-4">
+              <div className="relative">
+                <input
+                  type="search"
+                  id="search"
+                  value={messageValue}
+                  onChange={(e) => setmessageValue(e.target.value)}
+                  className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                  placeholder="Nhập tin nhắn..."
+                  required
+                />
+                <button
+                  onClick={handleSubmitMessage}
+                  className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-custom-primary hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2 "
+                >
+                  Gửi
+                </button>
+              </div>
+            </div>
+            <div className=" overflow-y-auto " ref={containerRef}>
+              {message_chatSlice.length > 0
+                ? message_chatSlice.map((item, index) => {
+                    if (item.manguoinhan === idLogin) {
+                      return (
+                        <ChatReci
+                          content={item.noidung}
+                          id={item.manguoigui}
+                          key={index}
+                          name={infoRoom.name}
+                          time={item.thoigiangui}
+                        />
+                      );
+                    } else {
+                      return (
+                        <ChatSend
+                          content={item.noidung}
+                          id={item.manguoigui}
+                          name={nameLogin}
+                          key={index}
+                          time={item.thoigiangui}
+                        />
+                      );
+                    }
+                  })
+                : "Bạn chưa có tin nhắn nào"}
             </div>
           </div>
-          <div className=" overflow-y-auto " ref={containerRef}>
-            {message_chatSlice.length > 0
-              ? message_chatSlice.map((item, index) => {
-                  if (item.manguoinhan === idLogin) {
-                    return (
-                      <ChatReci
-                        content={item.noidung}
-                        id={item.manguoigui}
-                        key={index}
-                        name={infoRoom.name}
-                        time ={item.thoigiangui}
-                      />
-                    );
-                  } else {
-                    return (
-                      <ChatSend
-                        content={item.noidung}
-                        id={item.manguoigui}
-                        name={nameLogin}
-                        key={index}
-                        time ={item.thoigiangui}
-                      />
-                    );
-                  }
-                })
-              : "Bạn chưa có tin nhắn nào"}
+        </TitleCard>
+      ) : (
+        <TitleCard title="" topMargin="mt-2">
+          <div className="h-[38rem] flex">
+            <img
+              className="m-auto"
+              src="https://cdn.dribbble.com/users/1520241/screenshots/9574747/empty-illustration_1.gif"
+              alt=""
+            />
           </div>
-        </div>
-      </TitleCard>
-    ) : (
-      <TitleCard title="" topMargin="mt-2">
-        <div className="h-[38rem] flex">
-          <img
-            className="m-auto"
-            src="https://cdn.dribbble.com/users/1520241/screenshots/9574747/empty-illustration_1.gif"
-            alt=""
-          />
-        </div>
-      </TitleCard>
-    )}
-  </div>
-);
+        </TitleCard>
+      )}
+    </div>
+  );
 };

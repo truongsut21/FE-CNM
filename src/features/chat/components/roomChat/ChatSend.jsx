@@ -21,7 +21,6 @@
 //   );
 // };
 
-
 import React, { useState } from "react";
 import moment from "moment";
 
@@ -32,9 +31,7 @@ export const ChatSend = ({ content, id, name, time }) => {
 
   // Xử lý sự kiện khi tin nhắn được xem lần đầu tiên
   const handleSeen = () => {
-    if (!isSeen) {
-      setIsSeen(true);
-    }
+    setIsSeen(!isSeen);
   };
 
   return (
@@ -52,8 +49,11 @@ export const ChatSend = ({ content, id, name, time }) => {
         <time className="text-xs opacity-50"> {formattedTime}</time>
       </div>
       <div className="chat-bubble">{content}</div>
-      {isSeen && <div className="chat-footer opacity-50">Seen at {moment().format("HH:mm")}</div>}
+      {isSeen && (
+        <div className="chat-footer opacity-50">
+          Seen at {moment().format("HH:mm")}
+        </div>
+      )}
     </div>
   );
 };
-
