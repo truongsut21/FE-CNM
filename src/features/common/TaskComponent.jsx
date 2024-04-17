@@ -10,25 +10,25 @@ import moment from "moment";
 const getDummyDeadline = (deadline) => {
   if (deadline < 0)
     return (
-      <div className="badge font-semibold bg-custom-error absolute bottom-3 pb-1 right-3 ">
+      <div className="badge font-semibold bg-custom-error border-custom-error absolute bottom-2.5 pb-1 right-3 ">
         Quá hạn {deadline * -1} ngày
       </div>
     );
   else if (deadline < 3 && deadline > 0)
     return (
-      <div className="badge font-semibold bg-custom-warning absolute bottom-3 pb-1 right-3 ">
+      <div className="badge font-semibold bg-custom-warning border-custom-warning absolute bottom-2.5 pb-1 right-3 ">
         Còn {deadline} ngày
       </div>
     );
   else if (deadline === 0)
     return (
-      <div className="badge font-semibold bg-custom-warning absolute bottom-3 pb-1 right-3 ">
+      <div className="badge font-semibold bg-custom-warning border-custom-warning absolute bottom-2.5 pb-1 right-3 ">
         Đến hạn
       </div>
     );
   else
     return (
-      <div className="badge font-semibold bg-custom-success absolute bottom-3 pb-1 right-3 ">
+      <div className="badge font-semibold bg-custom-success border-custom-success absolute bottom-2.5 pb-1 right-3 ">
         Còn {deadline} ngày
       </div>
     );
@@ -38,21 +38,21 @@ const getTaskStage = (stage) => {
   if (stage === 1)
     return (
       <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
-        <div className="absolute bottom-0.5 left-0 badge bg-custom-warning badge-xs"></div>
+        <div className="absolute bottom-0.5 left-0 badge bg-custom-warning badge-xs border-custom-warning"></div>
         <p className="text-xs text-gray-600 break-words mb-0 pl-4">Chưa bắt đầu</p>
       </div>
     );
   else if (stage === 2)
     return (
       <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
-        <div className="absolute bottom-0.5 left-0 badge bg-custom-success badge-xs"></div>
+        <div className="absolute bottom-0.5 left-0 badge bg-custom-success badge-xs border-custom-success"></div>
         <p className="text-xs text-gray-600 break-words mb-0 pl-4">Đang thực hiện</p>
       </div>
     );
   else
     return (
       <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
-        <div className="absolute bottom-0.5 left-0 badge badge-success badge-xs"></div>
+        <div className="absolute bottom-0.5 left-0 badge badge-success badge-xs border-success"></div>
         <p className="text-xs text-gray-600 break-words mb-0 pl-4">Hoàn thành</p>
       </div>
     );
@@ -66,7 +66,16 @@ export const TaskComponent = ({ task, index }) => {
     <>
       <div className="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
         <div>
-          <p className="font-bold text-md mb-2 mr-5">{task.tencongviec}</p>
+          <p className="font-bold text-md mb-2 mr-5"
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 1,
+                padding: 0,
+              }}
+          >{task.tencongviec}</p>
 
           {/* btn  */}
           <div className="absolute top-3 right-3">
