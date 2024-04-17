@@ -1,0 +1,19 @@
+{
+    "matinnhan": 34, thieu
+    "maloaitinnhan": 1, thieu
+    "manguoigui": 1,/
+    "manguoinhan": 2,/
+    "manhomnhan": null,
+    "noidung": "Hi bạn iuu",/
+    "thoigiangui": "2024-04-10T17:00:00.000Z"/
+}
+
+// tin nhắn từ socket
+
+{
+    "manguoigui": 2,
+    "manguoinhan": 1,
+    "noidung": "123",
+    "thoigiangui": "2024-04-17 07:36:50",
+    "receiverId": 1
+}
