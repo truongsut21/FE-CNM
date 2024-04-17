@@ -64,36 +64,43 @@ const TopSideButtons = () => {
 export const CardChat = () => {
   const dispatch = useDispatch();
   const containerRef = useRef(null);
+  const socketRef = useRef();
 
-  const { infoRoom } = useSelector((state) => state.chatSlice);
   const { message_chatSlice } = useSelector((state) => state.chatSlice);
+  const { infoRoom } = useSelector((state) => state.chatSlice);
+  console.log("infoRoom:", infoRoom);
 
   const [messageValue, setmessageValue] = useState("");
 
   const idLogin = token().id;
   const nameLogin = token().lastname;
 
-  // start socket
-  const [socket, setSocket] = useState(null);
-  const [userId, setUserId] = useState(null);
-
-  const tokenJWT = localStorage.getItem("token");
-  const id = jwtDecode(tokenJWT).id;
   useEffect(() => {
-    const newSocket = io("http://localhost:3003");
-    setSocket(newSocket);
-
-    // Tạo một userId ngẫu nhiên
-    const newUserId = id;
-    setUserId(newUserId);
-
+    socketRef.current = io("http://localhost:3003");
     // Gửi sự kiện 'setUserId' với userId mới
-    newSocket.emit("setUserId", newUserId);
+    socketRef.current.emit("setUserId", idLogin);
+
+
+    // Xử lý dữ liệu nhận được từ máy chủ
+    socketRef.current.on("message", (data) => {
+      console.log("Received message:", data);
+
+      // cập nhật tin nhắn nhận
+      console.log("infoRoom.id:", infoRoom.id);
+      console.log("data.manguoigui:", data.manguoigui);
+
+      // kiểm tra người gửi, nếu đúng render ra
+      if (data.manguoigui === infoRoom.id) {
+        console.log("đã nhảy vô hàm cập nhật tin nhắn");
+        const tempmessage_chatSlice = message_chatSlice.concat(data);
+        dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
+      }
+    });
 
     return () => {
-      newSocket.close();
+      socketRef.current.disconnect();
     };
-  }, []);
+  }, [infoRoom.id, message_chatSlice]);
 
   // end soket
 
@@ -109,7 +116,8 @@ export const CardChat = () => {
     console.log("dataSend handleSubmitMessage:", dataSend);
 
     // gửi data tin nhắn vô socket
-    socket.emit("sendMessage", dataSend);
+    socketRef.current.emit("sendMessage", dataSend);
+
     // Sau khi đã gửi tin nhắn, cập nhật messageValue thành chuỗi rỗng
     setmessageValue("");
     dispatch(FetchSendMessagePN(dataSend));
@@ -119,20 +127,8 @@ export const CardChat = () => {
     dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
   };
 
-  // hàm nhận tin nhắn từ socket
-  useEffect(() => {
-    if (socket) {
-      // Lắng nghe sự kiện 'message' từ máy chủ
-      socket.on("message", (data) => {
-        console.log("Received message:", data);
-        // Xử lý dữ liệu nhận được từ máy chủ
 
-        // cập nhật tin nhắn nhận
-        const tempmessage_chatSlice = message_chatSlice.concat(data);
-        dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
-      });
-    }
-  }, [dispatch, message_chatSlice, socket]);
+  // Lắng nghe sự kiện 'message' từ socket chỉ khi socket đã được khởi tạo và hiệu ứng useEffect đã thực thi
 
   // // xử lý lăn cuộn xuống dưới cùng
   useEffect(() => {
