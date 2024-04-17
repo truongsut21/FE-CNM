@@ -80,7 +80,6 @@ export const CardChat = () => {
     // Gửi sự kiện 'setUserId' với userId mới
     socketRef.current.emit("setUserId", idLogin);
 
-
     // Xử lý dữ liệu nhận được từ máy chủ
     socketRef.current.on("message", (data) => {
       console.log("Received message:", data);
@@ -127,8 +126,13 @@ export const CardChat = () => {
     dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
   };
 
-
-  // Lắng nghe sự kiện 'message' từ socket chỉ khi socket đã được khởi tạo và hiệu ứng useEffect đã thực thi
+  const handleKeyPress = (e) => {
+    // Kiểm tra nếu phím được bấm là Enter
+    if (e.key === "Enter") {
+      // Gọi sự kiện của button
+      handleSubmitMessage();
+    }
+  };
 
   // // xử lý lăn cuộn xuống dưới cùng
   useEffect(() => {
@@ -153,6 +157,7 @@ export const CardChat = () => {
                   id="search"
                   value={messageValue}
                   onChange={(e) => setmessageValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
                   className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
                   placeholder="Nhập tin nhắn..."
                   required
