@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TaskComponent } from "../common/TaskComponent";
 import { jwtDecode } from "jwt-decode";
-import { getListAssignTask } from "../../app/taskSlice";
+import { getListTaskReceived } from "../../app/taskSlice";
 const INITIAL_INTEGRATION_LIST = [
   {
     name: "Công việc giao 1",
@@ -55,30 +55,31 @@ const INITIAL_INTEGRATION_LIST = [
   },
 ];
 
+
 function ManageReceiveWork() {
   const dispatch = useDispatch();
 
-  const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
-  console.log('taskAssign_taskSlice:', taskAssign_taskSlice)
+  const { taskRecei_taskSlice } = useSelector((state) => state.taskSlice);
+  console.log('taskRecei_taskSlice:', taskRecei_taskSlice)
 
   useEffect(() => {
 
     const tokenJWT = localStorage.getItem("token")
     const dataSend = {
-      manguoigiaoviec: jwtDecode(tokenJWT).id,
+      manguoigiaoviec: null,
       manhom: null,
-      manguoinhan: null,
+      manguoinhan: jwtDecode(tokenJWT).id,
     };
 
-    dispatch(getListAssignTask(dataSend));
+    dispatch(getListTaskReceived(dataSend));
 
   }, []);
 
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        {taskAssign_taskSlice
-          ? taskAssign_taskSlice.map((i, k) => {
+        {taskRecei_taskSlice
+          ? taskRecei_taskSlice.map((i, k) => {
             return <TaskComponent task={i} />;
           })
           : ""}

@@ -20,6 +20,25 @@ export const getListAssignTask = createAsyncThunk("getListAssignTask", async (da
     }
 });
 
+export const getListTaskReceived = createAsyncThunk("getListTaskReceived", async (data) => {
+    console.log("first")
+    try {
+        const tokenJWT = localStorage.getItem("token");
+        const url = `congviec/getListTaskReceived/`;
+
+        const response = await axios.post(url, data, {
+            headers: {
+                accept: "*/*",
+                "Content-Type": "application/json",
+                Authorization: `${tokenJWT}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw error; // Xử lý lỗi nếu có
+    }
+});
+
 export const taskSlice = createSlice({
 
     name: "taskSlice",
@@ -42,10 +61,16 @@ export const taskSlice = createSlice({
         [getListAssignTask.fulfilled]: (state, action) => {
             console.log("action.payload taskAssign_taskSlice:", action.payload);
             state.taskAssign_taskSlice = action.payload;
+        },
+
+        [getListTaskReceived.fulfilled]: (state, action) => {
+            console.log("action.payload taskRecei_taskSlice:", action.payload);
+            state.taskRecei_taskSlice = action.payload;
         }
 
     },
 });
+
 
 export const { updateTaskAssign_taskSlice, updateTaskRecei_taskSlice } = taskSlice.actions;
 
