@@ -16,6 +16,7 @@ import {
   MODAL_BODY_TYPES,
 } from "../../../../utils/globalConstantUtil";
 import { openModal } from "../../../common/modalSlice";
+import { ListTaskReceive } from "./ListTaskReceive";
 
 export default function ManagerFeatures() {
   const dispatch = useDispatch();
@@ -160,7 +161,7 @@ export default function ManagerFeatures() {
                 />
               </Disclosure.Button>
               <Disclosure.Panel className="px-2 pb-2 pt-4 text-sm text-gray-500">
-                No.
+                <ListTaskReceive />
               </Disclosure.Panel>
             </>
           )}

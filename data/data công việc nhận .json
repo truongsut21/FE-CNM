@@ -1,0 +1,62 @@
+[
+    {
+        "macongviec": 20,
+        "tencongviec": "Tạo API tạo nhóm",
+        "noidung": "Input: manguoigiao, manhom(nếu không có thì null) Output: congviec, danhsachnguoinhanviec, loaitrangthaicongviec",
+        "manguoigiaoviec": 1,
+        "manhom": null,
+        "manguoinhan": 2,
+        "ngaygiao": "2024-04-10T17:00:00.000Z",
+        "thoihan": "2024-04-13T17:00:00.000Z",
+        "maloaitrangthaicongviec": 3,
+        "tentrangthai": "Đã hoàn thành"
+    },
+    {
+        "macongviec": 19,
+        "tencongviec": "Tạo API thêm danh bạ",
+        "noidung": "Input: tên, số điện thoại\nOuput: success: true, message: Thêm bạn thành công, trả về thông tin thêm vào\nsuccess: false, message: không tìm thấy người dùng\nInput: tên, số điện thoại\nOuput: success: true, message: Thêm bạn thành công, trả về thông tin thêm vào\nsuccess: false, message: không tìm thấy người dùng",
+        "manguoigiaoviec": 1,
+        "manhom": null,
+        "manguoinhan": 2,
+        "ngaygiao": "2024-04-09T17:00:00.000Z",
+        "thoihan": "2024-04-15T17:00:00.000Z",
+        "maloaitrangthaicongviec": 1,
+        "tentrangthai": "Chưa bắt đầu"
+    },
+    {
+        "macongviec": 18,
+        "tencongviec": "Tạo API Xoá danh bạ",
+        "noidung": "Note: Giải quyết vấn đề thêm lại danh bạ khi đã xoá trước đó",
+        "manguoigiaoviec": 1,
+        "manhom": null,
+        "manguoinhan": 2,
+        "ngaygiao": "2024-04-09T17:00:00.000Z",
+        "thoihan": "2024-04-16T17:00:00.000Z",
+        "maloaitrangthaicongviec": 3,
+        "tentrangthai": "Đã hoàn thành"
+    },
+    {
+        "macongviec": 21,
+        "tencongviec": "Tạo API lấy danh sách công việc giao",
+        "noidung": "Input: manguoigiao, manhom(nếu không có thì null)\nOutput: congviec, danhsachnguoinhanviec, loaitrangthaicongviec",
+        "manguoigiaoviec": 1,
+        "manhom": null,
+        "manguoinhan": 2,
+        "ngaygiao": "2024-04-09T17:00:00.000Z",
+        "thoihan": "2024-04-17T17:00:00.000Z",
+        "maloaitrangthaicongviec": 2,
+        "tentrangthai": "Đang thực hiện"
+    },
+    {
+        "macongviec": 22,
+        "tencongviec": "Tạo API lấy danh sách công việc nhận",
+        "noidung": "Input: manguoinhan(id đang đăng nhập), manguoigiaoviec(id trưởng nhóm/null) manhom(nếu không có thì null)\nOutput: congviec, danhsachnguoinhanviec, loaitrangthaicongviec",
+        "manguoigiaoviec": 1,
+        "manhom": null,
+        "manguoinhan": 2,
+        "ngaygiao": "2024-04-09T17:00:00.000Z",
+        "thoihan": "2024-04-27T17:00:00.000Z",
+        "maloaitrangthaicongviec": 3,
+        "tentrangthai": "Đã hoàn thành"
+    }
+]
