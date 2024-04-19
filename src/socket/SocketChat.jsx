@@ -12,7 +12,7 @@ const SocketChat = () => {
   const { infoRoom } = useSelector((state) => state.chatSlice);
 
   useEffect(() => {
-    socketRef.current = io("http://14.225.198.48:3003");
+    socketRef.current = io("http://localhost:3003");
     // Gửi sự kiện 'setUserId' với userId mới
     socketRef.current.emit("setUserId", idLogin);
 

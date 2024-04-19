@@ -32,7 +32,7 @@ function ProfileSettings() {
       hodem: "",
       ten: "",
       ngaysinh: "",
-      gioitinh: "0",
+      gioitinh: 0,
       matkhau: "",
     },
 
@@ -89,7 +89,7 @@ function ProfileSettings() {
     formik.setFieldValue("sodienthoai", user.sodienthoai || "1234567890");
     formik.setFieldValue("email", user.email || "a@gmail.com");
     formik.setFieldValue("diachi", user.diachi || "fix tạm");
-    formik.setFieldValue("gioitinh", user.gioitinh || "0");
+    formik.setFieldValue("gioitinh", user.gioitinh || 0);
     formik.setFieldValue("matkhau", user.matkhau || "fix tạm");
 
     formik.setFieldValue(
@@ -171,7 +171,7 @@ function ProfileSettings() {
               type="date"
               name="gioitinh"
               onChange={formik.handleChange}
-              value={formik.values.gioitinh}
+              value={parseInt(formik.values.gioitinh)}
               errors={formik.errors.gioitinh}
               options={[
                 { label: "Giới tính nam", value: 0 },

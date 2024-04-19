@@ -14,13 +14,13 @@ import { token } from "../../../../app/token";
 import moment from "moment";
 import { FetchSendMessagePN } from "../../service/FetchSendMessagePN";
 
-import socket from "./socket.io"; // Đường dẫn tới module socket
 import { io } from "socket.io-client";
 import { jwtDecode } from "jwt-decode";
 import {
   getMessagePN,
   updateMessage_chatSlice,
 } from "../../../../app/chatSlice";
+import { showNotification } from "../../../common/headerSlice";
 
 const TopSideButtons = () => {
   const dispatch = useDispatch();
@@ -76,17 +76,16 @@ export const CardChat = () => {
   const nameLogin = token().lastname;
 
   useEffect(() => {
-    socketRef.current = io("http://14.225.198.48:3003");
+    socketRef.current = io("http://localhost:3003");
     // Gửi sự kiện 'setUserId' với userId mới
     socketRef.current.emit("setUserId", idLogin);
 
     // Xử lý dữ liệu nhận được từ máy chủ
     socketRef.current.on("message", (data) => {
-      console.log("Received message:", data);
 
-      // cập nhật tin nhắn nhận
-      console.log("infoRoom.id:", infoRoom.id);
-      console.log("data.manguoigui:", data.manguoigui);
+      dispatch(
+        showNotification({ message: "Có tin nhắn mới", status: 1 })
+      );
 
       // kiểm tra người gửi, nếu đúng render ra
       if (data.manguoigui === infoRoom.id) {
