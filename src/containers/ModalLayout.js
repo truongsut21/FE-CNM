@@ -7,6 +7,7 @@ import ConfirmationModalBody from "../features/common/components/ConfirmationMod
 import AddPhonebookModalBody from "../features/chat/components/contactSection/AddPhonebookModalBody";
 import CreategroupModalBody from "../features/chat/components/contactSection/CreategroupModalBody";
 import AddTaskModalBody from "../features/chat/components/roomChat/AddTaskModalBody";
+import AddMemberGroupModalBody from "../features/chat/components/roomChat/AddMemberGroupModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -60,8 +61,14 @@ function ModalLayout() {
                   closeModal={close}
                 />
               ),
-              [MODAL_BODY_TYPES.ADD_GROUP]: (
+              [MODAL_BODY_TYPES.CREATE_GROUP]: (
                 <CreategroupModalBody
+                  extraObject={extraObject}
+                  closeModal={close}
+                />
+              ),
+              [MODAL_BODY_TYPES.ADD_MEMBER_GROUP]: (
+                <AddMemberGroupModalBody
                   extraObject={extraObject}
                   closeModal={close}
                 />

@@ -36,19 +36,6 @@ function InfoRoomRightDrawer() {
       <InfoBaseSection />
       <ManagerFeatures />
 
-      <div className="mb-5">
-        <div className="text-rose-800 text-base font-medium leading-normal my-4">
-          Danh sách công việc giao
-        </div>
-
-        <TaskComponent
-          task={{
-            name: "ten cong viec 1",
-            description:
-              "day laf mday laf mo traday laf mo traday laf mo traday laf mo traday laf mo traday laf mo trao tra",
-          }}
-        />
-      </div>
 
       <button
         className="btn w-full bg-rose-50 text-rose-700 border-none hover:bg-rose-200"

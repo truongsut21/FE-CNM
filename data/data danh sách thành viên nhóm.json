@@ -1,0 +1,42 @@
+[
+    {
+        "manhom": 20,
+        "mataikhoan": 2,
+        "ten": "Diệu Linh",
+        "sodienthoai": "0336794265",
+        "maloaiquyen": 2,
+        "tenloaiquyen": "Trưởng nhóm"
+    },
+    {
+        "manhom": 20,
+        "mataikhoan": 1,
+        "ten": "Đỗ Vân Trường",
+        "sodienthoai": "0905371627",
+        "maloaiquyen": 1,
+        "tenloaiquyen": "Thành viên"
+    },
+    {
+        "manhom": 20,
+        "mataikhoan": 3,
+        "ten": "Ngọc Ninh",
+        "sodienthoai": "0345607344",
+        "maloaiquyen": 1,
+        "tenloaiquyen": "Thành viên"
+    },
+    {
+        "manhom": 20,
+        "mataikhoan": 4,
+        "ten": "Đỗ Văn Hân",
+        "sodienthoai": "0973607710",
+        "maloaiquyen": 1,
+        "tenloaiquyen": "Thành viên"
+    },
+    {
+        "manhom": 20,
+        "mataikhoan": 7,
+        "ten": "xđ Kim Yến ",
+        "sodienthoai": "0333384094",
+        "maloaiquyen": 1,
+        "tenloaiquyen": "Thành viên"
+    }
+]

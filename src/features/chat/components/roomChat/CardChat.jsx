@@ -1,65 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import TitleCard from "../../../../components/Cards/TitleCard";
-import { Bars3Icon, CheckIcon } from "@heroicons/react/24/solid";
 import { ChatReci } from "./ChatReci";
 import { ChatSend } from "./ChatSend";
 import { useDispatch, useSelector } from "react-redux";
-import { openRightDrawer } from "../../../common/rightDrawerSlice";
-import {
-  MODAL_BODY_TYPES,
-  RIGHT_DRAWER_TYPES,
-} from "../../../../utils/globalConstantUtil";
-import { openModal } from "../../../common/modalSlice";
+
 import { token } from "../../../../app/token";
 import moment from "moment";
 import { FetchSendMessagePN } from "../../service/FetchSendMessagePN";
 
 import { io } from "socket.io-client";
-import { jwtDecode } from "jwt-decode";
-import {
-  getMessagePN,
-  updateMessage_chatSlice,
-} from "../../../../app/chatSlice";
+import { updateMessage_chatSlice } from "../../../../app/chatSlice";
 import { showNotification } from "../../../common/headerSlice";
-
-const TopSideButtons = () => {
-  const dispatch = useDispatch();
-
-  const openNotification = () => {
-    dispatch(
-      openRightDrawer({
-        header: "Thông tin hội thoại",
-        bodyType: RIGHT_DRAWER_TYPES.INFO_ROOM,
-        size: "lg",
-      })
-    );
-  };
-
-  const openAddNewTaskModal = () => {
-    dispatch(
-      openModal({
-        title: "Thêm mới công việc",
-        bodyType: MODAL_BODY_TYPES.ADD_TASK,
-      })
-    );
-  };
-  return (
-    <div>
-      <button
-        onClick={openAddNewTaskModal}
-        className="btn btn-outline btn-primary btn-sm  text-red-800 mx-2"
-      >
-        <CheckIcon className="w-5" /> Tạo công việc
-      </button>
-      <button
-        onClick={openNotification}
-        className="btn btn-outline btn-primary btn-sm  text-red-800 mx-2"
-      >
-        <Bars3Icon className="w-5" />
-      </button>
-    </div>
-  );
-};
+import { TopSideButtons } from "./TopSideButtons";
 
 export const CardChat = () => {
   const dispatch = useDispatch();
@@ -82,10 +34,7 @@ export const CardChat = () => {
 
     // Xử lý dữ liệu nhận được từ máy chủ
     socketRef.current.on("message", (data) => {
-
-      dispatch(
-        showNotification({ message: "Có tin nhắn mới", status: 1 })
-      );
+      dispatch(showNotification({ message: "Có tin nhắn mới", status: 1 }));
 
       // kiểm tra người gửi, nếu đúng render ra
       if (data.manguoigui === infoRoom.id) {
@@ -146,7 +95,9 @@ export const CardChat = () => {
         <TitleCard
           title={infoRoom.name}
           topMargin="mt-2"
-          TopSideButtons={<TopSideButtons />}
+          TopSideButtons={
+            <TopSideButtons typeRoom={infoRoom.type} idGroup={infoRoom.id} />
+          }
         >
           <div className="h-[37rem] flex flex-col-reverse">
             <div className="sticky top-0 mt-4">

@@ -15,7 +15,7 @@ export const BodyGroup = () => {
     dispatch(
       openModal({
         title: "Thêm mới nhóm",
-        bodyType: MODAL_BODY_TYPES.ADD_GROUP,
+        bodyType: MODAL_BODY_TYPES.CREATE_GROUP,
       })
     );
   };

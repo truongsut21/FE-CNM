@@ -26,6 +26,10 @@ export const validationArrayLength2 = Yup.array()
   .of(Yup.string())
   .min(2, "Phải ít nhất 2 phần tử");
 
+export const validationArrayLength1 = Yup.array()
+  .of(Yup.string())
+  .min(1, "Không được bỏ trống");
+
 export const validationPastDay = Yup.string()
   .required("Không được để trống")
   .test(
