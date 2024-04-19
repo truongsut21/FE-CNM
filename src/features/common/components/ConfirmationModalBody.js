@@ -5,12 +5,13 @@ import {
 import { deleteLead } from "../../leads/leadSlice";
 import { showNotification } from "../headerSlice";
 import { FetchDeleteContact } from "../../chat/service/FetchDeleteContact";
-import { getPhonebook } from "../../../app/phonebookSlice";
+import { FetchDeleteMemberGroup } from "../../chat/service/FetchDeleteMemberGroup";
+import { getAllMembersInGroup } from "../../../app/groupSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
 
-  const { message, type, _id, index, _idPhonebook } = extraObject;
+  const { message, type, _id, index, _idPhonebook, _idGroup, _idMember } = extraObject;
 
   const proceedWithYes = async () => {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE) {
@@ -36,6 +37,34 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
             );
 
             setTimeout(() => { window.location.reload() }, 500);
+          } else {
+            dispatch(
+              showNotification({ message: result.payload.message, status: 0 })
+            );
+          }
+        })
+        .catch((error) => {
+          dispatch(showNotification({ message: "Xoá thất bại", status: 0 }));
+          console.error("Lỗi FetchDeleteContact:", error);
+        });
+    }
+
+    if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_MEMBER_GROUP) {
+
+      const resAPI = dispatch(FetchDeleteMemberGroup({
+        _idGroup, _idMember
+      }));
+
+      resAPI
+        .then((result) => {
+          console.log("result:", result);
+          if (result.payload.success) {
+
+            closeModal();
+            dispatch(
+              showNotification({ message: result.payload.message, status: 1 })
+            );
+            dispatch(getAllMembersInGroup(_idGroup));
           } else {
             dispatch(
               showNotification({ message: result.payload.message, status: 0 })

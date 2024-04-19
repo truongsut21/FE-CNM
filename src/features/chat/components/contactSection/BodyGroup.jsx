@@ -67,6 +67,7 @@ export const BodyGroup = () => {
               key={item.manhom}
               name={item.tennhom}
               id={item.manhom}
+              leader={item.matruongnhom}
               type={1}
               mess="Chưa có tin nhắn"
               avata={`https://avatar.iran.liara.run/public/${item.manhom}`}

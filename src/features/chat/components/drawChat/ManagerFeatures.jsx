@@ -9,11 +9,43 @@ import {
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMembersInGroup } from "../../../../app/groupSlice";
+import { token } from "../../../common/token";
+import { showNotification } from "../../../common/headerSlice";
+import {
+  CONFIRMATION_MODAL_CLOSE_TYPES,
+  MODAL_BODY_TYPES,
+} from "../../../../utils/globalConstantUtil";
+import { openModal } from "../../../common/modalSlice";
 
 export default function ManagerFeatures() {
   const dispatch = useDispatch();
   const { listNembers } = useSelector((state) => state.groupSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
+  console.log("infoRoom:", infoRoom);
+
+  const handleDeleteMemberGroup = (idMember) => {
+    if (infoRoom.leader === token().id) {
+      dispatch(
+        openModal({
+          title: "Xác nhận xoá",
+          bodyType: MODAL_BODY_TYPES.CONFIRMATION,
+          extraObject: {
+            message: `Bạn có chắc chắn muốn xoá thành viên này ra khỏi nhóm?`,
+            type: CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_MEMBER_GROUP,
+            _idGroup: infoRoom.id,
+            _idMember: idMember,
+          },
+        })
+      );
+    } else {
+      dispatch(
+        showNotification({
+          message: "Bạn không phải trưởng nhóm",
+          status: 0,
+        })
+      );
+    }
+  };
 
   useEffect(() => {
     if (infoRoom.type === 1) {
@@ -91,7 +123,15 @@ export default function ManagerFeatures() {
                                         <a>Phân quyền</a>
                                       </li>
                                       <li>
-                                        <a>Xoá</a>
+                                        <button
+                                          onClick={() => {
+                                            handleDeleteMemberGroup(
+                                              item.mataikhoan
+                                            );
+                                          }}
+                                        >
+                                          xoá
+                                        </button>
                                       </li>
                                     </ul>
                                   </div>

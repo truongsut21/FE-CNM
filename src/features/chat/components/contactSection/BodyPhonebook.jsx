@@ -9,8 +9,7 @@ import { getPhonebook } from "../../../../app/phonebookSlice";
 export const BodyPhonebook = () => {
   const dispatch = useDispatch();
   const { listPhonebook } = useSelector((state) => state.phonebookSlice);
-  console.log('listPhonebook:', listPhonebook)
-
+  console.log("listPhonebook:", listPhonebook);
 
   const openAddNewLeadModal = () => {
     dispatch(
@@ -70,7 +69,7 @@ export const BodyPhonebook = () => {
                 id={item.manguoitrongdanhba}
                 type={0}
                 idPhonebook={item.madanhba}
-                mess="Chưa có tin nhắn"
+                mess={item.tinnhancuoi || "Chưa có tin nhắn"}
                 avata={`https://avatar.iran.liara.run/public/${item.madanhba}`}
               />
             </div>

@@ -13,6 +13,7 @@ export default function AvataUser({
   id,
   type,
   idPhonebook,
+  leader,
 }) {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
@@ -21,14 +22,7 @@ export default function AvataUser({
     const tokenJWT = localStorage.getItem("token");
     const id_login = jwtDecode(tokenJWT).id;
 
-    dispatch(
-      updateInfoUser_chatSlice({
-        id: id,
-        name: name,
-        type: type,
-        idPhonebook: idPhonebook,
-      })
-    );
+    dispatch(updateInfoUser_chatSlice({ id, name, type, idPhonebook, leader }));
 
     // sử lý tin nhắn cá nhân
     if (type === 0) {
