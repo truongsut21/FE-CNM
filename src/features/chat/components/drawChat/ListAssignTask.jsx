@@ -109,7 +109,7 @@ export const ListAssignTask = () => {
                 getTaskStage(item)
               );
             })}
-          {!taskAssign_taskSlice && 'Bạn chưa có công việc nào'}
+          {taskAssign_taskSlice && taskAssign_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
 
         </div>
       </div>

@@ -112,7 +112,7 @@ export const ListTaskReceive = () => {
                 getTaskStage(item)
               );
             })}
-        {!taskRecei_taskSlice && 'Bạn chưa có công việc nào'}
+        {taskRecei_taskSlice && taskRecei_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
         </div>
       </div>
 
