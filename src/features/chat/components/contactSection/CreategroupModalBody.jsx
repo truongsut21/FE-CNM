@@ -74,7 +74,6 @@ function CreategroupModalBody({ closeModal }) {
     },
   });
 
-  console.log("formik:", formik.values);
   useEffect(() => {
     const option = listPhonebook.map((item) => {
       return { label: item.ten, value: item.manguoitrongdanhba };

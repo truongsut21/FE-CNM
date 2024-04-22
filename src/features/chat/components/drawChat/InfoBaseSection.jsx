@@ -17,7 +17,7 @@ export const InfoBaseSection = () => {
   return (
     <div className="m-auto">
       <img
-        className="w-20 rounded-full"
+        className="w-20 rounded-full mx-auto"
         src={`https://avatar.iran.liara.run/public/${infoRoom.id}`}
         alt=""
       />

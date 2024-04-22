@@ -69,7 +69,7 @@ export const BodyGroup = () => {
               id={item.manhom}
               leader={item.matruongnhom}
               type={1}
-              mess="Chưa có tin nhắn"
+              mess={item.tinnhancuoi || "Chưa có tin nhắn"}
               avata={`https://avatar.iran.liara.run/public/${item.manhom}`}
             />
           ))

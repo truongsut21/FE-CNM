@@ -40,9 +40,12 @@ function UpdateNameContactModalBody({ closeModal }) {
                 })
               );
 
+              // cập nhật tên trong giao diện tin nhắn
               dispatch(
                 updateInfoUser_chatSlice({ ...infoRoom, name: values.ten })
               );
+
+              // load lại danh sách danh bạ
               dispatch(getPhonebook());
               closeModal();
             } else {
