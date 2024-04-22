@@ -1,9 +1,7 @@
-// 
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { token } from "../../../common/token";
-import { getListTaskReceived } from "../../../../app/taskSlice";
+import { getListAssignTask } from "../../../../app/taskSlice";
 import {
   CheckCircleIcon,
   CheckIcon,
@@ -11,7 +9,6 @@ import {
   ClockIcon,
   EllipsisVerticalIcon,
   InformationCircleIcon,
-  TrashIcon,
 } from "@heroicons/react/24/outline";
 
 const getTaskStage = (item) => {
@@ -83,22 +80,22 @@ const Action = () => {
 };
 
 
-export const ListTaskReceive = () => {
+export const ListAssignTask = () => {
 
   const dispatch = useDispatch();
-  const { taskRecei_taskSlice } = useSelector((state) => state.taskSlice);
+  const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  console.log("taskRecei_taskSlice:", taskRecei_taskSlice);
+  console.log("taskAssign_taskSlice:", taskAssign_taskSlice);
 
   useEffect(() => {
     const dataSend = {
-      manguoigiaoviec: infoRoom.id,
+      manguoigiaoviec: token().id,
       manhom: null,
-      manguoinhan: token().id,
+      manguoinhan: infoRoom.id,
     };
 
-    // if (!taskRecei_taskSlice) {
-    dispatch(getListTaskReceived(dataSend));
+    // if (!taskAssign_taskSlice) {
+    dispatch(getListAssignTask(dataSend));
     // }
   }, []);
   return (
@@ -106,13 +103,14 @@ export const ListTaskReceive = () => {
     <body className="antialiased bg-slate-200 text-slate-700 mx-2">
       <div className="max-w-lg mx-auto bg-white ">
         <div id="tasks" className="">
-        {taskRecei_taskSlice && taskRecei_taskSlice.length > 0 &&
-            taskRecei_taskSlice.map((item, index) => {
+          { taskAssign_taskSlice && taskAssign_taskSlice.length > 0  &&
+            taskAssign_taskSlice.map((item, index) => {
               return (
                 getTaskStage(item)
               );
             })}
-        {taskRecei_taskSlice && taskRecei_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
+          {taskAssign_taskSlice && taskAssign_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
+
         </div>
       </div>
 

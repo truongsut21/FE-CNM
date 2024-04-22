@@ -17,6 +17,7 @@ import {
 } from "../../../../utils/globalConstantUtil";
 import { openModal } from "../../../common/modalSlice";
 import { ListTaskReceive } from "./ListTaskReceive";
+import { ListAssignTask } from "./ListAssignTask";
 
 export default function ManagerFeatures() {
   const dispatch = useDispatch();
@@ -159,7 +160,7 @@ export default function ManagerFeatures() {
                   } h-5 w-5 text-rose-500`}
                 />
               </Disclosure.Button>
-              <Disclosure.Panel className="px-2 pb-2 pt-4 text-sm text-gray-500">
+              <Disclosure.Panel className="px-2 pb-2 pt-2 text-sm text-gray-500">
                 <ListTaskReceive />
               </Disclosure.Panel>
             </>
@@ -177,8 +178,8 @@ export default function ManagerFeatures() {
                   } h-5 w-5 text-rose-500`}
                 />
               </Disclosure.Button>
-              <Disclosure.Panel className="px-2 pb-2 pt-4 text-sm text-gray-500">
-                No.
+              <Disclosure.Panel className="px-2 pb-2 pt-2 text-sm text-gray-500">
+                <ListAssignTask/>
               </Disclosure.Panel>
             </>
           )}
