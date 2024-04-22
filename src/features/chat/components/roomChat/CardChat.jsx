@@ -103,8 +103,7 @@ export const CardChat = () => {
             <div className="sticky top-0 mt-4">
               <div className="relative">
                 <input
-                  type="search"
-                  id="search"
+              
                   value={messageValue}
                   onChange={(e) => setmessageValue(e.target.value)}
                   onKeyPress={handleKeyPress}

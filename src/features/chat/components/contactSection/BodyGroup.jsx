@@ -26,7 +26,7 @@ export const BodyGroup = () => {
   }, []);
 
   return (
-    <div className="h-[37rem]">
+    <div className="h-auto">
       <form className="">
         <label
           htmlFor="search"
@@ -38,7 +38,7 @@ export const BodyGroup = () => {
           <input
             type="search"
             id="search"
-            className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
             placeholder="Tìm kiếm..."
             required
           />
