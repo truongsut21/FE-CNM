@@ -26,7 +26,7 @@ export const BodyGroup = () => {
   }, []);
 
   return (
-    <div className="h-auto">
+    <div className="h-full">
       <form className="">
         <label
           htmlFor="search"

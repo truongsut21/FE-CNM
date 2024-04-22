@@ -25,7 +25,7 @@ export const BodyPhonebook = () => {
     dispatch(getPhonebook());
   }, []);
   return (
-    <div className="h-[37rem]">
+    <div className="h-full">
       <form className="">
         <label
           htmlFor="search"
@@ -48,6 +48,8 @@ export const BodyPhonebook = () => {
           >
             <MagnifyingGlassIcon className="w-5" />
           </button>
+
+   
         </div>
       </form>
 

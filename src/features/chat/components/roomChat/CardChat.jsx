@@ -99,11 +99,10 @@ export const CardChat = () => {
             <TopSideButtons typeRoom={infoRoom.type} idGroup={infoRoom.id} />
           }
         >
-          <div className="h-[37rem] flex flex-col-reverse">
+          <div className="h-[65vh] flex flex-col-reverse">
             <div className="sticky top-0 mt-4">
               <div className="relative">
                 <input
-              
                   value={messageValue}
                   onChange={(e) => setmessageValue(e.target.value)}
                   onKeyPress={handleKeyPress}
@@ -150,7 +149,7 @@ export const CardChat = () => {
         </TitleCard>
       ) : (
         <TitleCard title="" topMargin="mt-2">
-          <div className="h-[38rem] flex">
+          <div className="h-[65vh] flex">
             <img
               className="m-auto"
               src="https://cdn.dribbble.com/users/1520241/screenshots/9574747/empty-illustration_1.gif"

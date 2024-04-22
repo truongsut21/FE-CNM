@@ -22,7 +22,7 @@ export const CardContact = () => {
                   className={({ selected }) =>
                     classNames(
                       "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                      "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
+                     
                       selected
                         ? "bg-white text-custom-primary shadow"
                         : "text-primary-100 hover:bg-white/[0.12] hover:text-white"
@@ -40,8 +40,7 @@ export const CardContact = () => {
             <Tab.Panel
               key={0}
               className={classNames(
-                "rounded-xl bg-white p-3",
-                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "rounded-xl bg-white p-3"
               )}
             >
               <BodyPhonebook />
@@ -50,8 +49,7 @@ export const CardContact = () => {
             <Tab.Panel
               key={1}
               className={classNames(
-                "rounded-xl bg-white p-3",
-                "ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                "rounded-xl bg-white p-3"
               )}
             >
               <BodyGroup />
