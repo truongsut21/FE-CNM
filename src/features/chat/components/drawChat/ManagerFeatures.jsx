@@ -22,8 +22,7 @@ export default function ManagerFeatures() {
   const dispatch = useDispatch();
   const { listNembers } = useSelector((state) => state.groupSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  console.log("infoRoom:", infoRoom);
-
+  
   const handleDeleteMemberGroup = (idMember) => {
     if (infoRoom.leader === token().id) {
       dispatch(
