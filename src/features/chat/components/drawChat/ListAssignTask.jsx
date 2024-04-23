@@ -10,11 +10,16 @@ import {
   EllipsisVerticalIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
+import { openModal } from "../../../common/modalSlice";
+import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 
 const getTaskStage = (item) => {
   if (item.maloaitrangthaicongviec === 3)
     return (
-      <div id="task" className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150">
+      <div
+        id="task"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+      >
         <div className="inline-flex items-center space-x-2">
           <div>
             <CheckIcon className="w-4" />
@@ -28,22 +33,44 @@ const getTaskStage = (item) => {
     );
   else
     return (
-      <div id="task" className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150">
+      <div
+        id="task"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+      >
         <div className="inline-flex items-center space-x-2">
           <div>
             <CheckCircleIcon className="w-4" />
-
           </div>
           <div>{item.tencongviec}</div>
         </div>
         <div>
-          <Action />
+          <Action task={item} />
         </div>
       </div>
     );
 };
 
-const Action = () => {
+const Action = ({ task }) => {
+  const dispatch = useDispatch();
+  const openDetailsTaskAssignkModal = () => {
+    dispatch(
+      openModal({
+        title: "Chi tiết công việc giao",
+        bodyType: MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN,
+        extraObject: {
+          macongviec: task.macongviec,
+          tencongviec: task.tencongviec,
+          noidung: task.noidung,
+          manguoigiaoviec: task.manguoigiaoviec,
+          ngaygiao: task.ngaygiao,
+          thoihan: task.thoihan,
+          manguoinhan: task.manguoinhan,
+          maloaitrangthaicongviec: task.maloaitrangthaicongviec,
+        },
+      })
+    );
+  };
+
   return (
     <details className="dropdown dropdown-bottom dropdown-end  ml-2">
       <summary
@@ -69,23 +96,20 @@ const Action = () => {
           </a>
         </li>
         <li>
-          <a>
+          <button onClick={openDetailsTaskAssignkModal}>
             <InformationCircleIcon className="w-4" />
             Xem chi tiết
-          </a>
+          </button>
         </li>
       </ul>
     </details>
   );
 };
 
-
 export const ListAssignTask = () => {
-
   const dispatch = useDispatch();
   const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  console.log("taskAssign_taskSlice:", taskAssign_taskSlice);
 
   useEffect(() => {
     const dataSend = {
@@ -99,21 +123,19 @@ export const ListAssignTask = () => {
     // }
   }, []);
   return (
-
     <body className="antialiased bg-slate-200 text-slate-700 mx-2">
       <div className="max-w-lg mx-auto bg-white ">
         <div id="tasks" className="">
-          { taskAssign_taskSlice && taskAssign_taskSlice.length > 0  &&
+          {taskAssign_taskSlice &&
+            taskAssign_taskSlice.length > 0 &&
             taskAssign_taskSlice.map((item, index) => {
-              return (
-                getTaskStage(item)
-              );
+              return getTaskStage(item);
             })}
-          {taskAssign_taskSlice && taskAssign_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
-
+          {taskAssign_taskSlice &&
+            taskAssign_taskSlice.length === 0 &&
+            "Bạn chưa có công việc nào"}
         </div>
       </div>
-
     </body>
   );
 };
