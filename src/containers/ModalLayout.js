@@ -9,6 +9,7 @@ import CreategroupModalBody from "../features/chat/components/contactSection/Cre
 import AddTaskModalBody from "../features/chat/components/roomChat/AddTaskModalBody";
 import AddMemberGroupModalBody from "../features/chat/components/roomChat/AddMemberGroupModalBody";
 import UpdateNameContactModalBody from "../features/chat/components/drawChat/UpdateNameContactModalBody";
+import DetailsTaskAssignModalBody from "../features/common/DetailsTaskAssignModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -76,6 +77,11 @@ function ModalLayout() {
               ),
               [MODAL_BODY_TYPES.UPDATE_NAME_CONTACT]: (
                 <UpdateNameContactModalBody
+                  extraObject={extraObject}
+                  closeModal={close}
+                />
+              ), [MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN]: (
+                <DetailsTaskAssignModalBody
                   extraObject={extraObject}
                   closeModal={close}
                 />

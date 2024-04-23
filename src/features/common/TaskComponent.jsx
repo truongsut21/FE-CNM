@@ -6,6 +6,9 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { MODAL_BODY_TYPES } from "../../utils/globalConstantUtil";
+import { openModal } from "./modalSlice";
 
 const getDummyDeadline = (deadline) => {
   if (deadline < 0)
@@ -37,45 +40,85 @@ const getDummyDeadline = (deadline) => {
 const getTaskStage = (stage) => {
   if (stage === 1)
     return (
-      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+      <div
+        className="relative"
+        style={{ position: "absolute", left: "12px", bottom: "12px" }}
+      >
         <div className="absolute bottom-0.5 left-0 badge bg-custom-warning badge-xs border-custom-warning"></div>
-        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Chưa bắt đầu</p>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">
+          Chưa bắt đầu
+        </p>
       </div>
     );
   else if (stage === 2)
     return (
-      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+      <div
+        className="relative"
+        style={{ position: "absolute", left: "12px", bottom: "12px" }}
+      >
         <div className="absolute bottom-0.5 left-0 badge bg-custom-success badge-xs border-custom-success"></div>
-        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Đang thực hiện</p>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">
+          Đang thực hiện
+        </p>
       </div>
     );
   else
     return (
-      <div className="relative" style={{ position: 'absolute', left: '12px', bottom: '12px' }}>
+      <div
+        className="relative"
+        style={{ position: "absolute", left: "12px", bottom: "12px" }}
+      >
         <div className="absolute bottom-0.5 left-0 badge badge-success badge-xs border-success"></div>
-        <p className="text-xs text-gray-600 break-words mb-0 pl-4">Hoàn thành</p>
+        <p className="text-xs text-gray-600 break-words mb-0 pl-4">
+          Hoàn thành
+        </p>
       </div>
     );
 };
 
 export const TaskComponent = ({ task, index }) => {
+  console.log("task:", task);
+  const dispatch = useDispatch();
   const now = moment();
   const deadline = moment(task.thoihan).diff(now, "days");
   const stage = task.maloaitrangthaicongviec;
+
+  const openDetailsTaskAssignkModal = () => {
+    dispatch(
+      openModal({
+        title: "Chi tiết công việc",
+        bodyType: MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN,
+        extraObject: {
+          macongviec: task.macongviec,
+          tencongviec: task.tencongviec,
+          noidung: task.noidung,
+          manguoigiaoviec: task.manguoigiaoviec,
+          ngaygiao: task.ngaygiao,
+          thoihan: task.thoihan,
+          manguoinhan: task.manguoinhan,
+          maloaitrangthaicongviec: task.maloaitrangthaicongviec,
+        },
+      })
+    );
+  };
+
   return (
     <>
       <div className="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
         <div>
-          <p className="font-bold text-md mb-2 mr-5"
-              style={{
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitBoxOrient: "vertical",
-                WebkitLineClamp: 1,
-                padding: 0,
-              }}
-          >{task.tencongviec}</p>
+          <p
+            className="font-bold text-md mb-2 mr-5"
+            style={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 1,
+              padding: 0,
+            }}
+          >
+            {task.tencongviec}
+          </p>
 
           {/* btn  */}
           <div className="absolute top-3 right-3">
@@ -103,10 +146,10 @@ export const TaskComponent = ({ task, index }) => {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <button onClick={openDetailsTaskAssignkModal}>
                     <InformationCircleIcon className="w-4" />
                     Xem chi tiết
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
