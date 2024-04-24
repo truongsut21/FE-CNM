@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getMessageGR,
   getMessagePN,
   updateInfoUser_chatSlice,
 } from "../../../../app/chatSlice";
@@ -39,7 +40,7 @@ export default function AvataUser({
       const dataSend = {
         manhomnhan: id,
       };
-      dispatch(getMessagePN(dataSend));
+      dispatch(getMessageGR(dataSend));
       dispatch(getAllMembersInGroup(infoRoom.id));
     }
   };

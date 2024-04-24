@@ -12,6 +12,7 @@ import { io } from "socket.io-client";
 import { updateMessage_chatSlice } from "../../../../app/chatSlice";
 import { showNotification } from "../../../common/headerSlice";
 import { TopSideButtons } from "./TopSideButtons";
+import { FetchSendMessageGR } from "../../service/FetchSendMessageGR";
 
 export const CardChat = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,6 @@ export const CardChat = () => {
 
   const { message_chatSlice } = useSelector((state) => state.chatSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  console.log("infoRoom:", infoRoom);
 
   const [messageValue, setmessageValue] = useState("");
 
@@ -29,15 +29,22 @@ export const CardChat = () => {
 
   useEffect(() => {
     socketRef.current = io("http://localhost:3003");
-    // Gửi sự kiện 'setUserId' với userId mới
-    socketRef.current.emit("setUserId", idLogin);
+
+    // nếu là cá nhân
+    if (infoRoom.type === 0) {
+      // Gửi sự kiện 'setUserId' với userId mới
+      socketRef.current.emit("setUserId", idLogin);
+    } else {
+      socketRef.current.emit("setUserId", infoRoom.id);
+    }
 
     // Xử lý dữ liệu nhận được từ máy chủ
     socketRef.current.on("message", (data) => {
+      console.log("data message:", data);
       dispatch(showNotification({ message: "Có tin nhắn mới", status: 1 }));
 
       // kiểm tra người gửi, nếu đúng render ra
-      if (data.manguoigui === infoRoom.id) {
+      if (data.manguoigui === infoRoom.id || data.manhomnhan === infoRoom.id) {
         console.log("đã nhảy vô hàm cập nhật tin nhắn");
         const tempmessage_chatSlice = message_chatSlice.concat(data);
         dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
@@ -55,6 +62,7 @@ export const CardChat = () => {
     const dataSend = {
       manguoigui: idLogin,
       manguoinhan: infoRoom.id,
+      manhomnhan: infoRoom.id,
       noidung: messageValue,
       thoigiangui: moment().format("YYYY-MM-DD HH:mm:ss"),
       receiverId: infoRoom.id,
@@ -67,8 +75,15 @@ export const CardChat = () => {
 
     // Sau khi đã gửi tin nhắn, cập nhật messageValue thành chuỗi rỗng
     setmessageValue("");
-    dispatch(FetchSendMessagePN(dataSend));
 
+    // nếu là tin nhắn cá nhân
+    if (infoRoom.type === 0) {
+      dispatch(FetchSendMessagePN(dataSend));
+    }
+    // nếu là tin nhăn nhóm
+    else {
+      dispatch(FetchSendMessageGR(dataSend));
+    }
     // cập nhật tin nhắn gửi
     const tempmessage_chatSlice = message_chatSlice.concat(dataSend);
     dispatch(updateMessage_chatSlice(tempmessage_chatSlice));
@@ -121,23 +136,23 @@ export const CardChat = () => {
             <div className=" overflow-y-auto " ref={containerRef}>
               {message_chatSlice.length > 0
                 ? message_chatSlice.map((item, index) => {
-                    if (item.manguoinhan === idLogin) {
-                      return (
-                        <ChatReci
-                          content={item.noidung}
-                          id={item.manguoigui}
-                          key={index}
-                          name={infoRoom.name}
-                          time={item.thoigiangui}
-                        />
-                      );
-                    } else {
+                    if (item.manguoigui === idLogin) {
                       return (
                         <ChatSend
                           content={item.noidung}
                           id={item.manguoigui}
                           name={nameLogin}
                           key={index}
+                          time={item.thoigiangui}
+                        />
+                      );
+                    } else {
+                      return (
+                        <ChatReci
+                          content={item.noidung}
+                          id={item.manguoigui}
+                          key={index}
+                          name={infoRoom.name}
                           time={item.thoigiangui}
                         />
                       );
