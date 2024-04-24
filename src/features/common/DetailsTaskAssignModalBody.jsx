@@ -33,7 +33,7 @@ function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
     validationSchema: Yup.object({
       tencongviec: validationRequired,
       noidung: validationRequired,
-      thoihan: validationFutureDay,
+      // thoihan: validationFutureDay,
     }),
 
     onSubmit: (values) => {
