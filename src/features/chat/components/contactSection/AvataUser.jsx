@@ -5,6 +5,7 @@ import {
   updateInfoUser_chatSlice,
 } from "../../../../app/chatSlice";
 import { jwtDecode } from "jwt-decode";
+import { getAllMembersInGroup } from "../../../../app/groupSlice";
 
 export default function AvataUser({
   name,
@@ -33,12 +34,13 @@ export default function AvataUser({
       dispatch(getMessagePN(dataSend));
     }
 
-    // xử lý tin nhắn nhóm
+    // xử lý tin nhắn nhóm, gọi thanh viên nhóm
     if (type === 1) {
       const dataSend = {
         manhomnhan: id,
       };
       dispatch(getMessagePN(dataSend));
+      dispatch(getAllMembersInGroup(infoRoom.id));
     }
   };
 

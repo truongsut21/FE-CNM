@@ -13,6 +13,7 @@ export default function InputSelectFomik({
   containerStyle,
   labelStyle,
   formik,
+  disabled = false,
 }) {
   const [value, setValue] = useState(defaultValue);
 
@@ -34,7 +35,7 @@ export default function InputSelectFomik({
       ...styles,
       width: "100%",
       backgroundColor: "white",
-      height: "3rem",
+      minHeight: "3rem",
     }),
   };
 
@@ -46,6 +47,7 @@ export default function InputSelectFomik({
         </span>
       </label>
       <Select
+        isDisabled={disabled}
         isMulti
         placeholder={placeholder}
         options={options}
