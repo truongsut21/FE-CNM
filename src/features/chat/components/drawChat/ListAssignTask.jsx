@@ -66,6 +66,7 @@ const Action = ({ task }) => {
           thoihan: task.thoihan,
           manguoinhan: task.manguoinhan,
           maloaitrangthaicongviec: task.maloaitrangthaicongviec,
+          tennguoinhan: task.tennguoinhan,
         },
       })
     );

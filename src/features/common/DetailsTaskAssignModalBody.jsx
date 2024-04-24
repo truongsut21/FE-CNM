@@ -97,7 +97,7 @@ function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
           type="text"
           name="ten"
           onChange={formik.handleChange}
-          value={infoRoom.name}
+          value={extraObject.tennguoinhan}
           // errors={formik.errors.ten}
         />
       </div>

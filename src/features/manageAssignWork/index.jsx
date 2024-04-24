@@ -24,7 +24,7 @@ function ManageAssignWork() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {taskAssign_taskSlice
           ? taskAssign_taskSlice.map((i, index) => {
-              return <TaskComponent task={i} index={index} />;
+              return <TaskComponent task={i} index={index} key={index} />;
             })
           : ""}
       </div>
