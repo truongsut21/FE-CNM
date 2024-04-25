@@ -10,6 +10,7 @@ import {
   CheckIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
+import { BtnPurpleBlue } from "../../../../components/Button/BtnPurpleBlue";
 
 export const TopSideButtons = ({ typeRoom, idGroup }) => {
   const dispatch = useDispatch();
@@ -44,27 +45,25 @@ export const TopSideButtons = ({ typeRoom, idGroup }) => {
   };
   return (
     <div>
-      <button
-        onClick={openAddNewTaskModal}
-        className="btn btn-outline btn-primary btn-sm  text-red-800 mx-2"
-      >
-        <CheckIcon className="w-5" /> Tạo công việc
-      </button>
+      <BtnPurpleBlue
+        title="Tạo công việc"
+        callback={openAddNewTaskModal}
+        icon={<CheckIcon className="w-5 mr-2" />}
+      />
 
       {typeRoom === 1 && ( // nếu là nhóm
-        <button
-          onClick={addMemberGroup}
-          className="btn btn-outline btn-primary btn-sm  text-red-800 mx-2"
-        >
-          <UserPlusIcon className="w-5" /> Thêm thành viên
-        </button>
+        <BtnPurpleBlue
+          title="Thêm thành viên"
+          callback={addMemberGroup}
+          icon={<UserPlusIcon className="w-5 mr-2" />}
+        />
       )}
-      <button
-        onClick={openNotification}
-        className="btn btn-outline btn-primary btn-sm  text-red-800 mx-2"
-      >
-        <Bars3Icon className="w-5" />
-      </button>
+
+      <BtnPurpleBlue
+        title=""
+        callback={openNotification}
+        icon={<Bars3Icon className="w-5" />}
+      />
     </div>
   );
 };

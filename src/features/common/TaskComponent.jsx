@@ -109,6 +109,7 @@ export const TaskComponent = ({ task, index }) => {
         <div>
           <p
             className="font-bold text-md mb-2 mr-5"
+            // rút gọn chữ
             style={{
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -120,6 +121,7 @@ export const TaskComponent = ({ task, index }) => {
           >
             {task.tencongviec}
           </p>
+          <p className="text-sm mb-2 mr-5">Người nhận: {task.tennguoinhan}</p>
 
           {/* btn  */}
           <div className="absolute top-3 right-3">

@@ -13,6 +13,7 @@ import { updateMessage_chatSlice } from "../../../../app/chatSlice";
 import { showNotification } from "../../../common/headerSlice";
 import { TopSideButtons } from "./TopSideButtons";
 import { FetchSendMessageGR } from "../../service/FetchSendMessageGR";
+import { BtnCyanBlue } from "../../../../components/Button/BtnCyanBlue";
 
 export const CardChat = () => {
   const dispatch = useDispatch();
@@ -121,7 +122,7 @@ export const CardChat = () => {
                   value={messageValue}
                   onChange={(e) => setmessageValue(e.target.value)}
                   onKeyPress={handleKeyPress}
-                  className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+                  className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 "
                   placeholder="Nhập tin nhắn..."
                   required
                 />
@@ -131,6 +132,8 @@ export const CardChat = () => {
                 >
                   Gửi
                 </button>
+
+    
               </div>
             </div>
             <div className=" overflow-y-auto " ref={containerRef}>
