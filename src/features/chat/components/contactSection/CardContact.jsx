@@ -22,7 +22,7 @@ export const CardContact = () => {
                   className={({ selected }) =>
                     classNames(
                       "w-full rounded-lg py-2.5 text-sm font-medium leading-5",
-                     
+
                       selected
                         ? "bg-white text-custom-primary shadow"
                         : "text-primary-100 hover:bg-white/[0.12] hover:text-white"
@@ -39,18 +39,14 @@ export const CardContact = () => {
           <Tab.Panels className="mt-2">
             <Tab.Panel
               key={0}
-              className={classNames(
-                "rounded-xl bg-white p-3"
-              )}
+              className={classNames("rounded-xl bg-white p-3")}
             >
               <BodyPhonebook />
             </Tab.Panel>
 
             <Tab.Panel
               key={1}
-              className={classNames(
-                "rounded-xl bg-white p-3"
-              )}
+              className={classNames("rounded-xl bg-white p-3")}
             >
               <BodyGroup />
             </Tab.Panel>

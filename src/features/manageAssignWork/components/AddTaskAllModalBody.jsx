@@ -1,25 +1,27 @@
+import { useFormik } from "formik";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showNotification } from "../../../common/headerSlice";
+import * as Yup from "yup";
 import {
   validationArrayLength1,
   validationFutureDay,
   validationRequired,
-} from "../../../../components/yup/validationSchema";
-import * as Yup from "yup";
-import InputTextFormik from "../../../../components/inputFormik/InputTextFormik";
-import { useFormik } from "formik";
-import InputAreaFormik from "../../../../components/inputFormik/InputAreaFormik";
-import { useEffect, useState } from "react";
-import moment from "moment";
-import { FetchCreateTask } from "../../service/FetchCreateTask";
-import InputSelectFomik from "../../../../components/inputFormik/InputSelectFomik";
-import { token } from "../../../../app/token";
-import { getListAssignTask } from "../../../../app/taskSlice";
+} from "../../../components/yup/validationSchema";
+import { token } from "../../../app/token";
+import { getListAssignTask } from "../../../app/taskSlice";
+import { showNotification } from "../../common/headerSlice";
+import { FetchCreateTask } from "../../chat/service/FetchCreateTask";
+import InputTextFormik from "../../../components/inputFormik/InputTextFormik";
+import InputSelectFomik from "../../../components/inputFormik/InputSelectFomik";
+import InputAreaFormik from "../../../components/inputFormik/InputAreaFormik";
+import { getPhonebook } from "../../../app/phonebookSlice";
+import { getListGroup } from "../../../app/groupSlice";
 
-function AddTaskModalBody({ closeModal }) {
-  const { infoRoom } = useSelector((state) => state.chatSlice);
-  const { listNembers } = useSelector((state) => state.groupSlice);
+function AddTaskAllModalBody({ closeModal }) {
   const dispatch = useDispatch();
+  const { listGroup } = useSelector((state) => state.groupSlice);
+  const { listPhonebook } = useSelector((state) => state.phonebookSlice);
 
   const [optionsMemberGroup, setoptionsMemberGroup] = useState({});
 
@@ -54,15 +56,7 @@ function AddTaskModalBody({ closeModal }) {
                 })
               );
 
-              // thay vào đây là get danh sach cong viẹc
-              const dataSend = {
-                manguoigiaoviec: token().id,
-                manhom: null,
-                manguoinhan: infoRoom.id,
-              };
-
-              // if (!taskAssign_taskSlice) {
-              dispatch(getListAssignTask(dataSend));
+              dispatch(getListAssignTask(values));
 
               closeModal();
             } else {
@@ -85,23 +79,25 @@ function AddTaskModalBody({ closeModal }) {
     },
   });
 
-  console.log("formik công việc mới values:", formik.values);
   useEffect(() => {
-    formik.setFieldValue("manguoigiaoviec", token().id);
+    const optionGroup = listGroup.map((item) => ({
+      label: "👨‍👩‍👧" + item.tennhom,
+      value: item.manhom,
+    }));
 
-    // nếu là cá nhân
-    if (infoRoom.type === 0) {
-      formik.setFieldValue("manguoinhan", [infoRoom.id]);
-    }
+    const optionPhonebook = listPhonebook.map((item) => ({
+      label: item.ten,
+      value: item.manguoitrongdanhba,
+    }));
 
-    // nếu là nhóm
-    else {
-      const option = listNembers.map((item) => ({
-        label: item.ten,
-        value: item.mataikhoan,
-      }));
-      setoptionsMemberGroup(option);
-    }
+    console.log("options: ", [...optionPhonebook, ...optionGroup]);
+
+    setoptionsMemberGroup([...optionPhonebook, ...optionGroup]);
+  }, [listGroup, listPhonebook]);
+
+  useEffect(() => {
+    dispatch(getPhonebook());
+    dispatch(getListGroup());
   }, []);
 
   return (
@@ -114,32 +110,18 @@ function AddTaskModalBody({ closeModal }) {
           type="text"
           name="sodienthoai"
           onChange={formik.handleChange}
-          value={infoRoom.name}
+          value={token().fisrtname +" "+ token().lastname}
         />
-
-        {infoRoom.type === 0 && ( // nếu là cá nhân
-          <InputTextFormik
-            disabled={true}
-            containerStyle="mt-4"
-            labelTitle="Người nhận"
-            type="text"
-            name="ten"
-            onChange={formik.handleChange}
-            value={infoRoom.name}
-          />
-        )}
       </div>
 
-      {infoRoom.type === 1 && ( // nếu là nhóm
-        <InputSelectFomik
-          labelTitle="Người nhận"
-          options={optionsMemberGroup}
-          formik={formik}
-          updateType="manguoinhan"
-          value={formik.values.manguoinhan}
-          errors={formik.errors.manguoinhan}
-        />
-      )}
+      <InputSelectFomik
+        labelTitle="Người nhận"
+        options={optionsMemberGroup}
+        formik={formik}
+        updateType="manguoinhan"
+        value={formik.values.manguoinhan}
+        errors={formik.errors.manguoinhan}
+      />
 
       <InputTextFormik
         labelTitle="Thời hạn"
@@ -179,4 +161,4 @@ function AddTaskModalBody({ closeModal }) {
   );
 }
 
-export default AddTaskModalBody;
+export default AddTaskAllModalBody;

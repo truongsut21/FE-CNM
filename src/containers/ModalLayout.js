@@ -6,10 +6,11 @@ import AddLeadModalBody from "../features/leads/components/AddLeadModalBody";
 import ConfirmationModalBody from "../features/common/components/ConfirmationModalBody";
 import AddPhonebookModalBody from "../features/chat/components/contactSection/AddPhonebookModalBody";
 import CreategroupModalBody from "../features/chat/components/contactSection/CreategroupModalBody";
-import AddTaskModalBody from "../features/chat/components/roomChat/AddTaskModalBody";
 import AddMemberGroupModalBody from "../features/chat/components/roomChat/AddMemberGroupModalBody";
 import UpdateNameContactModalBody from "../features/chat/components/drawChat/UpdateNameContactModalBody";
 import DetailsTaskAssignModalBody from "../features/common/DetailsTaskAssignModalBody";
+import AddTaskModalBody from "../features/chat/components/roomChat/AddTaskModalBody";
+import AddTaskAllModalBody from "../features/manageAssignWork/components/AddTaskAllModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -59,6 +60,12 @@ function ModalLayout() {
               ),
               [MODAL_BODY_TYPES.ADD_TASK]: (
                 <AddTaskModalBody
+                  extraObject={extraObject}
+                  closeModal={close}
+                />
+              ),
+              [MODAL_BODY_TYPES.ADD_TASK_ALL]: (
+                <AddTaskAllModalBody
                   extraObject={extraObject}
                   closeModal={close}
                 />

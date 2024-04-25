@@ -6,6 +6,7 @@ import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 import AvataUser from "./AvataUser";
 import { getPhonebook } from "../../../../app/phonebookSlice";
 import { getListGroup } from "../../../../app/groupSlice";
+import { BtnCyanBlue } from "../../../../components/Button/BtnCyanBlue";
 
 export const BodyGroup = () => {
   const dispatch = useDispatch();
@@ -52,13 +53,12 @@ export const BodyGroup = () => {
         </div>
       </form>
 
-      <button
-        className="btn btn-block btn-primary btn-sm mt-2"
-        onClick={() => openAddNewGroupModal()}
-      >
-        {" "}
-        <UserPlusIcon className="w-4" /> Tạo nhóm mới
-      </button>
+      <BtnCyanBlue
+        title="Tạo nhóm mới"
+        icon={<UserPlusIcon className="w-4 mr-2" />}
+        classCustom="btn-block mt-2"
+        callback={openAddNewGroupModal}
+      />
 
       <div className="overflow-y-auto h-5/6 ">
         {listGroup.length > 0 ? (

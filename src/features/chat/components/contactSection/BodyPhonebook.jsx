@@ -5,6 +5,7 @@ import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
 import AvataUser from "./AvataUser";
 import { getPhonebook } from "../../../../app/phonebookSlice";
+import { BtnCyanBlue } from "../../../../components/Button/BtnCyanBlue";
 
 export const BodyPhonebook = () => {
   const dispatch = useDispatch();
@@ -48,18 +49,15 @@ export const BodyPhonebook = () => {
           >
             <MagnifyingGlassIcon className="w-5" />
           </button>
-
-   
         </div>
       </form>
 
-      <button
-        className="btn btn-block btn-primary btn-sm mt-2"
-        onClick={() => openAddNewLeadModal()}
-      >
-        {" "}
-        <UserPlusIcon className="w-4" /> Thêm mới danh bạ
-      </button>
+      <BtnCyanBlue
+        title="Thêm mới danh bạ"
+        icon={<UserPlusIcon className="w-4 mr-2" />}
+        classCustom="btn-block mt-2"
+        callback={openAddNewLeadModal}
+      />
 
       <div className="overflow-y-auto h-5/6 ">
         {listPhonebook.length > 0 ? (
