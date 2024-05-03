@@ -132,8 +132,6 @@ export const CardChat = () => {
                 >
                   Gửi
                 </button>
-
-    
               </div>
             </div>
             <div className=" overflow-y-auto " ref={containerRef}>
@@ -167,9 +165,9 @@ export const CardChat = () => {
         </TitleCard>
       ) : (
         <TitleCard title="" topMargin="mt-2">
-          <div className="h-[65vh] flex">
+          <div className="flex h-[65vh]">
             <img
-              className="m-auto"
+              className="h-full max-w-full m-auto"
               src="https://cdn.dribbble.com/users/1520241/screenshots/9574747/empty-illustration_1.gif"
               alt=""
             />

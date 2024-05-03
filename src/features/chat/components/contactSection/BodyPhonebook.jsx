@@ -10,7 +10,6 @@ import { BtnCyanBlue } from "../../../../components/Button/BtnCyanBlue";
 export const BodyPhonebook = () => {
   const dispatch = useDispatch();
   const { listPhonebook } = useSelector((state) => state.phonebookSlice);
-  console.log("listPhonebook:", listPhonebook);
 
   const openAddNewLeadModal = () => {
     dispatch(
@@ -26,7 +25,7 @@ export const BodyPhonebook = () => {
     dispatch(getPhonebook());
   }, []);
   return (
-    <div className="h-full">
+    <div className="h-full ">
       <form className="">
         <label
           htmlFor="search"

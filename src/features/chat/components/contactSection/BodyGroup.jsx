@@ -60,7 +60,7 @@ export const BodyGroup = () => {
         callback={openAddNewGroupModal}
       />
 
-      <div className="overflow-y-auto h-5/6 ">
+      <div className="overflow-y-auto h-[46vh] ">
         {listGroup.length > 0 ? (
           listGroup.map((item) => (
             <AvataUser

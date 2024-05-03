@@ -1,15 +1,8 @@
 
 
 export const colourOptions = [
-  { value: "ocean", label: "Ocean", color: "#FF8B00", isFixed: true },
-  { value: "blue", label: "Blue", color: "#0052CC", isDisabled: true },
-  { value: "purple", label: "Purple", color: "#5243AA" },
-  { value: "red", label: "Red", color: "#FF5630", isFixed: true },
-  { value: "orange", label: "Orange", color: "#FF8B00" },
-  { value: "yellow", label: "Yellow", color: "#FFC400" },
-  { value: "green", label: "Green", color: "#36B37E" },
-  { value: "forest", label: "Forest", color: "#00875A" },
-  { value: "slate", label: "Slate", color: "#253858" },
-  { value: "silver", label: "Silver", color: "#666666" },
+  { value: "purple", label: "Đang thực hiện", color: "#5243AA" },
+  { value: "orange", label: "Chưa bắt đầu", color: "#FF8B00" },
+  { value: "green", label: "Đã hoành thành", color: "#36B37E" },
 ];
 

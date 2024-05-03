@@ -9,6 +9,7 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { MODAL_BODY_TYPES } from "../../utils/globalConstantUtil";
 import { openModal } from "./modalSlice";
+import Status from "../manageAssignWork/components/Status";
 
 const getDummyDeadline = (deadline) => {
   if (deadline < 0)
@@ -40,14 +41,8 @@ const getDummyDeadline = (deadline) => {
 const getTaskStage = (stage) => {
   if (stage === 1)
     return (
-      <div
-        className="relative"
-        style={{ position: "absolute", left: "12px", bottom: "12px" }}
-      >
-        <div className="absolute bottom-0.5 left-0 badge bg-custom-warning badge-xs border-custom-warning"></div>
-        <p className="text-xs text-gray-600 break-words mb-0 pl-4">
-          Chưa bắt đầu
-        </p>
+      <div style={{ position: "absolute", left: "12px", bottom: "12px" }}>
+        <Status />
       </div>
     );
   else if (stage === 2)
