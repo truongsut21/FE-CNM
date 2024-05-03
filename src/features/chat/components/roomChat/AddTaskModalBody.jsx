@@ -32,6 +32,7 @@ function AddTaskModalBody({ closeModal }) {
       thoihan: "",
       manguoinhan: "",
       maloaitrangthaicongviec: 1,
+      manhom: infoRoom.type === 1 ? infoRoom.id : null,
     },
 
     validationSchema: Yup.object({

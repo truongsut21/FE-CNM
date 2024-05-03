@@ -13,7 +13,7 @@ function InfoRoomRightDrawer() {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
   console.log("infoRoom:", infoRoom);
-  
+
   const deleteContact = () => {
     dispatch(
       openModal({
@@ -29,16 +29,13 @@ function InfoRoomRightDrawer() {
     );
   };
 
-  
-
   return (
     <div className="mt-4 flex flex-col">
       <InfoBaseSection />
       <ManagerFeatures />
 
-
       <button
-        className="btn w-full bg-rose-50 text-rose-700 border-none hover:bg-rose-200"
+        className="btn mt-12 w-full bg-rose-50 text-rose-700 border-none hover:bg-rose-200"
         onClick={deleteContact}
       >
         Xoá liên hệ

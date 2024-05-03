@@ -1,4 +1,4 @@
-// 
+//
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +17,10 @@ import {
 const getTaskStage = (item) => {
   if (item.maloaitrangthaicongviec === 3)
     return (
-      <div id="task" className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150">
+      <div
+        id="task"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+      >
         <div className="inline-flex items-center space-x-2">
           <div>
             <CheckIcon className="w-4" />
@@ -31,11 +34,13 @@ const getTaskStage = (item) => {
     );
   else
     return (
-      <div id="task" className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150">
+      <div
+        id="task"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+      >
         <div className="inline-flex items-center space-x-2">
           <div>
             <CheckCircleIcon className="w-4" />
-
           </div>
           <div>{item.tencongviec}</div>
         </div>
@@ -82,9 +87,7 @@ const Action = () => {
   );
 };
 
-
 export const ListTaskReceive = () => {
-
   const dispatch = useDispatch();
   const { taskRecei_taskSlice } = useSelector((state) => state.taskSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
@@ -102,20 +105,19 @@ export const ListTaskReceive = () => {
     // }
   }, []);
   return (
-
     <body className="antialiased bg-slate-200 text-slate-700 mx-2">
       <div className="max-w-lg mx-auto bg-white ">
         <div id="tasks" className="">
-        {taskRecei_taskSlice && taskRecei_taskSlice.length > 0 &&
+          {taskRecei_taskSlice &&
+            taskRecei_taskSlice.length > 0 &&
             taskRecei_taskSlice.map((item, index) => {
-              return (
-                getTaskStage(item)
-              );
+              return getTaskStage(item);
             })}
-        {taskRecei_taskSlice && taskRecei_taskSlice.length === 0 && 'Bạn chưa có công việc nào'}
+          {taskRecei_taskSlice &&
+            taskRecei_taskSlice.length === 0 &&
+            "Bạn chưa có công việc nào"}
         </div>
       </div>
-
     </body>
   );
 };

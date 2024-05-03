@@ -115,8 +115,8 @@ export const ListAssignTask = () => {
   useEffect(() => {
     const dataSend = {
       manguoigiaoviec: token().id,
-      manhom: null,
-      manguoinhan: infoRoom.id,
+      manhom: infoRoom.type === 1 ? infoRoom.id : null,
+      manguoinhan: infoRoom.type === 0 ? infoRoom.id : null,
     };
 
     // if (!taskAssign_taskSlice) {

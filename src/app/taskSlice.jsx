@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getListAssignTask = createAsyncThunk("getListAssignTask", async (data) => {
-    console.log("first")
     try {
         const tokenJWT = localStorage.getItem("token");
         const url = `congviec/getListAssignTask/`;
@@ -21,7 +20,6 @@ export const getListAssignTask = createAsyncThunk("getListAssignTask", async (da
 });
 
 export const getListTaskReceived = createAsyncThunk("getListTaskReceived", async (data) => {
-    console.log("first")
     try {
         const tokenJWT = localStorage.getItem("token");
         const url = `congviec/getListTaskReceived/`;
