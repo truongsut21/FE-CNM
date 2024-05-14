@@ -5,8 +5,6 @@ import {
   CONFIRMATION_MODAL_CLOSE_TYPES,
   MODAL_BODY_TYPES,
 } from "../../../../utils/globalConstantUtil";
-import TitleCard from "../../../../components/Cards/TitleCard";
-import { TaskComponent } from "../../../common/TaskComponent";
 import ManagerFeatures from "./ManagerFeatures";
 
 function InfoRoomRightDrawer() {

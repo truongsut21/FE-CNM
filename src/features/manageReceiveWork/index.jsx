@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TaskComponent } from "../common/TaskComponent";
 import { jwtDecode } from "jwt-decode";
 import { getListTaskReceived } from "../../app/taskSlice";
 import { token } from "../common/token";
+import { TaskComponent } from "../common/task/TaskComponent";
 
 function ManageReceiveWork() {
   const dispatch = useDispatch();

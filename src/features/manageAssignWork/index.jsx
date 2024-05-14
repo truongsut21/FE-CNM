@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TaskComponent } from "../common/TaskComponent";
 import { getListAssignTask } from "../../app/taskSlice";
 import { token } from "../../app/token";
 import { MODAL_BODY_TYPES } from "../../utils/globalConstantUtil";
 import { openModal } from "../common/modalSlice";
+import { TaskComponent } from "../common/task/TaskComponent";
 
 function ManageAssignWork() {
   const dispatch = useDispatch();
@@ -31,23 +31,6 @@ function ManageAssignWork() {
 
   return (
     <div className="">
-      <div>
-        <div class="flex items-center me-4">
-          <input
-            checked
-            id="red-checkbox"
-            type="checkbox"
-            value=""
-            class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 "
-          />
-          <label
-            for="red-checkbox"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Red
-          </label>
-        </div>
-      </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {taskAssign_taskSlice
           ? taskAssign_taskSlice.map((i, index) => {
