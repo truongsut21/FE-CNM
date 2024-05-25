@@ -6,8 +6,9 @@ import {
   updateInfoUser_chatSlice,
 } from "../../../../app/chatSlice";
 import { jwtDecode } from "jwt-decode";
-import { getAllMembersInGroup } from "../../../../app/groupSlice";
+import { getAllMembersInGroup, getListGroup } from "../../../../app/groupSlice";
 import { FetchUpdateNotiMessage } from "../../service/FetchUpdateNotiMessage";
+import { getPhonebook } from "../../../../app/phonebookSlice";
 
 export default function AvataUser({
   name,
@@ -37,6 +38,8 @@ export default function AvataUser({
       };
       dispatch(getMessagePN(dataSend));
       dispatch(FetchUpdateNotiMessage(dataSend));
+      dispatch(getPhonebook());
+
     }
 
     // xử lý tin nhắn nhóm, gọi thanh viên nhóm
@@ -49,6 +52,7 @@ export default function AvataUser({
       dispatch(getMessageGR(dataSend));
       dispatch(getAllMembersInGroup(infoRoom.id));
       dispatch(FetchUpdateNotiMessage(dataSend));
+      dispatch(getListGroup());
     }
   };
 
