@@ -49,7 +49,9 @@ export const ActionReport = (
       if (token().id === idUserAssignTask) {
         return (
           <>
-            <button className="btn btn-sm btn-error btn-outline">Mở lại</button>
+            <button 
+             onClick={handeUpdateStatusReport}
+            className="btn btn-sm btn-error btn-outline">Mở lại</button>
           </>
         );
       }
