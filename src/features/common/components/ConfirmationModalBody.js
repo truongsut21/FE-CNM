@@ -7,11 +7,12 @@ import { showNotification } from "../headerSlice";
 import { FetchDeleteContact } from "../../chat/service/FetchDeleteContact";
 import { FetchDeleteMemberGroup } from "../../chat/service/FetchDeleteMemberGroup";
 import { getAllMembersInGroup } from "../../../app/groupSlice";
+import{FetchDeleteTask} from "../service/FetchDeleteTask";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
 
-  const { message, type, _id, index, _idPhonebook, _idGroup, _idMember } = extraObject;
+  const { message, type, _id, index, _idPhonebook, _idGroup, _idMember, _idTask } = extraObject;
 
   const proceedWithYes = async () => {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE) {
@@ -25,6 +26,34 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_CONTACT) {
       // positive response, call api or dispatch redux function
       const resAPI = dispatch(FetchDeleteContact(_idPhonebook));
+      resAPI
+        .then((result) => {
+          console.log("result:", result);
+          if (result.payload.success) {
+
+            // closeModal();
+            // dispatch(getPhonebook());
+            dispatch(
+              showNotification({ message: result.payload.message, status: 1 })
+            );
+
+            setTimeout(() => { window.location.reload() }, 500);
+          } else {
+            dispatch(
+              showNotification({ message: result.payload.message, status: 0 })
+            );
+          }
+        })
+        .catch((error) => {
+          dispatch(showNotification({ message: "Xoá thất bại", status: 0 }));
+          console.error("Lỗi FetchDeleteContact:", error);
+        });
+    }
+
+    // hàm xử lý xoá công việc
+    if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_TASK) {
+      // positive response, call api or dispatch redux function
+      const resAPI = dispatch(FetchDeleteTask(_idTask));
       resAPI
         .then((result) => {
           console.log("result:", result);

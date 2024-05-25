@@ -7,6 +7,7 @@ import {
 } from "../../../../app/chatSlice";
 import { jwtDecode } from "jwt-decode";
 import { getAllMembersInGroup } from "../../../../app/groupSlice";
+import { FetchUpdateNotiMessage } from "../../service/FetchUpdateNotiMessage";
 
 export default function AvataUser({
   name,
@@ -32,17 +33,22 @@ export default function AvataUser({
       const dataSend = {
         manguoigui: id_login,
         manguoinhan: id,
+        manhomnhan: null,
       };
       dispatch(getMessagePN(dataSend));
+      dispatch(FetchUpdateNotiMessage(dataSend));
     }
 
     // xử lý tin nhắn nhóm, gọi thanh viên nhóm
     if (type === 1) {
       const dataSend = {
         manhomnhan: id,
+        manguoigui: id_login,
+        manguoinhan: null,
       };
       dispatch(getMessageGR(dataSend));
       dispatch(getAllMembersInGroup(infoRoom.id));
+      dispatch(FetchUpdateNotiMessage(dataSend));
     }
   };
 
@@ -61,10 +67,10 @@ export default function AvataUser({
         </div>
       </div>
 
-      {countMess !== null ? (
+      {((countMess !== 0) && (countMess !== null)) ? (
         <div className="badge badge-error text-white">{countMess}</div>
       ) : (
-        <div> </div>
+        ''
       )}
     </div>
   );

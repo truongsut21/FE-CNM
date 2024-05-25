@@ -4,6 +4,7 @@ import {
   ClockIcon,
   ClipboardIcon,
   InformationCircleIcon,
+  TrashIcon,
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { useDispatch } from "react-redux";
@@ -17,6 +18,9 @@ import { showNotification } from "../headerSlice";
 import { getListAssignTask, getListTaskReceived } from "../../../app/taskSlice";
 import { token } from "../../../app/token";
 import { getBtnStatusTaskAssign } from "./getBtnStatusTaskAssign";
+import {
+  CONFIRMATION_MODAL_CLOSE_TYPES,
+} from "../../../utils/globalConstantUtil";
 
 export const TaskComponent = ({ task, index, typeTask }) => {
   console.log("typeTask:", typeTask);
@@ -110,6 +114,20 @@ export const TaskComponent = ({ task, index, typeTask }) => {
     } catch (error) {}
   };
 
+  const deleteTask = () => {
+    dispatch(
+      openModal({
+        title: "Xác nhận xoá",
+        bodyType: MODAL_BODY_TYPES.CONFIRMATION,
+        extraObject: {
+          message: `Bạn có chắc chắn muốn xoá công việc này?`,
+          type: CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_TASK,
+          _idTask: task.macongviec,
+        },
+      })
+    );
+  };
+
   return (
     <>
       <div className="relative w-auto rounded-lg bg-white border border-gray-200 shadow  p-3">
@@ -173,6 +191,14 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                     <InformationCircleIcon className="w-4" />
                     Xem chi tiết
                   </button>
+                </li>
+                <li>
+                  {typeTask === "taskAssign"
+                    ? <button onClick={deleteTask}>
+                    <TrashIcon className="w-4" />
+                    Xoá
+                  </button>
+                    : ''}
                 </li>
               </ul>
             </div>
