@@ -133,7 +133,7 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
           return current.matrangthaibc === 3 ? accumulator + 1 : accumulator;
         }, 0)
       : 0;
-    const total = reports_taskSlice ? reports_taskSlice.length + 1 : 1;
+    const total = reports_taskSlice ? reports_taskSlice.length : 1;
     const percentage = Math.round((count / total) * 100);
     setPercentage(percentage);
   }, [reports_taskSlice]);
