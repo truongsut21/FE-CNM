@@ -43,11 +43,27 @@ export const getListTaskReceived = createAsyncThunk(
   }
 );
 
+export const getListReport = createAsyncThunk("getListReport", async (data) => {
+  try {
+    const url = `baocaotiendo/getListReport`;
+    const response = await axios.post(url, data, {
+      headers: {
+        accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw error; // Xử lý lỗi nếu có
+  }
+});
+
 export const taskSlice = createSlice({
   name: "taskSlice",
   initialState: {
     taskAssign_taskSlice: null,
     taskRecei_taskSlice: null,
+    reports_taskSlice: null,
   },
   reducers: {
     updateTaskAssign_taskSlice: (state, action) => {
@@ -71,6 +87,10 @@ export const taskSlice = createSlice({
 
     [getListTaskReceived.fulfilled]: (state, action) => {
       state.taskRecei_taskSlice = action.payload;
+    },
+    
+    [getListReport.fulfilled]: (state, action) => {
+      state.reports_taskSlice = action.payload;
     },
   },
 });
