@@ -5,9 +5,9 @@ export const FetchUpdateStatusReport = createAsyncThunk(
   "FetchUpdateStatusReport",
   async (data) => {
     try {
-      const url = `congviec/updateTaskStatus`;
+      const url = `baocaotiendo/updateStatusReport`;
 
-      const response = await axios.put(url, data, {
+      const response = await axios.post(url, data, {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",

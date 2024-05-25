@@ -13,21 +13,14 @@ import { FetchCreateReport } from "./services/FetchCreateReport";
 import { showNotification } from "../headerSlice";
 import { getListReport } from "../../../app/taskSlice";
 import { ActionReport } from "./ActionReport";
+import { FetchUpdateStatusReport } from "./services/FetchUpdateStatusReport";
 
 function ReportTaskModalBody({ closeModal, extraObject }) {
   console.log("extraObject:", extraObject);
   const { reports_taskSlice } = useSelector((state) => state.taskSlice);
   const dispatch = useDispatch();
 
-  const percentReport = reports_taskSlice
-    ? reports_taskSlice.reduce((accumulator, current) => {
-        return (
-          ((current.matrangthaibc === 2 ? accumulator + 1 : accumulator) /
-            reports_taskSlice.length) *
-          100
-        );
-      }, 0)
-    : 0;
+  const [percentage, setPercentage] = useState(0);
 
   const formik = useFormik({
     initialValues: {
@@ -81,7 +74,51 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
     },
   });
 
-  const handeUpdateStatusReport = () => {};
+  const handeUpdateStatusReport = (idReport, status) => {
+    // người giao mở lại công việc
+    if (status === 3) {
+      status = 1;
+    }
+    const dataSend = {
+      mabaocaotiendo: idReport,
+      matrangthaibc: status,
+    };
+    const requestAPI = dispatch(FetchUpdateStatusReport(dataSend));
+    try {
+      requestAPI.then((response) => {
+        if (response.payload) {
+          if (response.payload.success) {
+            dispatch(
+              showNotification({
+                message: response.payload.message,
+                status: 1,
+              })
+            );
+
+            // gửi lại api lấy danh sách công việc
+            const dataSend2 = {
+              macongviec: extraObject.idTask,
+            };
+            dispatch(getListReport(dataSend2));
+          } else {
+            dispatch(
+              showNotification({
+                message: response.payload.message,
+                status: 0,
+              })
+            );
+          }
+        } else {
+          dispatch(
+            showNotification({
+              message: "Cập nhật trạng thái báo cáo thất bại",
+              status: 0,
+            })
+          );
+        }
+      });
+    } catch (error) {}
+  };
 
   useEffect(() => {
     const dataSend = {
@@ -89,6 +126,17 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
     };
     dispatch(getListReport(dataSend));
   }, []);
+
+  useEffect(() => {
+    const count = reports_taskSlice
+      ? reports_taskSlice.reduce((accumulator, current) => {
+          return current.matrangthaibc === 3 ? accumulator + 1 : accumulator;
+        }, 0)
+      : 0;
+    const total = reports_taskSlice ? reports_taskSlice.length + 1 : 1;
+    const percentage = Math.round((count / total) * 100);
+    setPercentage(percentage);
+  }, [reports_taskSlice]);
 
   return (
     <div className="flex h-[75vh]">
@@ -114,7 +162,18 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
                       </td>
                       <td>{report.ghichu}</td>
                       <td>{moment(report.thoigiangui).format("DD/MM/YYYY")}</td>
-                      <td>{ActionReport(report.matrangthaibc)}</td>
+                      <td>
+                        {ActionReport(
+                          report.matrangthaibc,
+                          extraObject.idUserAssignTask,
+                          () => {
+                            handeUpdateStatusReport(
+                              report.mabaocaotiendo,
+                              report.matrangthaibc + 1
+                            );
+                          }
+                        )}
+                      </td>
                     </tr>
                   );
                 })}
@@ -127,7 +186,7 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
           {extraObject.nameTask}
         </h1>
         <span className=" bg-blue-100 text-blue-800 text-2xl font-semibold px-2.5 py-0.5 rounded ">
-          Tiến độ công việc: {percentReport} %
+          Tiến độ công việc: {percentage} %
         </span>
         <InputTextFormik
           labelTitle="Nội dung"

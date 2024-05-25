@@ -25,7 +25,7 @@ function ManageReceiveWork() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {taskRecei_taskSlice
           ? taskRecei_taskSlice.map((i, k) => {
-              return <TaskComponent task={i} />;
+              return <TaskComponent task={i} key={k}/>;
             })
           : ""}
       </div>

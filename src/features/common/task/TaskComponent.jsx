@@ -8,7 +8,10 @@ import {
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from "../../../utils/globalConstantUtil";
+import {
+  CONFIRMATION_MODAL_CLOSE_TYPES,
+  MODAL_BODY_TYPES,
+} from "../../../utils/globalConstantUtil";
 import { openModal } from "../modalSlice";
 import { getTaskStage } from "./getTaskStage";
 import { getDummyDeadline } from "./getDummyDeadline";
@@ -48,14 +51,16 @@ export const TaskComponent = ({ task, index, typeTask }) => {
     );
   };
 
-  const openReportModal = (idTask, nameTask) => {
+  const openReportModal = (idTask, nameTask, idUserAssignTask) => {
     dispatch(
       openModal({
         title: "Báo cáo công việc",
         bodyType: MODAL_BODY_TYPES.REPORT_TASK,
-        size:"lg",
+        size: "lg",
         extraObject: {
-          idTask,nameTask
+          idTask,
+          nameTask,
+          idUserAssignTask,
         },
       })
     );
@@ -167,7 +172,11 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                   </a>
                 </li>
                 <li>
-                  <button onClick={() => {openReportModal(task.macongviec, task.tencongviec)}}>
+                  <button
+                    onClick={() => {
+                      openReportModal(task.macongviec, task.tencongviec, task.manguoigiaoviec);
+                    }}
+                  >
                     <ClipboardIcon className="w-4" />
                     Báo cáo
                   </button>
@@ -176,7 +185,7 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                   {typeTask === "taskAssign"
                     ? getBtnStatusTaskAssign(
                         task.macongviec,
-                        task.maloaitrangthaicongviec,
+                        task.idUserAssignTask,
                         handleUpdateStatusTask
                       )
                     : getBtnStatusTaskReci(
@@ -192,12 +201,14 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                   </button>
                 </li>
                 <li>
-                  {typeTask === "taskAssign"
-                    ? <button onClick={deleteTask}>
-                    <TrashIcon className="w-4" />
-                    Xoá
-                  </button>
-                    : ''}
+                  {typeTask === "taskAssign" ? (
+                    <button onClick={deleteTask}>
+                      <TrashIcon className="w-4" />
+                      Xoá
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </li>
               </ul>
             </div>

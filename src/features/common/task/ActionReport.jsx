@@ -11,7 +11,10 @@ export const ActionReport = (
     case 1:
       return (
         <>
-          <button className="btn btn-sm btn-success btn-outline">
+          <button
+            onClick={handeUpdateStatusReport}
+            className="btn btn-sm btn-success btn-outline"
+          >
             <CheckIcon className="w-3" />
           </button>
           <button className="ml-3 btn btn-sm btn-error btn-outline">X</button>
@@ -23,7 +26,10 @@ export const ActionReport = (
       if (token().id === idUserAssignTask) {
         return (
           <>
-            <button className="btn btn-sm btn-success btn-outline">
+            <button
+              onClick={handeUpdateStatusReport}
+              className="btn btn-sm btn-success btn-outline"
+            >
               Xác nhận
             </button>
           </>
