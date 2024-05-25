@@ -9,7 +9,6 @@ import { TaskComponent } from "../common/task/TaskComponent";
 function ManageAssignWork() {
   const dispatch = useDispatch();
   const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
-  console.log("taskAssign_taskSlice:", taskAssign_taskSlice);
 
   const openModalAddTaskAll = () => {
     dispatch(

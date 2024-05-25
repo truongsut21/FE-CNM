@@ -7,9 +7,9 @@ import { validationRequired } from "../../../components/yup/validationSchema";
 import InputTextFormik from "../../../components/inputFormik/InputTextFormik";
 import InputAreaFormik from "../../../components/inputFormik/InputAreaFormik";
 import { token } from "../../../app/token";
-import { FetchUpdateTask } from "../service/FetchUpdateTask";
 import { showNotification } from "../headerSlice";
 import { getListAssignTask } from "../../../app/taskSlice";
+import { FetchUpdateTask } from "./services/FetchUpdateTask";
 
 function DetailsTaskModalBody({ closeModal, extraObject }) {
   console.log("extraObject:", extraObject);

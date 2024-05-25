@@ -12,11 +12,11 @@ import { openModal } from "../modalSlice";
 import { getTaskStage } from "./getTaskStage";
 import { getDummyDeadline } from "./getDummyDeadline";
 import { getBtnStatusTaskReci } from "./getBtnStatusTaskReci";
-import { FetchUpdateStatusTask } from "../service/FetchUpdateStatusTask";
 import { showNotification } from "../headerSlice";
 import { getListAssignTask, getListTaskReceived } from "../../../app/taskSlice";
 import { token } from "../../../app/token";
 import { getBtnStatusTaskAssign } from "./getBtnStatusTaskAssign";
+import { FetchUpdateStatusTask } from "./services/FetchUpdateStatusTask";
 
 export const TaskComponent = ({ task, index, typeTask }) => {
   console.log("typeTask:", typeTask);
@@ -47,13 +47,15 @@ export const TaskComponent = ({ task, index, typeTask }) => {
     );
   };
 
-  const openReportModal = () => {
+  const openReportModal = (idTask, nameTask) => {
     dispatch(
       openModal({
         title: "Báo cáo công việc",
         bodyType: MODAL_BODY_TYPES.REPORT_TASK,
         size:"lg",
-        extraObject: {},
+        extraObject: {
+          idTask,nameTask
+        },
       })
     );
   };
@@ -150,7 +152,7 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                   </a>
                 </li>
                 <li>
-                  <button onClick={openReportModal}>
+                  <button onClick={() => {openReportModal(task.macongviec, task.tencongviec)}}>
                     <ClipboardIcon className="w-4" />
                     Báo cáo
                   </button>
