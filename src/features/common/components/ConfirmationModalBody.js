@@ -1,13 +1,12 @@
 import { useDispatch } from "react-redux";
-import {
-  CONFIRMATION_MODAL_CLOSE_TYPES,
-} from "../../../utils/globalConstantUtil";
+
 import { deleteLead } from "../../leads/leadSlice";
 import { showNotification } from "../headerSlice";
-import { FetchDeleteContact } from "../../chat/service/FetchDeleteContact";
 import { FetchDeleteMemberGroup } from "../../chat/service/FetchDeleteMemberGroup";
 import { getAllMembersInGroup } from "../../../app/groupSlice";
-import{FetchDeleteTask} from "../service/FetchDeleteTask";
+import { CONFIRMATION_MODAL_CLOSE_TYPES } from "../../../utils/globalConstantUtil";
+import { FetchDeleteTask } from "../task/services/FetchDeleteTask";
+import { FetchUpdateStatusTask } from "../task/services/FetchUpdateStatusTask";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     // hàm xử lý xoá thông tin liên lạc
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_CONTACT) {
       // positive response, call api or dispatch redux function
-      const resAPI = dispatch(FetchDeleteContact(_idPhonebook));
+      const resAPI = dispatch(FetchUpdateStatusTask(_idPhonebook));
       resAPI
         .then((result) => {
           console.log("result:", result);
@@ -54,18 +53,18 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_TASK) {
       // positive response, call api or dispatch redux function
       const resAPI = dispatch(FetchDeleteTask(_idTask));
+
       resAPI
         .then((result) => {
           console.log("result:", result);
           if (result.payload.success) {
 
-            // closeModal();
+            closeModal();
             // dispatch(getPhonebook());
             dispatch(
               showNotification({ message: result.payload.message, status: 1 })
             );
 
-            setTimeout(() => { window.location.reload() }, 500);
           } else {
             dispatch(
               showNotification({ message: result.payload.message, status: 0 })
