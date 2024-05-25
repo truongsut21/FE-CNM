@@ -9,6 +9,7 @@ import { TaskComponent } from "../common/task/TaskComponent";
 function ManageAssignWork() {
   const dispatch = useDispatch();
   const { taskAssign_taskSlice } = useSelector((state) => state.taskSlice);
+  console.log("taskAssign_taskSlice:", taskAssign_taskSlice);
 
   const openModalAddTaskAll = () => {
     dispatch(
@@ -34,7 +35,14 @@ function ManageAssignWork() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
         {taskAssign_taskSlice
           ? taskAssign_taskSlice.map((i, index) => {
-              return <TaskComponent task={i} index={index} key={index} />;
+              return (
+                <TaskComponent
+                  task={i}
+                  index={index}
+                  key={index}
+                  typeTask="taskAssign"
+                />
+              );
             })
           : "Bạn chưa phân công công việc nào ..."}
       </div>

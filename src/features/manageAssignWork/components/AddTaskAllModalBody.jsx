@@ -29,7 +29,7 @@ function AddTaskAllModalBody({ closeModal }) {
     initialValues: {
       tencongviec: "",
       noidung: "",
-      manguoigiaoviec: "",
+      manguoigiaoviec: token().id,
       ngaygiao: moment().format("YYYY-MM-DD"),
       thoihan: "",
       manguoinhan: "",
@@ -56,8 +56,13 @@ function AddTaskAllModalBody({ closeModal }) {
                 })
               );
 
-              dispatch(getListAssignTask(values));
+              const dataSend = {
+                manguoigiaoviec: token().id,
+                manhom: null,
+                manguoinhan: null,
+              };
 
+              dispatch(getListAssignTask(dataSend));
               closeModal();
             } else {
               dispatch(
@@ -80,24 +85,16 @@ function AddTaskAllModalBody({ closeModal }) {
   });
 
   useEffect(() => {
-    const optionGroup = listGroup.map((item) => ({
-      label: "👨‍👩‍👧" + item.tennhom,
-      value: item.manhom,
-    }));
-
     const optionPhonebook = listPhonebook.map((item) => ({
       label: item.ten,
       value: item.manguoitrongdanhba,
     }));
 
-    console.log("options: ", [...optionPhonebook, ...optionGroup]);
-
-    setoptionsMemberGroup([...optionPhonebook, ...optionGroup]);
+    setoptionsMemberGroup(optionPhonebook);
   }, [listGroup, listPhonebook]);
 
   useEffect(() => {
     dispatch(getPhonebook());
-    dispatch(getListGroup());
   }, []);
 
   return (
@@ -110,7 +107,7 @@ function AddTaskAllModalBody({ closeModal }) {
           type="text"
           name="sodienthoai"
           onChange={formik.handleChange}
-          value={token().fisrtname +" "+ token().lastname}
+          value={token().fisrtname + " " + token().lastname}
         />
       </div>
 

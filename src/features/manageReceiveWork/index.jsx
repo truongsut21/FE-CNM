@@ -9,7 +9,6 @@ function ManageReceiveWork() {
   const dispatch = useDispatch();
 
   const { taskRecei_taskSlice } = useSelector((state) => state.taskSlice);
-  console.log("taskRecei_taskSlice:", taskRecei_taskSlice);
 
   useEffect(() => {
     const dataSend = {

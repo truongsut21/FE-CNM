@@ -3,20 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import moment from "moment";
-import {
-  validationFutureDay,
-  validationRequired,
-} from "../../components/yup/validationSchema";
-import InputTextFormik from "../../components/inputFormik/InputTextFormik";
-import InputAreaFormik from "../../components/inputFormik/InputAreaFormik";
-import { token } from "../../app/token";
-import { FetchUpdateTask } from "./service/FetchUpdateTask";
-import { showNotification } from "./headerSlice";
-import { getListAssignTask } from "../../app/taskSlice";
+import { validationRequired } from "../../../components/yup/validationSchema";
+import InputTextFormik from "../../../components/inputFormik/InputTextFormik";
+import InputAreaFormik from "../../../components/inputFormik/InputAreaFormik";
+import { token } from "../../../app/token";
+import { FetchUpdateTask } from "../service/FetchUpdateTask";
+import { showNotification } from "../headerSlice";
+import { getListAssignTask } from "../../../app/taskSlice";
 
-function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
+function DetailsTaskModalBody({ closeModal, extraObject }) {
+  console.log("extraObject:", extraObject);
   const dispatch = useDispatch();
-  const { infoRoom } = useSelector((state) => state.chatSlice);
 
   const formik = useFormik({
     initialValues: {
@@ -28,6 +25,7 @@ function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
       thoihan: moment(extraObject.thoihan).format("YYYY-MM-DD"),
       manguoinhan: extraObject.manguoinhan,
       maloaitrangthaicongviec: extraObject.maloaitrangthaicongviec,
+      tennguoigiao: extraObject.tennguoigiao,
     },
 
     validationSchema: Yup.object({
@@ -87,7 +85,7 @@ function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
           type="text"
           name="sodienthoai"
           onChange={formik.handleChange}
-          value={`${token().fisrtname} ${token().lastname}`}
+          value={extraObject.tennguoigiao}
         />
 
         <InputTextFormik
@@ -139,15 +137,22 @@ function DetailsTaskAssignModalBody({ closeModal, extraObject }) {
       />
 
       <div className="modal-action">
-        <button className="btn btn-ghost" onClick={() => closeModal()}>
+        <button
+          className="btn btn-outline btn-error"
+          onClick={() => closeModal()}
+        >
           Huỷ
         </button>
-        <button type="submit" className="btn btn-primary px-6">
-          Cập nhật
-        </button>
+        {extraObject.typeTask === "taskAssign" ? (
+          <button type="submit" className="btn btn-primary px-6">
+            Cập nhật
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </form>
   );
 }
 
-export default DetailsTaskAssignModalBody;
+export default DetailsTaskModalBody;

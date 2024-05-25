@@ -11,7 +11,7 @@ import {
   ClockIcon,
   EllipsisVerticalIcon,
   InformationCircleIcon,
-  TrashIcon,
+  
 } from "@heroicons/react/24/outline";
 
 const getTaskStage = (item) => {
@@ -19,7 +19,7 @@ const getTaskStage = (item) => {
     return (
       <div
         id="task"
-        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r to-transparent hover:from-slate-100 transition ease-linear duration-150"
       >
         <div className="inline-flex items-center space-x-2">
           <div>
@@ -36,7 +36,7 @@ const getTaskStage = (item) => {
     return (
       <div
         id="task"
-        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r  to-transparent hover:from-slate-100 transition ease-linear duration-150"
       >
         <div className="inline-flex items-center space-x-2">
           <div>
@@ -91,7 +91,6 @@ export const ListTaskReceive = () => {
   const dispatch = useDispatch();
   const { taskRecei_taskSlice } = useSelector((state) => state.taskSlice);
   const { infoRoom } = useSelector((state) => state.chatSlice);
-  console.log("taskRecei_taskSlice:", taskRecei_taskSlice);
 
   useEffect(() => {
     const dataSend = {

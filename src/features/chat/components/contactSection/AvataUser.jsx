@@ -16,6 +16,7 @@ export default function AvataUser({
   type,
   idPhonebook,
   leader,
+  countMess,
 }) {
   const dispatch = useDispatch();
   const { infoRoom } = useSelector((state) => state.chatSlice);
@@ -48,15 +49,23 @@ export default function AvataUser({
   return (
     <div
       onClick={handeActiveChat}
-      className={`flex p-2 items-center gap-4 mt-2 rounded-md hover:bg-base-300 cursor-pointer ${
+      className={`flex justify-between p-2 items-center gap-4 mt-2 rounded-md hover:bg-base-300 cursor-pointer ${
         id === infoRoom.id ? "bg-base-300" : ""
       }`}
     >
-      <img className="w-10 h-10 rounded-full" src={avata} alt="" />
-      <div className="font-medium dark:text-white">
-        <div>{name}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">{mess}</div>
+      <div className="flex">
+        <img className="w-10 h-10 rounded-full" src={avata} alt="" />
+        <div className="font-medium dark:text-white ml-2">
+          <div>{name}</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">{mess}</div>
+        </div>
       </div>
+
+      {countMess !== null ? (
+        <div className="badge badge-error text-white">{countMess}</div>
+      ) : (
+        <div> </div>
+      )}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "../features/common/modalSlice";
@@ -8,9 +7,10 @@ import AddPhonebookModalBody from "../features/chat/components/contactSection/Ad
 import CreategroupModalBody from "../features/chat/components/contactSection/CreategroupModalBody";
 import AddMemberGroupModalBody from "../features/chat/components/roomChat/AddMemberGroupModalBody";
 import UpdateNameContactModalBody from "../features/chat/components/drawChat/UpdateNameContactModalBody";
-import DetailsTaskAssignModalBody from "../features/common/DetailsTaskAssignModalBody";
 import AddTaskModalBody from "../features/chat/components/roomChat/AddTaskModalBody";
 import AddTaskAllModalBody from "../features/manageAssignWork/components/AddTaskAllModalBody";
+import DetailsTaskModalBody from "../features/common/task/DetailsTaskModalBody";
+import ReportTaskModalBody from "../features/common/task/ReportTaskModalBody";
 
 function ModalLayout() {
   const { isOpen, bodyType, size, extraObject, title } = useSelector(
@@ -69,6 +69,11 @@ function ModalLayout() {
                   extraObject={extraObject}
                   closeModal={close}
                 />
+              ), [MODAL_BODY_TYPES.REPORT_TASK]: (
+                <ReportTaskModalBody
+                  extraObject={extraObject}
+                  closeModal={close}
+                />
               ),
               [MODAL_BODY_TYPES.CREATE_GROUP]: (
                 <CreategroupModalBody
@@ -87,8 +92,8 @@ function ModalLayout() {
                   extraObject={extraObject}
                   closeModal={close}
                 />
-              ), [MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN]: (
-                <DetailsTaskAssignModalBody
+              ), [MODAL_BODY_TYPES.DETAILS_TASK]: (
+                <DetailsTaskModalBody
                   extraObject={extraObject}
                   closeModal={close}
                 />

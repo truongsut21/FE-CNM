@@ -4,9 +4,6 @@ import {
   ClockIcon,
   ClipboardIcon,
   InformationCircleIcon,
-  RocketLaunchIcon,
-  CheckIcon,
-  ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { useDispatch } from "react-redux";
@@ -14,20 +11,25 @@ import { MODAL_BODY_TYPES } from "../../../utils/globalConstantUtil";
 import { openModal } from "../modalSlice";
 import { getTaskStage } from "./getTaskStage";
 import { getDummyDeadline } from "./getDummyDeadline";
-import { getDumyBtnStatus } from "./getDumyBtnStatus";
+import { getBtnStatusTaskReci } from "./getBtnStatusTaskReci";
+import { FetchUpdateStatusTask } from "../service/FetchUpdateStatusTask";
+import { showNotification } from "../headerSlice";
+import { getListAssignTask, getListTaskReceived } from "../../../app/taskSlice";
+import { token } from "../../../app/token";
+import { getBtnStatusTaskAssign } from "./getBtnStatusTaskAssign";
 
-export const TaskComponent = ({ task, index }) => {
-  console.log("task:", task);
+export const TaskComponent = ({ task, index, typeTask }) => {
+  console.log("typeTask:", typeTask);
   const dispatch = useDispatch();
   const now = moment();
   const deadline = moment(task.thoihan).diff(now, "days");
   const stage = task.maloaitrangthaicongviec;
 
-  const openDetailsTaskAssignkModal = () => {
+  const openDetailsTaskModal = () => {
     dispatch(
       openModal({
         title: "Chi tiết công việc",
-        bodyType: MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN,
+        bodyType: MODAL_BODY_TYPES.DETAILS_TASK,
         extraObject: {
           macongviec: task.macongviec,
           tencongviec: task.tencongviec,
@@ -38,9 +40,74 @@ export const TaskComponent = ({ task, index }) => {
           manguoinhan: task.manguoinhan,
           maloaitrangthaicongviec: task.maloaitrangthaicongviec,
           tennguoinhan: task.tennguoinhan,
+          tennguoigiao: task.tennguoigiao,
+          typeTask: typeTask,
         },
       })
     );
+  };
+
+  const openReportModal = () => {
+    dispatch(
+      openModal({
+        title: "Báo cáo công việc",
+        bodyType: MODAL_BODY_TYPES.REPORT_TASK,
+        size:"lg",
+        extraObject: {},
+      })
+    );
+  };
+
+  const handleUpdateStatusTask = (data) => {
+    const requestAPI = dispatch(FetchUpdateStatusTask(data));
+    try {
+      requestAPI.then((response) => {
+        if (response.payload) {
+          if (response.payload.success) {
+            dispatch(
+              showNotification({
+                message: response.payload.message,
+                status: 1,
+              })
+            );
+
+            if (typeTask === "taskAssign") {
+              // gọi danh sách công việc giao
+              const dataSend = {
+                manguoigiaoviec: token().id,
+                manhom: null,
+                manguoinhan: null,
+              };
+
+              dispatch(getListAssignTask(dataSend));
+            } else {
+              // gọi lại danh sách công việc nhận
+              const dataSend = {
+                manguoigiaoviec: null,
+                manhom: null,
+                manguoinhan: token().id,
+              };
+
+              dispatch(getListTaskReceived(dataSend));
+            }
+          } else {
+            dispatch(
+              showNotification({
+                message: response.payload.message,
+                status: 0,
+              })
+            );
+          }
+        } else {
+          dispatch(
+            showNotification({
+              message: "Cập nhật trạng thái công việc thất bại",
+              status: 0,
+            })
+          );
+        }
+      });
+    } catch (error) {}
   };
 
   return (
@@ -83,14 +150,26 @@ export const TaskComponent = ({ task, index }) => {
                   </a>
                 </li>
                 <li>
-                  <a>
+                  <button onClick={openReportModal}>
                     <ClipboardIcon className="w-4" />
                     Báo cáo
-                  </a>
+                  </button>
                 </li>
-                <li>{getDumyBtnStatus(task.maloaitrangthaicongviec)}</li>
                 <li>
-                  <button onClick={openDetailsTaskAssignkModal}>
+                  {typeTask === "taskAssign"
+                    ? getBtnStatusTaskAssign(
+                        task.macongviec,
+                        task.maloaitrangthaicongviec,
+                        handleUpdateStatusTask
+                      )
+                    : getBtnStatusTaskReci(
+                        task.macongviec,
+                        task.maloaitrangthaicongviec,
+                        handleUpdateStatusTask
+                      )}
+                </li>
+                <li>
+                  <button onClick={openDetailsTaskModal}>
                     <InformationCircleIcon className="w-4" />
                     Xem chi tiết
                   </button>

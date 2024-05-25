@@ -18,7 +18,7 @@ const getTaskStage = (item) => {
     return (
       <div
         id="task"
-        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r  to-transparent hover:from-slate-100 transition ease-linear duration-150"
       >
         <div className="inline-flex items-center space-x-2">
           <div>
@@ -35,7 +35,7 @@ const getTaskStage = (item) => {
     return (
       <div
         id="task"
-        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r hover:from-indigo-100 to-transparent hover:from-slate-100 transition ease-linear duration-150"
+        className="flex justify-between items-center border-b border-slate-200 py-3 px-2 border-l-4  border-l-transparent hover:border-l-indigo-300 bg-gradient-to-r  to-transparent hover:from-slate-100 transition ease-linear duration-150"
       >
         <div className="inline-flex items-center space-x-2">
           <div>
@@ -56,7 +56,7 @@ const Action = ({ task }) => {
     dispatch(
       openModal({
         title: "Chi tiết công việc giao",
-        bodyType: MODAL_BODY_TYPES.DETAILS_TASK_ASSIGN,
+        bodyType: MODAL_BODY_TYPES.DETAILS_TASK,
         extraObject: {
           macongviec: task.macongviec,
           tencongviec: task.tencongviec,
