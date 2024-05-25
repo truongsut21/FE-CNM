@@ -19,26 +19,32 @@ export const getBtnStatusTaskReci = (
   switch (idStatus) {
     case 1:
       return (
-        <button
-          onClick={() => {
-            updateStatusTask(2);
-          }}
-        >
-          <RocketLaunchIcon className="w-4" />
-          Thực hiện công việc
-        </button>
+        <li>
+          <button
+            onClick={() => {
+              updateStatusTask(2);
+            }}
+          >
+            <RocketLaunchIcon className="w-4" />
+            Thực hiện công việc
+          </button>
+        </li>
+
       );
 
     case 2:
       return (
-        <button
-          onClick={() => {
-            updateStatusTask(3);
-          }}
-        >
-          <CheckIcon className="w-4" />
-          Hoàn thành công việc
-        </button>
+        <li>
+          <button
+            onClick={() => {
+              updateStatusTask(3);
+            }}
+          >
+            <CheckIcon className="w-4" />
+            Hoàn thành công việc
+          </button>
+        </li>
+
       );
 
     default:

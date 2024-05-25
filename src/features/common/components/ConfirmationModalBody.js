@@ -7,11 +7,13 @@ import { getAllMembersInGroup } from "../../../app/groupSlice";
 import { CONFIRMATION_MODAL_CLOSE_TYPES } from "../../../utils/globalConstantUtil";
 import { FetchDeleteTask } from "../task/services/FetchDeleteTask";
 import { FetchUpdateStatusTask } from "../task/services/FetchUpdateStatusTask";
+import { token } from "../../../app/token";
+import { getListAssignTask, getListTaskReceived } from "../../../app/taskSlice";
 
 function ConfirmationModalBody({ extraObject, closeModal }) {
   const dispatch = useDispatch();
 
-  const { message, type, _id, index, _idPhonebook, _idGroup, _idMember, _idTask } = extraObject;
+  const { message, type, _id, index, _idPhonebook, _idGroup, _idMember, _idTask , typeTask} = extraObject;
 
   const proceedWithYes = async () => {
     if (type === CONFIRMATION_MODAL_CLOSE_TYPES.LEAD_DELETE) {
@@ -64,6 +66,26 @@ function ConfirmationModalBody({ extraObject, closeModal }) {
             dispatch(
               showNotification({ message: result.payload.message, status: 1 })
             );
+
+            if (typeTask === "taskAssign") {
+              // gọi danh sách công việc giao
+              const dataSend = {
+                manguoigiaoviec: token().id,
+                manhom: null,
+                manguoinhan: null,
+              };
+
+              dispatch(getListAssignTask(dataSend));
+            } else {
+              // gọi lại danh sách công việc nhận
+              const dataSend = {
+                manguoigiaoviec: null,
+                manhom: null,
+                manguoinhan: token().id,
+              };
+
+              dispatch(getListTaskReceived(dataSend));
+            }
 
           } else {
             dispatch(

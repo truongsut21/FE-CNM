@@ -37,34 +37,40 @@ export const getBtnStatusTaskAssign = (
 
     case 3:
       return (
-        <button
-          onClick={() => {
-            updateStatusTask(4);
-          }}
-        >
-          <ClipboardDocumentCheckIcon className="w-4" />
-          Xác nhận hoàn thành
-        </button>
+        <li>
+          <button
+            onClick={() => {
+              updateStatusTask(4);
+            }}
+          >
+            <ClipboardDocumentCheckIcon className="w-4" />
+            Xác nhận hoàn thành
+          </button>
+
+        </li>
       );
 
     case 4:
       return (
-        <button
-          onClick={() => {
-            updateStatusTask(1);
-          }}
-        >
-          <ClipboardDocumentCheckIcon className="w-4" />
-          Mở lại công việc
-        </button>
+        <li>
+          <button
+            onClick={() => {
+              updateStatusTask(1);
+            }}
+          >
+            <ClipboardDocumentCheckIcon className="w-4" />
+            Mở lại công việc
+          </button>
+        </li>
+
       );
 
     default:
-      return (
-        <button onClick={updateStatusTask}>
-          <RocketLaunchIcon className="w-4" />
-          Thực hicxxxx
-        </button>
-      );
+    // return (
+    //   <button onClick={updateStatusTask}>
+    //     <RocketLaunchIcon className="w-4" />
+    //     Thực hicxxxx
+    //   </button>
+    // );
   }
 };

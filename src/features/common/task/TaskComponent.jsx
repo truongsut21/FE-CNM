@@ -115,7 +115,7 @@ export const TaskComponent = ({ task, index, typeTask }) => {
           );
         }
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const deleteTask = () => {
@@ -127,6 +127,7 @@ export const TaskComponent = ({ task, index, typeTask }) => {
           message: `Bạn có chắc chắn muốn xoá công việc này?`,
           type: CONFIRMATION_MODAL_CLOSE_TYPES.DELETE_TASK,
           _idTask: task.macongviec,
+          typeTask: typeTask,
         },
       })
     );
@@ -150,7 +151,11 @@ export const TaskComponent = ({ task, index, typeTask }) => {
           >
             {task.tencongviec}
           </p>
-          <p className="text-sm mb-2 mr-5">Người nhận: {task.tennguoinhan}</p>
+          <p className="text-sm mb-2 mr-5">
+            {typeTask === "taskAssign" ?  
+            `Người nhận: ${task.tennguoinhan}` :  
+            `Người giao: ${task.tennguoigiao}`}
+           </p>
 
           {/* btn  */}
           <div className="absolute top-3 right-3">
@@ -181,35 +186,38 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                     Báo cáo
                   </button>
                 </li>
-                <li>
-                  {typeTask === "taskAssign"
-                    ? getBtnStatusTaskAssign(
-                        task.macongviec,
-                        task.idUserAssignTask,
-                        handleUpdateStatusTask
-                      )
-                    : getBtnStatusTaskReci(
-                        task.macongviec,
-                        task.maloaitrangthaicongviec,
-                        handleUpdateStatusTask
-                      )}
-                </li>
+                {/* <li> */}
+                {typeTask === "taskAssign"
+                  ? getBtnStatusTaskAssign(
+                    task.macongviec,
+                    task.idUserAssignTask,
+                    handleUpdateStatusTask
+                  )
+                  : getBtnStatusTaskReci(
+                    task.macongviec,
+                    task.maloaitrangthaicongviec,
+                    handleUpdateStatusTask
+                  )}
+                {/* </li> */}
                 <li>
                   <button onClick={openDetailsTaskModal}>
                     <InformationCircleIcon className="w-4" />
                     Xem chi tiết
                   </button>
                 </li>
-                <li>
-                  {typeTask === "taskAssign" ? (
+                {/* <li> */}
+                {typeTask === "taskAssign" ? (
+                  <li>
                     <button onClick={deleteTask}>
                       <TrashIcon className="w-4" />
                       Xoá
                     </button>
-                  ) : (
-                    ""
-                  )}
-                </li>
+                  </li>
+
+                ) : (
+                  ""
+                )}
+                {/* </li> */}
               </ul>
             </div>
           </div>
