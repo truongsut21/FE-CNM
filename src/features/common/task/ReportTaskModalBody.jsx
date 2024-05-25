@@ -76,7 +76,7 @@ function ReportTaskModalBody({ closeModal, extraObject }) {
 
   const handeUpdateStatusReport = (idReport, status) => {
     // người giao mở lại công việc
-    if (status === 3) {
+    if (status === 4) {
       status = 1;
     }
     const dataSend = {
