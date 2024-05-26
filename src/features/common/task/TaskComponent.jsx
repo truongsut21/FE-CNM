@@ -190,7 +190,7 @@ export const TaskComponent = ({ task, index, typeTask }) => {
                 {typeTask === "taskAssign"
                   ? getBtnStatusTaskAssign(
                     task.macongviec,
-                    task.idUserAssignTask,
+                    task.maloaitrangthaicongviec,
                     handleUpdateStatusTask
                   )
                   : getBtnStatusTaskReci(

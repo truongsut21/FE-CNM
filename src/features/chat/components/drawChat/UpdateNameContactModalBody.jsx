@@ -35,7 +35,7 @@ function UpdateNameContactModalBody({ closeModal }) {
             if (response.payload.success) {
               dispatch(
                 showNotification({
-                  message: "Thêm danh bạ thành công",
+                  message: "Cập nhật thành công",
                   status: 1,
                 })
               );

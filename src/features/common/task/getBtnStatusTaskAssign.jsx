@@ -9,6 +9,7 @@ export const getBtnStatusTaskAssign = (
   idStatus,
   handleUpdateStatusTask
 ) => {
+  console.log('idStatus:', idStatus)
   const updateStatusTask = (_idStatus) => {
     const data = {
       macongviec: idTask,
