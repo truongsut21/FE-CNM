@@ -1,5 +1,5 @@
 import { MagnifyingGlassIcon, UserPlusIcon } from "@heroicons/react/24/solid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { openModal } from "../../../common/modalSlice";
 import { MODAL_BODY_TYPES } from "../../../../utils/globalConstantUtil";
@@ -11,6 +11,9 @@ export const BodyPhonebook = () => {
   const dispatch = useDispatch();
   const { listPhonebook } = useSelector((state) => state.phonebookSlice);
 
+  const [filteredListPhoneBook, setFilteredListPhoneBook] =
+    useState(listPhonebook);
+
   const openAddNewLeadModal = () => {
     dispatch(
       openModal({
@@ -20,10 +23,27 @@ export const BodyPhonebook = () => {
     );
   };
 
+  const handleFilterListPhoneBook = (txtfilter) => {
+    console.log("txtfilter:", txtfilter);
+    if (txtfilter !== "") {
+      const res = listPhonebook.filter((item) =>
+        item.ten.toLowerCase().includes(txtfilter.toLowerCase())
+      );
+      setFilteredListPhoneBook(res);
+    } else {
+      setFilteredListPhoneBook(listPhonebook);
+    }
+  };
+
   // gọi danh sách danh bạ khi lần đầu vào
   useEffect(() => {
     dispatch(getPhonebook());
   }, []);
+
+  // gọi danh sách danh bạ khi lần đầu vào
+  useEffect(() => {
+    setFilteredListPhoneBook(listPhonebook);
+  }, [listPhonebook]);
   return (
     <div className="h-full ">
       <form className="">
@@ -36,18 +56,12 @@ export const BodyPhonebook = () => {
         <div className="relative">
           <input
             type="search"
+            onChange={(e) => handleFilterListPhoneBook(e.target.value)}
             id="search"
             className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
             placeholder="Tìm kiếm..."
             required
           />
-
-          <button
-            type="submit"
-            className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-custom-primary hover:bg-custom-primary-hover  font-medium rounded-lg text-sm px-4 py-2 "
-          >
-            <MagnifyingGlassIcon className="w-5" />
-          </button>
         </div>
       </form>
 
@@ -59,8 +73,8 @@ export const BodyPhonebook = () => {
       />
 
       <div className="overflow-y-auto h-5/6 ">
-        {listPhonebook.length > 0 ? (
-          listPhonebook.map((item, index) => (
+        {filteredListPhoneBook.length > 0 ? (
+          filteredListPhoneBook.map((item, index) => (
             <div key={index}>
               <AvataUser
                 key={item.madanhba}

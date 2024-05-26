@@ -14,6 +14,7 @@ import { showNotification } from "../../../common/headerSlice";
 import { TopSideButtons } from "./TopSideButtons";
 import { FetchSendMessageGR } from "../../service/FetchSendMessageGR";
 import { BtnCyanBlue } from "../../../../components/Button/BtnCyanBlue";
+import { getPhonebook } from "../../../../app/phonebookSlice";
 
 export const CardChat = () => {
   const dispatch = useDispatch();
@@ -44,7 +45,9 @@ export const CardChat = () => {
       console.log("data message:", data);
       dispatch(showNotification({ message: "Có tin nhắn mới", status: 1 }));
 
-      // kiểm tra người gửi, nếu đúng render ra
+      dispatch(getPhonebook())
+
+      // kiểm tra người gửi, nếu đang ở trong room tin nhắn người gửi thì render ra
       if (data.manguoigui === infoRoom.id || data.manhomnhan === infoRoom.id) {
         console.log("đã nhảy vô hàm cập nhật tin nhắn");
         const tempmessage_chatSlice = message_chatSlice.concat(data);

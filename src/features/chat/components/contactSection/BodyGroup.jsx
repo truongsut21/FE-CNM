@@ -12,6 +12,7 @@ export const BodyGroup = () => {
   const dispatch = useDispatch();
   const { listGroup } = useSelector((state) => state.groupSlice);
 
+  const [filteredListGroup, setFilteredListGroup] = useState(listGroup);
   const openAddNewGroupModal = () => {
     dispatch(
       openModal({
@@ -21,10 +22,24 @@ export const BodyGroup = () => {
     );
   };
 
+  const handleFilterListGroup = (txtfilter) => {
+    if (txtfilter !== "") {
+      const res = listGroup.filter((item) =>
+        item.tennhom.toLowerCase().includes(txtfilter.toLowerCase())
+      );
+      setFilteredListGroup(res);
+    } else {
+      setFilteredListGroup(listGroup);
+    }
+  };
   // gọi danh sách danh bạ khi lần đầu vào
   useEffect(() => {
     dispatch(getListGroup());
   }, []);
+
+  useEffect(() => {
+    setFilteredListGroup(listGroup);
+  }, [listGroup]);
 
   return (
     <div className="h-full">
@@ -38,18 +53,12 @@ export const BodyGroup = () => {
         <div className="relative">
           <input
             type="search"
+            onChange={(e) => handleFilterListGroup(e.target.value)}
             id="search"
-            className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 "
+            className="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500  "
             placeholder="Tìm kiếm..."
             required
           />
-
-          <button
-            type="submit"
-            className="flex items-center text-white absolute end-2.5 bottom-2.5 bg-custom-primary hover:bg-custom-primary-hover  font-medium rounded-lg text-sm px-4 py-2 "
-          >
-            <MagnifyingGlassIcon className="w-5" />
-          </button>
         </div>
       </form>
 
@@ -61,8 +70,8 @@ export const BodyGroup = () => {
       />
 
       <div className="overflow-y-auto h-[46vh] ">
-        {listGroup.length > 0 ? (
-          listGroup.map((item) => (
+        {filteredListGroup.length > 0 ? (
+          filteredListGroup.map((item) => (
             <AvataUser
               key={item.manhom}
               name={item.tennhom}
