@@ -30,7 +30,7 @@ export const CardChat = () => {
   const nameLogin = token().lastname;
 
   useEffect(() => {
-    socketRef.current = io("http://localhost:3003");
+    socketRef.current = io("http://ontask.io.vn:3003");
 
     // nếu là cá nhân
     if (infoRoom.type === 0) {

@@ -4,7 +4,7 @@ export const FetchSendMessagePN = createAsyncThunk(
   "FetchSendMessagePN",
   async (data) => {
     try {
-      const url = `http://localhost:3003/api/tinnhan/sendMessagePN`;
+      const url = `http://ontask.io.vn:3003/api/tinnhan/sendMessagePN`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
